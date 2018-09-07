@@ -11,50 +11,60 @@ extract all 101 classes. For instance, set class_limit = 8 to just
 extract features for the first 8 (alphabetical) classes in the dataset.
 Then set the same number when training models.
 """
+import glob
 import numpy as np
 import os.path
-from data import DataSet
+from dataHAB import DataSet
 from extractor import Extractor
 from tqdm import tqdm
-
-
+#import pdb; pdb.set_trace()
 # Set defaults.
-seq_length = 40
+seq_length = 3
 class_limit = None  # Number of classes to extract. Can be 1-101 or None for all.
 
 # Get the dataset.
 data = DataSet(seq_length=seq_length, class_limit=class_limit)
-
 # get the model.
 model = Extractor()
 
 # Loop through data.
-pbar = tqdm(total=len(data.data))
-for video in data.data:
+
+mydir = '/Users/csprh/tmp/CNNIms/florida2/';
+#subdirs1 = [x[0] for x in os.walk('/Users/csprh/tmp/CNNIms/florida2/')]
+#subdirs2 = [x[1] for x in os.walk('/Users/csprh/tmp/CNNIms/florida2/')]
+max_depth = 0
+bottom_most_dirs = []
+
+for dirpath, dirnames, filenames in os.walk(mydir):
+    depth = len(dirpath.split(os.sep))
+    if max_depth < depth:
+        max_depth = depth
+        bottom_most_dirs = [dirpath]
+    elif max_depth == depth:
+        bottom_most_dirs.append(dirpath)
+
+
+pbar = tqdm(total=len(bottom_most_dirs))
+
+# data = listOfDirectories;
+for thisDir in data.data:
 
     # Get the path to the sequence for this video.
-    path = os.path.join('data', 'sequences', video[2] + '-' + str(seq_length) + \
-        '-features')  # numpy will auto-append .npy
+    npypath = os.path.join(thisDir, 'seqFeats')
 
     # Check if we already have it.
-    if os.path.isfile(path + '.npy'):
+    if os.path.isfile(npypath + '.npy'):
         pbar.update(1)
-        continue
 
-    # Get the frames for this video.
-    frames = data.get_frames_for_sample(video)
 
-    # Now downsample to just the ones we need.
-    frames = data.rescale_list(frames, seq_length)
-
-    # Now loop through and extract features to build the sequence.
+    frames = sorted(glob.glob(os.path.join(thisDir, '*jpg')))
     sequence = []
     for image in frames:
         features = model.extract(image)
         sequence.append(features)
 
     # Save the sequence.
-    np.save(path, sequence)
+    np.save(npypath, sequence)
 
     pbar.update(1)
 
