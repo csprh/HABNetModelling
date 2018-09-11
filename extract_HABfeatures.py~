@@ -20,10 +20,9 @@ from tqdm import tqdm
 import pdb; pdb.set_trace()
 # Set defaults.
 seq_length = 3
-class_limit = None  # Number of classes to extract. Can be 1-101 or None for all.
 
 # Get the dataset.
-data = DataSet(seq_length=seq_length, class_limit=class_limit)
+data = DataSet(seq_length=seq_length)
 # get the model.
 model = Extractor()
 
@@ -35,19 +34,10 @@ mydir = '/Users/csprh/tmp/CNNIms/florida2/';
 max_depth = 0
 bottom_most_dirs = []
 
-for dirpath, dirnames, filenames in os.walk(mydir):
-    depth = len(dirpath.split(os.sep))
-    if max_depth < depth:
-        max_depth = depth
-        bottom_most_dirs = [dirpath]
-    elif max_depth == depth:
-        bottom_most_dirs.append(dirpath)
-
-
 pbar = tqdm(total=len(bottom_most_dirs))
 
 # data = listOfDirectories;
-for thisDir in data.data:
+for thisDir in data.dataLowest:
 
     # Get the path to the sequence for this video.
     npypath = os.path.join(thisDir, 'seqFeats')

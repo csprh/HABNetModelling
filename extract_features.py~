@@ -16,7 +16,7 @@ import os.path
 from data import DataSet
 from extractor import Extractor
 from tqdm import tqdm
-import pdb; pdb.set_trace()
+
 
 # Set defaults.
 seq_length = 40
@@ -30,7 +30,7 @@ model = Extractor()
 
 # Loop through data.
 pbar = tqdm(total=len(data.data))
-for video in data.data:
+for video in data.dataLowest:
 
     # Get the path to the sequence for this video.
     path = os.path.join('data', 'sequences', video[2] + '-' + str(seq_length) + \
