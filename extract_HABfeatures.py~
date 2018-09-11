@@ -17,7 +17,7 @@ import os.path
 from dataHAB import DataSet
 from extractor import Extractor
 from tqdm import tqdm
-import pdb; pdb.set_trace()
+#import pdb; pdb.set_trace()
 # Set defaults.
 seq_length = 3
 

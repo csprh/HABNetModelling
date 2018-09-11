@@ -28,7 +28,7 @@ model = Extractor()
 
 # Loop through data.
 
-mydir = '/Users/csprh/tmp/CNNIms/florida2/';
+mydir = '/Users/csprh/tmp/CNNIms/florida3/';
 #subdirs1 = [x[0] for x in os.walk('/Users/csprh/tmp/CNNIms/florida2/')]
 #subdirs2 = [x[1] for x in os.walk('/Users/csprh/tmp/CNNIms/florida2/')]
 max_depth = 0
