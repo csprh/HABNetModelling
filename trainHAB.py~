@@ -9,7 +9,8 @@ import os.path
 
 def train(data_type, seq_length, model, image_shape=None,
           batch_size=32, nb_epoch=100):
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
+    import pudb; pu.db
     # Helper: Save the model.
     checkpointer = ModelCheckpoint(
         filepath=os.path.join('data', 'checkpoints', model + '-' + data_type + \
