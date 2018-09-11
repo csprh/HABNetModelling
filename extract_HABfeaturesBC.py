@@ -16,10 +16,10 @@ import numpy as np
 import os.path
 from dataHAB import DataSet
 from extractor import Extractor
-from tqdm import tqdm
+#from tqdm import tqdm
 #import pdb; pdb.set_trace()
 # Set defaults.
-seq_length = 3
+seq_length = 5
 
 # Get the dataset.
 data = DataSet(seq_length=seq_length)
@@ -34,7 +34,7 @@ mydir = '/Users/csprh/tmp/CNNIms/florida3/';
 max_depth = 0
 bottom_most_dirs = []
 
-pbar = tqdm(total=len(bottom_most_dirs))
+#pbar = tqdm(total=len(bottom_most_dirs))
 
 # data = listOfDirectories;
 for thisDir in data.dataLowest:
@@ -43,8 +43,8 @@ for thisDir in data.dataLowest:
     npypath = os.path.join(thisDir, 'seqFeats')
 
     # Check if we already have it.
-    if os.path.isfile(npypath + '.npy'):
-        pbar.update(1)
+#    if os.path.isfile(npypath + '.npy'):
+#        pbar.update(1)
 
 
     frames = sorted(glob.glob(os.path.join(thisDir, '*jpg')))
@@ -56,6 +56,6 @@ for thisDir in data.dataLowest:
     # Save the sequence.
     np.save(npypath, sequence)
 
-    pbar.update(1)
+#    pbar.update(1)
 
-pbar.close()
+#pbar.close()
