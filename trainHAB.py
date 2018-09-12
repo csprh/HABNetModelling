@@ -64,7 +64,7 @@ def main():
     this file."""
     # model can be one of lstm, lrcn, mlp, conv_3d, c3d
     model = 'lstm'
-    seq_length = 3
+    seq_length = 5
     batch_size = 32
     nb_epoch = 1000
 
