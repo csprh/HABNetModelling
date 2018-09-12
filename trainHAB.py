@@ -65,7 +65,7 @@ def main():
     # model can be one of lstm, lrcn, mlp, conv_3d, c3d
     model = 'lstm'
     seq_length = 5
-    batch_size = 32
+    batch_size = 128
     nb_epoch = 1000
 
     # Chose images or features and image shape based on network.
