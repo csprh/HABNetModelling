@@ -21,7 +21,7 @@ def train(data_type, seq_length, model, image_shape=None,
     tb = TensorBoard(log_dir=os.path.join('data', 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=5)
+    early_stopper = EarlyStopping(patience=100)
 
     # Helper: Save results.
     timestamp = time.time()
