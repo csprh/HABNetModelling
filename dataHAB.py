@@ -162,16 +162,19 @@ class DataSet():
         """Get the saved extracted features."""
         #filename = sample[2]
 
-        thisReturn = []
+        thisreturn = []
         for i in range(1,10):
-            thisPath = filename + '/' + str(i) + '/seqFeats.npy'
-            thisFeats = np.load(thisPath)
+            thispath = filename + '/' + str(i) + '/seqFeats.npy'
+            thisfeats = np.load(thispath)
             #if os.path.isfile(path):
             #    return np.load(path)
             #else:
             #    return None
-            thisReturn = np.concatenate((thisReturn,thisFeats),axis=1)
-        return thisReturn
+            if i == 1 :
+                thisreturn = thisfeats
+            else:
+                thisreturn = np.concatenate((thisreturn, thisfeats), axis=1)
+        return thisreturn
 
     def get_extracted_sequence(self, data_type, filename):
         """Get the saved extracted features."""
