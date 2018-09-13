@@ -141,7 +141,7 @@ class DataSet():
                     frames = self.get_frames_for_sample(sample)
 
                     # Build the image sequence
-                    sequence = self.build_image_sequence(frames)
+                    sequence = self.build_image_sequenceAllMods(frames)
                 else:
                     # Get the sequence from disk.
                     sequence = self.get_extracted_sequence(data_type, sample)
@@ -162,13 +162,15 @@ class DataSet():
         """Get the saved extracted features."""
         #filename = sample[2]
 
-        thisReturn = [];
-        path = filename + '/8/seqFeats.npy'
-        if os.path.isfile(path):
-            return np.load(path)
-        else:
-            return None
-        thisReturn = np.concatenate((thisReturn,thisFeats),axis=1)
+        thisReturn = []
+        for i in range(1,10):
+            thisPath = filename + '/' + str(i) + '/seqFeats.npy'
+            thisFeats = np.load(thisPath)
+            #if os.path.isfile(path):
+            #    return np.load(path)
+            #else:
+            #    return None
+            thisReturn = np.concatenate((thisReturn,thisFeats),axis=1)
         return thisReturn
 
     def get_extracted_sequence(self, data_type, filename):
