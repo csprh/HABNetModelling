@@ -158,6 +158,19 @@ class DataSet():
         """Given a set of frames (filenames), build our sequence."""
         return [process_image(x, self.image_shape) for x in frames]
 
+    def get_extracted_sequenceAllMods(self, data_type, filename):
+        """Get the saved extracted features."""
+        #filename = sample[2]
+
+        thisReturn = [];
+        path = filename + '/8/seqFeats.npy'
+        if os.path.isfile(path):
+            return np.load(path)
+        else:
+            return None
+        thisReturn = np.concatenate((thisReturn,thisFeats),axis=1)
+        return thisReturn
+
     def get_extracted_sequence(self, data_type, filename):
         """Get the saved extracted features."""
         #filename = sample[2]

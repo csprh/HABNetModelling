@@ -56,7 +56,7 @@ class DataSet():
     def get_data():
         """Load our data from file."""
 
-        mydir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3'
+        mydir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3/'
         #mydir = '/Users/csprh/tmp/CNNIms/florida3/'
         max_depth = 0
         bottom_most_dirs = []

@@ -8,6 +8,7 @@ from keras.optimizers import Adam, RMSprop
 from keras.layers.wrappers import TimeDistributed
 from keras.layers.convolutional import (Conv2D, MaxPooling3D, Conv3D,
     MaxPooling2D)
+from keras.layers import Bidirectional
 from collections import deque
 import sys
 
@@ -78,9 +79,9 @@ class ResearchModels():
         our CNN to this model predomenently."""
         # Model.
         model = Sequential()
-        model.add(LSTM(2048, return_sequences=False,
+        model.add(Bidirectional(LSTM(2048, return_sequences=False,
                        input_shape=self.input_shape,
-                       dropout=0.5))
+                       dropout=0.5)))
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))
