@@ -170,7 +170,7 @@ class DataSet():
             #    return np.load(path)
             #else:
             #    return None
-            if i == 1:
+            if i == 1 :
                 thisreturn = thisfeats
             else:
                 thisreturn = np.concatenate((thisreturn, thisfeats), axis=1)

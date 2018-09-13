@@ -163,7 +163,7 @@ class DataSet():
         #filename = sample[2]
 
         thisreturn = []
-        for i in range(1,10):
+        for i in range(1,11):
             thispath = filename + '/' + str(i) + '/seqFeats.npy'
             thisfeats = np.load(thispath)
             #if os.path.isfile(path):
