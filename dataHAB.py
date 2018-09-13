@@ -141,10 +141,10 @@ class DataSet():
                     frames = self.get_frames_for_sample(sample)
 
                     # Build the image sequence
-                    sequence = self.build_image_sequenceAllMods(frames)
+                    sequence = self.build_image_sequence(frames)
                 else:
                     # Get the sequence from disk.
-                    sequence = self.get_extracted_sequence(data_type, sample)
+                    sequence = self.get_extracted_sequenceAllMods(data_type, sample)
 
                     if sequence is None:
                         raise ValueError("Can't find sequence. Did you generate them?")

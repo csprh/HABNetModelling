@@ -141,7 +141,7 @@ class DataSet():
                     frames = self.get_frames_for_sample(sample)
 
                     # Build the image sequence
-                    sequence = self.build_image_sequence(frames)
+                    sequence = self.build_image_sequenceAllMods(frames)
                 else:
                     # Get the sequence from disk.
                     sequence = self.get_extracted_sequence(data_type, sample)
