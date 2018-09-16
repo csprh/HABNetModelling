@@ -63,7 +63,7 @@ def main():
     """These are the main training settings. Set each before running
     this file."""
     # model can be one of lstm, lrcn, mlp, conv_3d, c3d
-    model = 'lstm'
+    model = 'mlp'
     seq_length = 5
     batch_size = 128
     nb_epoch = 1000
