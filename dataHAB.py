@@ -34,9 +34,7 @@ def threadsafe_generator(func):
 class DataSet():
 
     def __init__(self, seq_length=40, image_shape=(224, 224, 3)):
-        """Constructor.
-        seq_length = (int) the number of frames to consider
-        """
+
         self.seq_length = seq_length
         self.sequence_path = os.path.join('data', 'sequences')
         self.max_frames = 300  # max number of frames a video can have for us to use it
@@ -45,12 +43,7 @@ class DataSet():
         # Get the data.
         self.dataLowest = self.get_data()
         self.data = self.extract_data(self.dataLowest)
-
-        # Get the classes.
-
         self.image_shape = image_shape
-
-
 
     @staticmethod
     def get_data():
@@ -135,28 +128,17 @@ class DataSet():
                 # Get a random sample.
                 sample = random.choice(data)
 
-                # Check to see if we've already saved this sequence.
-                if data_type is "images":
-                    # Get and resample frames.
-                    frames = self.get_frames_for_sample(sample)
 
-                    # Build the image sequence
-                    sequence = self.build_image_sequence(frames)
-                else:
-                    # Get the sequence from disk.
-                    sequence = self.get_extracted_sequenceAllMods(data_type, sample)
+                # Get the sequence from disk.
+                sequence = self.get_extracted_sequenceAllMods(data_type, sample)
 
-                    if sequence is None:
-                        raise ValueError("Can't find sequence. Did you generate them?")
+                if sequence is None:
+                    raise ValueError("Can't find sequence. Did you generate them?")
 
                 X.append(sequence)
                 y.append(self.get_class_one_hot(sample))
 
             yield np.array(X), np.array(y)
-
-    def build_image_sequence(self, frames):
-        """Given a set of frames (filenames), build our sequence."""
-        return [process_image(x, self.image_shape) for x in frames]
 
     def get_extracted_sequenceAllMods(self, data_type, filename):
         """Get the saved extracted features."""
@@ -186,64 +168,3 @@ class DataSet():
         else:
             return None
 
-    def get_frames_by_filename(self, filename, data_type):
-        """Given a filename for one of our samples, return the data
-        the model needs to make predictions."""
-        # First, find the sample row.
-        sample = None
-        for row in self.data:
-            if row[2] == filename:
-                sample = row
-                break
-        if sample is None:
-            raise ValueError("Couldn't find sample: %s" % filename)
-
-        if data_type == "images":
-            # Get and resample frames.
-            frames = self.get_frames_for_sample(sample)
-            frames = self.rescale_list(frames, self.seq_length)
-            # Build the image sequence
-            sequence = self.build_image_sequence(frames)
-        else:
-            # Get the sequence from disk.
-            sequence = self.get_extracted_sequence(data_type, sample)
-
-            if sequence is None:
-                raise ValueError("Can't find sequence. Did you generate them?")
-
-        return sequence
-
-    @staticmethod
-    def get_frames_for_sample(sample):
-        """Given a sample row from the data file, get all the corresponding frame
-        filenames."""
-        path = os.path.join('data', sample[0], sample[1])
-        filename = sample[2]
-        images = sorted(glob.glob(os.path.join(path, filename + '*jpg')))
-        return images
-
-    @staticmethod
-    def get_filename_from_image(filename):
-        parts = filename.split(os.path.sep)
-        return parts[-1].replace('.jpg', '')
-
-
-    def print_class_from_prediction(self, predictions, nb_to_return=5):
-        """Given a prediction, print the top classes."""
-        # Get the prediction for each label.
-        label_predictions = {}
-        for i, label in enumerate(self.classes):
-            label_predictions[label] = predictions[i]
-
-        # Now sort them.
-        sorted_lps = sorted(
-            label_predictions.items(),
-            key=operator.itemgetter(1),
-            reverse=True
-        )
-
-        # And return the top N.
-        for i, class_prediction in enumerate(sorted_lps):
-            if i > nb_to_return - 1 or class_prediction[1] == 0.0:
-                break
-            print("%s: %.2f" % (class_prediction[0], class_prediction[1]))
