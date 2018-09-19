@@ -6,6 +6,8 @@ from models import ResearchModels
 from dataHAB import DataSet
 import time
 import os.path
+import xml.etree.ElementTree as ET
+import sys
 
 def train(data_type, seq_length, model, image_shape=None,
           batch_size=32, nb_epoch=100):
@@ -59,17 +61,28 @@ def train(data_type, seq_length, model, image_shape=None,
         validation_steps=40,
         workers=4)
 
-def main():
+def main(argv):
     """These are the main training settings. Set each before running
     this file."""
     # model can be one of lstm, mlp
+    #import pudb; pu.db
     model = 'mlp'
     seq_length = 5
     batch_size = 128
     nb_epoch = 1000
+    #argv[1] = 'classifyHAB1.xml'
+    if (len(argv)==0):
+        xmlName = 'classifyHAB1.xml'
+    else:
+        xmlName = argv[0]
+    tree = ET.parse(xmlName)
+    root = tree.getroot()
+
+    for child in root:
+        print(child.tag, child.attrib)
 
     train('features', seq_length, model, image_shape=None,
           batch_size=batch_size, nb_epoch=nb_epoch)
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

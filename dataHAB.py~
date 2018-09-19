@@ -36,6 +36,7 @@ class DataSet():
     def __init__(self, seq_length=40, image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
+        self.sequence_path = os.path.join('data', 'sequences')
         self.max_frames = 300  # max number of frames a video can have for us to use it
 
 

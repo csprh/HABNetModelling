@@ -1,0 +1,7 @@
+<data>
+        <CNNImsDir>/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3/</CNNImsDir>
+        <year>2008</year>
+        <gdppc>141100</gdppc>
+        <neighbor name="Austria" direction="E"/>
+        <neighbor name="Switzerland" direction="W"/>
+</data>
