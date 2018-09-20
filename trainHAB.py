@@ -89,7 +89,7 @@ def main(argv):
             epochNumber = int(thisText)
         elif thisTag == 'lr':
             lr = float(thisText)
-    train(inDir, dataDir, 'features', seqName, seqLength, model, image_shape=None,
+    train(inDir, dataDir, 'features', seqName, seqLength, model, None,
           batch_size, nb_epoch)
 
 

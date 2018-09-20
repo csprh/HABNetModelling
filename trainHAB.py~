@@ -92,5 +92,6 @@ def main(argv):
     train(inDir, dataDir, 'features', seqName, seqLength, model, image_shape=None,
           batch_size, nb_epoch)
 
+
 if __name__ == '__main__':
     main(sys.argv[1:])

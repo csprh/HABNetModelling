@@ -33,7 +33,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length=40, inDir, dataDir,  image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length, inDir, dataDir,  image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
         self.max_frames = 300  # max number of frames a video can have for us to use it
@@ -145,7 +145,7 @@ class DataSet():
 
         thisreturn = []
         for i in range(1,11):
-            thispath = filename + '/' + str(i) + '/' self.seqName '.npy'
+            thispath = filename + '/' + str(i) + '/' +  self.seqName + '.npy'
             thisfeats = np.load(thispath)
             #if os.path.isfile(path):
             #    return np.load(path)
@@ -161,7 +161,7 @@ class DataSet():
         """Get the saved extracted features."""
         #filename = sample[2]
 
-        path = filename + '/8/' self.seqName '.npy'
+        path = filename + '/8/' + self.seqName + '.npy'
         if os.path.isfile(path):
             return np.load(path)
         else:
