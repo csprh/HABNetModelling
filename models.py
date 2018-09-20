@@ -68,8 +68,8 @@ class ResearchModels():
             sys.exit()
 
         # Now compile the network.
-        #optimizer = Adam(lr=1e-5, decay=1e-6)
-        optimizer = Adam()
+        optimizer = Adam(lr=1e-6, decay=1e-7)
+        #optimizer = Adam()
         self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
                            metrics=metrics)
 
