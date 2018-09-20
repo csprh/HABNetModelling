@@ -42,17 +42,17 @@ class DataSet():
         self.dataDir = dataDir
         self.seqName = seqName
         # Get the data.
-        self.dataLowest = self.get_data()
+        self.dataLowest = self.get_data(self.inDir)
         self.data = self.extract_data(self.dataLowest)
         self.image_shape = image_shape
 
     @staticmethod
-    def get_data():
+    def get_data(inDir):
         """Load our data from file."""
 
         max_depth = 0
         bottom_most_dirs = []
-        for dirpath, dirnames, filenames in os.walk(self.inDir):
+        for dirpath, dirnames, filenames in os.walk(inDir):
             depth = len(dirpath.split(os.sep))
             if max_depth < depth:
                 max_depth = depth

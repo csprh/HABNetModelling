@@ -33,7 +33,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length=40, inDir, dataDir,  image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length, inDir, dataDir,  image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
         self.max_frames = 300  # max number of frames a video can have for us to use it
@@ -42,12 +42,12 @@ class DataSet():
         self.dataDir = dataDir
         self.seqName = seqName
         # Get the data.
-        self.dataLowest = self.get_data()
+        self.dataLowest = self.get_data(self.inDir)
         self.data = self.extract_data(self.dataLowest)
         self.image_shape = image_shape
 
     @staticmethod
-    def get_data():
+    def get_data(inDir):
         """Load our data from file."""
 
         max_depth = 0

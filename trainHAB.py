@@ -56,11 +56,7 @@ def main(argv):
     this file."""
     # model can be one of lstm, mlp
     import pudb; pu.db
-    model = 'mlp'
-    seq_length = 5
-    batch_size = 128
-    nb_epoch = 1000
-    #argv[1] = 'classifyHAB1.xml'
+
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
     else:
@@ -90,8 +86,7 @@ def main(argv):
         elif thisTag == 'lr':
             lr = float(thisText)
     train(inDir, dataDir, 'features', seqName, seqLength, model, None,
-          batch_size, nb_epoch)
-
+          batchSize, epochNumber)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
