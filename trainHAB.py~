@@ -86,7 +86,7 @@ def main(argv):
         elif thisTag == 'lr':
             lr = float(thisText)
     train(inDir, dataDir, 'features', seqName, seqLength, model, None,
-          batch_size, nb_epoch)
+          batchSize, epochNumber)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
