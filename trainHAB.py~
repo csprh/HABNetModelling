@@ -9,37 +9,27 @@ import os.path
 import xml.etree.ElementTree as ET
 import sys
 
-def train(data_type, seq_length, model, image_shape=None,
+def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
           batch_size=32, nb_epoch=100):
     #import pdb; pdb.set_trace()
     #import pudb; pu.db
     # Helper: Save the model.
+
     checkpointer = ModelCheckpoint(
-        filepath=os.path.join('data', 'checkpoints', model + '-' + data_type + \
-            '.{epoch:03d}-{val_loss:.3f}.hdf5'),
-        verbose=1,
-        save_best_only=True)
+        filepath=os.path.join(dataDir, 'checkpoints', model + '-' + data_type + \
+            '.{epoch:03d}-{val_loss:.3f}.hdf5'), verbose=1, save_best_only=True)
     # Helper: TensorBoard
-    tb = TensorBoard(log_dir=os.path.join('data', 'logs', model))
+    tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
     early_stopper = EarlyStopping(patience=100)
 
     # Helper: Save results.
     timestamp = time.time()
-    csv_logger = CSVLogger(os.path.join('data', 'logs', model + '-' + 'training-' + \
+    csv_logger = CSVLogger(os.path.join(dataDir, 'logs', model + '-' + 'training-' + \
         str(timestamp) + '.log'))
 
-    # Get the data and process it.
-    if image_shape is None:
-        data = DataSet(
-            seq_length=seq_length
-        )
-    else:
-        data = DataSet(
-            seq_length=seq_length,
-            image_shape=image_shape
-        )
+    data = DataSet(seqName, seq_length, inDir, dataDir)
 
     # Get samples per epoch.
     # Multiply by 0.7 to attempt to guess how much of data.data is the train set.
@@ -79,10 +69,28 @@ def main(argv):
     root = tree.getroot()
 
     for child in root:
-        print(child.tag, child.attrib)
-
-    train('features', seq_length, model, image_shape=None,
-          batch_size=batch_size, nb_epoch=nb_epoch)
+        thisTag = child.tag
+        thisText = child.text
+        if thisTag == 'inDir':
+            inDir = thisText
+        elif thisTag == 'dataDir':
+            dataDir = thisText
+        elif thisTag == 'seqName':
+            seqName = thisText
+        elif thisTag == 'model':
+            model = thisText
+        elif thisTag == 'cnnModel':
+            cnnModel = thisText
+        elif thisTag == 'seqLength':
+            seqLength = int(thisText)
+        elif thisTag == 'batchSize':
+            batchSize = int(thisText)
+        elif thisTag == 'epochNumber':
+            epochNumber = int(thisText)
+        elif thisTag == 'lr':
+            lr = float(thisText)
+    train(inDir, dataDir, 'features', seqName, seqLength, model, image_shape=None,
+          batch_size, nb_epoch)
 
 if __name__ == '__main__':
     main(sys.argv[1:])

@@ -33,12 +33,14 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seq_length=40, image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length=40, inDir, dataDir,  image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
         self.max_frames = 300  # max number of frames a video can have for us to use it
 
-
+        self.inDir = inDir
+        self.dataDir = dataDir
+        self.seqName = seqName
         # Get the data.
         self.dataLowest = self.get_data()
         self.data = self.extract_data(self.dataLowest)
@@ -48,11 +50,9 @@ class DataSet():
     def get_data():
         """Load our data from file."""
 
-        mydir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3/'
-        #mydir = '/Users/csprh/tmp/CNNIms/florida3/'
         max_depth = 0
         bottom_most_dirs = []
-        for dirpath, dirnames, filenames in os.walk(mydir):
+        for dirpath, dirnames, filenames in os.walk(self.inDir):
             depth = len(dirpath.split(os.sep))
             if max_depth < depth:
                 max_depth = depth
@@ -145,7 +145,7 @@ class DataSet():
 
         thisreturn = []
         for i in range(1,11):
-            thispath = filename + '/' + str(i) + '/seqFeats.npy'
+            thispath = filename + '/' + str(i) + '/' self.seqName '.npy'
             thisfeats = np.load(thispath)
             #if os.path.isfile(path):
             #    return np.load(path)
@@ -161,7 +161,7 @@ class DataSet():
         """Get the saved extracted features."""
         #filename = sample[2]
 
-        path = filename + '/8/seqFeats.npy'
+        path = filename + '/8/' self.seqName '.npy'
         if os.path.isfile(path):
             return np.load(path)
         else:
