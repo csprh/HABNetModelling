@@ -5,7 +5,7 @@
 	<model>mlp</model>
 	<cnnModel>InceptionV3</cnnModel>
 	<seqLength>5</seqLength>
-	<batchSize>40</batchSize>
+	<batchSize>128</batchSize>
 	<epochNumber>1000</epochNumber>
 	<lr>0.0001</lr>
 </confgData>
