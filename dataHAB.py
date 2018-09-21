@@ -145,6 +145,7 @@ class DataSet():
 
         thisreturn = []
         for i in range(1,11):
+
             thispath = filename + '/' + str(i) + '/' +  self.seqName + '.npy'
             thisfeats = np.load(thispath)
             #if os.path.isfile(path):

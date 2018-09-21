@@ -1,6 +1,6 @@
 <confgData>
-	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida3/</inDir>
-	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA3/</dataDir>
+	<inDir>/Users/csprh/tmp/CNNIms/florida2/</inDir>
+	<dataDir>/Users/csprh/tmp/DATA2/</dataDir>
 	<seqName>seqFeats</seqName>
 	<model>mlp</model>
 	<cnnModel>InceptionV3</cnnModel>

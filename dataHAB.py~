@@ -52,7 +52,7 @@ class DataSet():
 
         max_depth = 0
         bottom_most_dirs = []
-        for dirpath, dirnames, filenames in os.walk(self.inDir):
+        for dirpath, dirnames, filenames in os.walk(inDir):
             depth = len(dirpath.split(os.sep))
             if max_depth < depth:
                 max_depth = depth
@@ -145,8 +145,11 @@ class DataSet():
 
         thisreturn = []
         for i in range(1,11):
+
             thispath = filename + '/' + str(i) + '/' +  self.seqName + '.npy'
+            print(thispath)
             thisfeats = np.load(thispath)
+            print(thisfeats)
             #if os.path.isfile(path):
             #    return np.load(path)
             #else:
