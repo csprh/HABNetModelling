@@ -71,8 +71,7 @@ class ResearchModels():
         optimizer = Adam(lr=1e-5, decay=1e-6)
         #self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
         #                   metrics=metrics)
-        self.model.compile(loss='binary_crossentropy',      optimizer=optimizer,
-                           metrics=[categorical_accuracy])
+        self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         print(self.model.summary())
 
     def lstm(self):
