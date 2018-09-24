@@ -150,7 +150,7 @@ class ResearchModels():
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
-        model.add(Dense(512,activation='relu'))
+        model.add(Dense(16384,activation='relu'))
         model.add(Dropout(0.5))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(512,activation='relu'))
