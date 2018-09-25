@@ -9,7 +9,7 @@ import os.path
 import xml.etree.ElementTree as ET
 import sys
 
-def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
+def train(load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
           batch_size=32, nb_epoch=100):
     #import pdb; pdb.set_trace()
     #import pudb; pu.db
@@ -35,21 +35,39 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None
     # Multiply by 0.7 to attempt to guess how much of data.data is the train set.
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
-    generator = data.frame_generator(batch_size, 'train', data_type)
-    val_generator = data.frame_generator(batch_size, 'test', data_type)
+    if load_to_memory:
+        # Get data.
+        X, y = data.get_all_sequences_in_memory('train', data_type)
+        X_test, y_test = data.get_all_sequences_in_memory('test', data_type)
+    else:
+        # Get generators.
+        generator = data.frame_generator(batch_size, 'train', data_type)
+        val_generator = data.frame_generator(batch_size, 'test', data_type)
 
     # Get the model.
     rm = ResearchModels(2, model, seq_length, None)
 
-    rm.model.fit_generator(
-        generator=generator,
-        steps_per_epoch=steps_per_epoch,
-        epochs=nb_epoch,
-        verbose=1,
-        callbacks=[tb, early_stopper, csv_logger, checkpointer],
-        validation_data=val_generator,
-        validation_steps=40,
-        workers=4)
+    # Fit!
+    if load_to_memory:
+        # Use standard fit.
+        rm.model.fit(
+            X,
+            y,
+            batch_size=batch_size,
+            validation_data=(X_test, y_test),
+            verbose=1,
+            callbacks=[tb, early_stopper, csv_logger],
+            epochs=nb_epoch)
+    else:
+        rm.model.fit_generator(
+            generator=generator,
+            steps_per_epoch=steps_per_epoch,
+            epochs=nb_epoch,
+            verbose=1,
+            callbacks=[tb, early_stopper, csv_logger, checkpointer],
+            validation_data=val_generator,
+            validation_steps=40,
+            workers=4)
 
 def main(argv):
     """These are the main training settings. Set each before running
