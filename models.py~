@@ -69,7 +69,7 @@ class ResearchModels():
 
         # Now compile the network.
         #optimizer = Adam(lr=1e-5, decay=1e-6)
-        optimizer = Adam(lr=1e-4, decay=1e-5)
+        #optimizer = Adam(lr=1e-4, decay=1e-5)
         #optimizer = Adam()
         #self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
         #                   metrics=metrics)
@@ -153,6 +153,8 @@ class ResearchModels():
         model.add(Dense(512))
         model.add(Dropout(0.5))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
         model.add(Dense(512))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))
