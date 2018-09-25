@@ -85,6 +85,7 @@ def main(argv):
     tree = ET.parse(xmlName)
     root = tree.getroot()
 
+    load_to_memory = 1
     for child in root:
         thisTag = child.tag
         thisText = child.text
@@ -106,7 +107,7 @@ def main(argv):
             epochNumber = int(thisText)
         elif thisTag == 'lr':
             lr = float(thisText)
-    train(inDir, dataDir, 'features', seqName, seqLength, model, None,
+    train(load_to_memory, inDir, dataDir, 'features', seqName, seqLength, model, None,
           batchSize, epochNumber)
 
 if __name__ == '__main__':
