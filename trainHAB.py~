@@ -62,7 +62,7 @@ def main(argv):
     else:
         xmlName = argv[0]
 
-    confg = getConfig(xmlName)
+    #confg = getConfig(xmlName)
 
     tree = ET.parse(xmlName)
     root = tree.getroot()
