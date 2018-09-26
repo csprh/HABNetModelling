@@ -143,6 +143,11 @@ class ResearchModels():
 
         return model
 
+    def thisSvm(self):
+        from sklearn.svm import SVC
+        clf = SVC(kernel='linear', C=1).fit(X_train, y_train)
+        clf.score(X_test, y_test)
+
     def mlp(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
@@ -153,8 +158,6 @@ class ResearchModels():
         model.add(Dense(512))
         model.add(Dropout(0.5))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
         model.add(Dense(512))
         model.add(Dropout(0.5))
         model.add(Dense(self.nb_classes, activation='softmax'))

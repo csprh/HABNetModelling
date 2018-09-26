@@ -143,6 +143,8 @@ class ResearchModels():
 
         return model
 
+
+
     def mlp(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
