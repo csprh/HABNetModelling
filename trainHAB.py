@@ -9,6 +9,7 @@ import os.path
 import xml.etree.ElementTree as ET
 import sys
 from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
 
 def train(doSVM, load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
           batch_size=32, nb_epoch=100):
@@ -56,10 +57,12 @@ def train(doSVM, load_to_memory, inDir, dataDir,data_type, seqName, seq_length, 
 
         clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5)
                       # scoring='%s_macro' % score)
-        clf.fit(X, y)
+        fX = X.reshape(X.shape[0], seq_length*20480)
+        clf.fit(fX, y[:,1])
         #clf = SVC(kernel='linear', C=1).fit(X, y)
-        svmScore = clf.score(X_test, y_test)
-        print("SVM score =  %d ." % svmScore)
+        fX_test = X_test.reshape(X_test.shape[0], seq_length*20480)
+        svmScore = clf.score(fX_test, y_test[:,1])
+        print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
         rm = ResearchModels(2, model, seq_length, None)
