@@ -2,10 +2,10 @@
 	<inDir>/Users/csprh/tmp/CNNIms/florida2/</inDir>
 	<dataDir>/Users/csprh/tmp/DATA2/</dataDir>
 	<seqName>seqFeats</seqName>
+	<featureLength>20480</featureLength>
 	<model>mlp</model>
 	<cnnModel>InceptionV3</cnnModel>
-	<seqLength>5</seqLength>
+	<seqLength>3</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>1000</epochNumber>
-	<lr>0.0001</lr>
 </confgData>

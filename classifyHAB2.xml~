@@ -2,10 +2,10 @@
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida3/</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA3/</dataDir>
 	<seqName>seqFeats</seqName>
+	<featureLength>20480</featureLength>
 	<model>mlp</model>
 	<cnnModel>InceptionV3</cnnModel>
 	<seqLength>5</seqLength>
-	<batchSize>40</batchSize>
+	<batchSize>128</batchSize>
 	<epochNumber>1000</epochNumber>
-	<lr>0.0001</lr>
 </confgData>

@@ -11,8 +11,8 @@ import sys
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 
-def train(doSVM, load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
-          batch_size=32, nb_epoch=100):
+def train(load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
+          batch_size, nb_epoch, featureLength):
     #import pdb; pdb.set_trace()
     #import pudb; pu.db
     # Helper: Save the model.
@@ -46,26 +46,20 @@ def train(doSVM, load_to_memory, inDir, dataDir,data_type, seqName, seq_length, 
         generator = data.frame_generator(batch_size, 'train', data_type)
         val_generator = data.frame_generator(batch_size, 'test', data_type)
 
-    if doSVM:
+    if model == 'svm':
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
                      'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
-                    #,{'kernel': ['sigmoid'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
-                    # 'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]},
-                    #{'kernel': ['linear'], 'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}
-                   #]
-
 
         clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5)
                       # scoring='%s_macro' % score)
-        fX = X.reshape(X.shape[0], seq_length*20480)
+        fX = X.reshape(X.shape[0], seq_length*featureLength)
         clf.fit(fX, y[:,1])
-        #clf = SVC(kernel='linear', C=1).fit(X, y)
-        fX_test = X_test.reshape(X_test.shape[0], seq_length*20480)
+        fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
         svmScore = clf.score(fX_test, y_test[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
-        rm = ResearchModels(2, model, seq_length, None)
+        rm = ResearchModels(2, model, seq_length, None, features_length=featureLength)
 
         # Fit!
         if load_to_memory:
@@ -93,20 +87,18 @@ def main(argv):
     """These are the main training settings. Set each before running
     this file."""
     # model can be one of lstm, mlp
-    #import pudb; pu.db
+    import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
     else:
         xmlName = argv[0]
 
-    #confg = getConfig(xmlName)
-
     tree = ET.parse(xmlName)
     root = tree.getroot()
 
     load_to_memory = 1
-    doSVM = 1
+
     for child in root:
         thisTag = child.tag
         thisText = child.text
@@ -120,16 +112,16 @@ def main(argv):
             model = thisText
         elif thisTag == 'cnnModel':
             cnnModel = thisText
+        elif thisTag == 'featureLength':
+            featureLength = int(thisText)
         elif thisTag == 'seqLength':
             seqLength = int(thisText)
         elif thisTag == 'batchSize':
             batchSize = int(thisText)
         elif thisTag == 'epochNumber':
             epochNumber = int(thisText)
-        elif thisTag == 'lr':
-            lr = float(thisText)
-    train(doSVM, load_to_memory, inDir, dataDir, 'features', seqName, seqLength, model, None,
-          batchSize, epochNumber)
+    train(load_to_memory, inDir, dataDir, 'features', seqName, seqLength, model, None,
+          batchSize, epochNumber, featureLength)
 
 if __name__ == '__main__':
     main(sys.argv[1:])

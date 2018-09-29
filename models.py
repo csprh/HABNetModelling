@@ -151,6 +151,12 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
+        #model.add(layers.Dense(512, use_bias=False))
+        #model.add(layers.BatchNormalization())
+        #model.add(Activation("relu"))
+        #model.add(layers.Dense(512, use_bias=False))
+        #model.add(layers.BatchNormalization())
+        #model.add(Activation("relu"))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(512))
         model.add(Dropout(0.5))
