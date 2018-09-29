@@ -11,7 +11,7 @@ import sys
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 
-def train(load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape=None,
+def train(load_to_memory, inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
     #import pdb; pdb.set_trace()
     #import pudb; pu.db

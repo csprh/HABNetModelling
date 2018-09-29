@@ -3,7 +3,7 @@
 	<dataDir>/Users/csprh/tmp/DATA2/</dataDir>
 	<seqName>seqFeats</seqName>
 	<featureLength>20480</featureLength>
-	<model>mlp</model>
+	<model>svm</model>
 	<cnnModel>InceptionV3</cnnModel>
 	<seqLength>3</seqLength>
 	<batchSize>128</batchSize>
