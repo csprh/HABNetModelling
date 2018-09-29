@@ -116,6 +116,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             fX_test =  X_test.reshape(X_test.shape[0], seq_length*featureLength)
             svmScore = clf.score(fX_test, Y_test)
             print("SVM score =  %f ." % svmScore)
+            cvscores.append(svmScore * 100)
         else:
             # Get the model.
 

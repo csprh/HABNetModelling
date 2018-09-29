@@ -141,7 +141,7 @@ def main(argv):
     """These are the main training settings. Set each before running
     this file."""
     # model can be one of lstm, mlp
-    mport pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
