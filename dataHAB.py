@@ -94,6 +94,7 @@ class DataSet():
         """Split the data into train and test groups."""
         train = []
         test = []
+        thisall = []
 
         for item in self.data:
             parts = item.split(os.path.sep)
@@ -101,7 +102,8 @@ class DataSet():
                 train.append(item)
             else:
                 test.append(item)
-        return train, test
+            thisall.append(item)
+        return train, test, thisall
 
 
     def get_all_sequences_in_memory(self, train_test, data_type):
@@ -110,10 +112,16 @@ class DataSet():
         memory so we can train way faster.
         """
         # Get the right dataset.
-        train, test = self.split_train_test()
-        data = train if train_test == 'train' else test
-
-        print("Loading %d samples into memory for %sing." % (len(data), train_test))
+        train, test, thisall = self.split_train_test()
+        if train_test == 'train':
+            data = train
+            print("Loading %d samples into memory for training." % len(data))
+        elif train_test == 'test':
+            data = test
+            print("Loading %d samples into memory for training." % len(data))
+        elif train_test == 'all':
+            data = thisall
+            print("Loading all %d samples into memory" % len(thisall))
 
         X, y = [], []
         for sample in data:

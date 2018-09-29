@@ -7,5 +7,5 @@
 	<cnnModel>InceptionV3</cnnModel>
 	<seqLength>3</seqLength>
 	<batchSize>128</batchSize>
-	<epochNumber>1000</epochNumber>
+	<epochNumber>100</epochNumber>
 </confgData>
