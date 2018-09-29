@@ -1,5 +1,5 @@
 """
-Train our RNN on extracted features or images.
+Train a model
 """
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from models import ResearchModels
@@ -11,6 +11,7 @@ import sys
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
+import numpy
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -69,7 +70,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 # Cross Validated Version of Train
 def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
-
+    """Set up training"""
     seed = 7
     checkpointer = ModelCheckpoint(
         filepath=os.path.join(dataDir, 'checkpoints', model + '-' + data_type + \
@@ -78,7 +79,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=500)
+    early_stopper = EarlyStopping(patience=10)
 
     # Helper: Save results.
     timestamp = time.time()
@@ -98,11 +99,13 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     kfold = StratifiedKFold(n_splits=3, shuffle=True, random_state=seed)
     cvscores = []
 
+    """Loop through Train and Test CV Datasets"""
     for train, test in kfold.split(X, Y):
 
         X_train =     X[train]
         X_test =      X[test]
 
+        """Choose between SVM and other Models"""
         if model == 'svm':
             Y_train  =    Y[train]
             Y_test  =     Y[test]
@@ -118,7 +121,6 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             print("SVM score =  %f ." % svmScore)
             cvscores.append(svmScore * 100)
         else:
-            # Get the model.
 
             Y_train  =    Yhot[train]
             Y_test  =     Yhot[test]
@@ -136,12 +138,12 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
             cvscores.append(scores[1] * 100)
     print("%.2f%% (+/- %.2f%%)" % (numpy.mean(cvscores), numpy.std(cvscores)))
-
+    print cvscores
+"""Main Thread"""
 def main(argv):
-    """These are the main training settings. Set each before running
-    this file."""
-    # model can be one of lstm, mlp
-    mport pudb; pu.db
+    """Settings Loaded from Xml Configuration"""
+    # model can be one of lstm, mlp, svm
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
@@ -174,6 +176,8 @@ def main(argv):
             epochNumber = int(thisText)
     trainCV(inDir, dataDir, 'features', seqName, seqLength, model, None,
           batchSize, epochNumber, featureLength)
+    #train(inDir, dataDir, 'features', seqName, seqLength, model, None,
+    #      batchSize, epochNumber, featureLength)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
