@@ -159,10 +159,10 @@ class ResearchModels():
         #model.add(Activation("relu"))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(512))
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.65))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
         model.add(Dense(512))
-        model.add(Dropout(0.5))
+        model.add(Dropout(0.65))
         model.add(Dense(self.nb_classes, activation='softmax'))
 
         return model
