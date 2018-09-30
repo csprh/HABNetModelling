@@ -122,7 +122,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
             Y_train  =    Yhot[train]
             Y_test  =     Yhot[test]
-            rm = ResearchModels(2, model, seq_length, None, features_length=featureLength)
+            rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
             rm.model.fit(
                 X_train,

@@ -77,7 +77,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=2000)
+    early_stopper = EarlyStopping(patience=500)
 
     # Helper: Save results.
     timestamp = time.time()
@@ -122,7 +122,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
             Y_train  =    Yhot[train]
             Y_test  =     Yhot[test]
-            rm = ResearchModels(2, model, seq_length, None, features_length=featureLength)
+            rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
             rm.model.fit(
                 X_train,
@@ -137,6 +137,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             cvscores.append(scores[1] * 100)
     print("%.2f%% (+/- %.2f%%)" % (numpy.mean(cvscores), numpy.std(cvscores)))
     print(cvscores)
+
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""

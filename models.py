@@ -1,7 +1,8 @@
 """
 A collection of models we'll use to attempt to classify videos.
 """
-from keras.layers import Dense, Flatten, Dropout, ZeroPadding3D
+from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
+    BatchNormalization)
 from keras.layers.recurrent import LSTM
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
@@ -13,7 +14,7 @@ from collections import deque
 import sys
 
 class ResearchModels():
-    def __init__(self, nb_classes, model, seq_length,
+    def __init__(self, model, seq_length,
                  saved_model=None, features_length=20480):
         """
         `model` = one of:
@@ -22,7 +23,6 @@ class ResearchModels():
             mlp
             conv_3d
             c3d
-        `nb_classes` = the number of classes to predict
         `seq_length` = the length of our video sequences
         `saved_model` = the path to a saved Keras model to load
         """
@@ -31,13 +31,10 @@ class ResearchModels():
         self.seq_length = seq_length
         self.load_model = load_model
         self.saved_model = saved_model
-        self.nb_classes = nb_classes
         self.feature_queue = deque()
 
         # Set the metrics. Only use top k if there's a need.
         metrics = ['accuracy']
-        if self.nb_classes >= 10:
-            metrics.append('top_k_categorical_accuracy')
 
         # Get the appropriate model.
         if self.saved_model is not None:
@@ -68,7 +65,7 @@ class ResearchModels():
             sys.exit()
 
         # Now compile the network.
-        optimizer = Adam(lr=1e-7, decay=1e-8)
+        optimizer = Adam(lr=1e-5, decay=1e-6)
         #optimizer = Adam(lr=1e-4, decay=1e-5)
         #optimizer = Adam()
         #self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
@@ -87,7 +84,7 @@ class ResearchModels():
                        dropout=0.5))
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
-        model.add(Dense(self.nb_classes, activation='softmax'))
+        model.add(Dense(2, activation='softmax'))
 
         return model
 
@@ -139,7 +136,7 @@ class ResearchModels():
 
         model.add(Dropout(0.5))
         model.add(LSTM(256, return_sequences=False, dropout=0.5))
-        model.add(Dense(self.nb_classes, activation='softmax'))
+        model.add(Dense(2, activation='softmax'))
 
         return model
 
@@ -151,19 +148,19 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        #model.add(layers.Dense(512, use_bias=False))
-        #model.add(layers.BatchNormalization())
-        #model.add(Activation("relu"))
-        #model.add(layers.Dense(512, use_bias=False))
-        #model.add(layers.BatchNormalization())
-        #model.add(Activation("relu"))
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+        model.add(Activation("relu"))
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+        model.add(Activation("relu"))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
+        #model.add(Dense(512))
+        #model.add(Dropout(0.5))
         #model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01)))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
-        model.add(Dense(self.nb_classes, activation='softmax'))
+        #model.add(Dense(512))
+        #model.add(Dropout(0.5))
+        model.add(Dense(2, activation='softmax'))
 
         return model
 
@@ -192,7 +189,7 @@ class ResearchModels():
         model.add(Dropout(0.5))
         model.add(Dense(1024))
         model.add(Dropout(0.5))
-        model.add(Dense(self.nb_classes, activation='softmax'))
+        model.add(Dense(2, activation='softmax'))
 
         return model
 
@@ -254,6 +251,6 @@ class ResearchModels():
         model.add(Dropout(0.5))
         model.add(Dense(4096, activation='relu', name='fc7'))
         model.add(Dropout(0.5))
-        model.add(Dense(self.nb_classes, activation='softmax'))
+        model.add(Dense(2, activation='softmax'))
 
         return model
