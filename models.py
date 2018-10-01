@@ -66,7 +66,7 @@ class ResearchModels():
             sys.exit()
 
         # Now compile the network.
-        optimizer = Adam(lr=1e-6, decay=1e-7)
+        optimizer = Adam(lr=1e-5, decay=1e-6)
         #optimizer = Adam(lr=1e-4, decay=1e-5)
         #optimizer = Adam()
         #self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
@@ -149,11 +149,11 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01), use_bias=False))
+        model.add(Dense(512,kernel_regularizer=regularizers.l2(0.05), use_bias=False))
         model.add(BatchNormalization())
         #model.add(Dropout(0.5))
         #model.add(Activation("relu"))
-        model.add(Dense(512,kernel_regularizer=regularizers.l2(0.01), use_bias=False))
+        model.add(Dense(512,kernel_regularizer=regularizers.l2(0.05), use_bias=False))
         model.add(BatchNormalization())
         #model.add(Dropout(0.5))
         #model.add(Activation("relu"))
