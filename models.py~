@@ -10,6 +10,7 @@ from keras.layers.wrappers import TimeDistributed
 from keras.layers.convolutional import (Conv2D, MaxPooling3D, Conv3D,
     MaxPooling2D)
 from keras.layers import Bidirectional
+from keras import regularizers
 from collections import deque
 import sys
 
