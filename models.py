@@ -19,8 +19,10 @@ class ResearchModels():
                  saved_model=None, features_length=20480):
         """
         `model` = one of:
-            lstm
-            mlp
+            lstm1
+            lstm2
+            mlp1
+            mlp2
         `seq_length` = the length of our video sequences
         `saved_model` = the path to a saved Keras model to load
         """
@@ -60,10 +62,6 @@ class ResearchModels():
 
         # Now compile the network.
         optimizer = Adam(lr=1e-5, decay=1e-6)
-        #optimizer = Adam(lr=1e-4, decay=1e-5)
-        #optimizer = Adam()
-        #self.model.compile(loss='categorical_crossentropy', optimizer=optimizer,
-        #                   metrics=metrics)
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         print(self.model.summary())
 
