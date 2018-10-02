@@ -1,5 +1,4 @@
 """ Train a model """
-from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from models import ResearchModels
 from dataHAB import DataSet
 import time
