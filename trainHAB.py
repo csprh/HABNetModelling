@@ -114,6 +114,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5, verbose=2)
                       # scoring='%s_macro' % score)
             fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
+            exit()
             clf.fit(fX_train, Y_train)
             fX_test =  X_test.reshape(X_test.shape[0], seq_length*featureLength)
             svmScore = clf.score(fX_test, Y_test)

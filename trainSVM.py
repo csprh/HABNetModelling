@@ -1,5 +1,4 @@
 """ Train a model """
-from models import ResearchModels
 from dataHAB import DataSet
 import time
 import os.path

@@ -111,7 +111,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
                      'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
 
-            clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5, verbose=1)
+            clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=5, verbose=2)
                       # scoring='%s_macro' % score)
             fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
             clf.fit(fX_train, Y_train)
