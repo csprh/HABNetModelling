@@ -40,7 +40,6 @@ class DataSet():
         self.inDir = inDir
         self.dataDir = dataDir
         self.seqName = seqName
-
         # Get the data.
         self.dataLowest = self.get_data(self.inDir)
         self.data = self.extract_data(self.dataLowest)
