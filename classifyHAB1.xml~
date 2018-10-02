@@ -3,7 +3,7 @@
 	<dataDir>/mnt/storage/home/csprh/scratch/HAB/DATA3/</dataDir>
 	<seqName>seqFeats</seqName>
 	<featureLength>20480</featureLength>
-	<model>lstm2</model>
+	<model>mlp1</model>
 	<cnnModel>InceptionV3</cnnModel>
 	<seqLength>5</seqLength>
 	<batchSize>128</batchSize>
