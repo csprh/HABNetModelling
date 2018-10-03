@@ -51,7 +51,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
-        rm = ResearchModels(2, model, seq_length, None, features_length=featureLength)
+        rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
         rm.model.fit(
                 X,
