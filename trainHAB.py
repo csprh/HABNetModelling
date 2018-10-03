@@ -22,7 +22,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=100)
+    early_stopper = EarlyStopping(patience=1000)
 
     # Helper: Save results.
     timestamp = time.time()
@@ -35,8 +35,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     # Multiply by 0.7 to attempt to guess how much of data.data is the train set.
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
-    X, y = data.get_all_sequences_in_memory('train', data_type)
-    X_test, y_test = data.get_all_sequences_in_memory('test', data_type)
+    X, Y = data.get_all_sequences_in_memory('train', data_type)
+    X_test, Y_test = data.get_all_sequences_in_memory('test', data_type)
 
     if model == 'svm':
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
@@ -45,9 +45,9 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
                       # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
-        clf.fit(fX, y[:,1])
+        clf.fit(fX, Y[:,1])
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
-        svmScore = clf.score(fX_test, y_test[:,1])
+        svmScore = clf.score(fX_test, Y_test[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
@@ -55,13 +55,15 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
         rm.model.fit(
                 X,
-                y,
+                Y,
                 batch_size=batch_size,
-                validation_data=(X_test, y_test),
+                validation_split=0.33,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger],
                 epochs=nb_epoch)
 
+        scores = rm.model.evaluate(X_test, Y_test, verbose=1)
+        print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
 # Cross Validated Version of Train
 def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
@@ -113,7 +115,6 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
             fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
 
             clf.fit(fX_train, Y_train)
-            exit()
             fX_test =  X_test.reshape(X_test.shape[0], seq_length*featureLength)
             svmScore = clf.score(fX_test, Y_test)
             print("SVM score =  %f ." % svmScore)
@@ -173,7 +174,7 @@ def main(argv):
             batchSize = int(thisText)
         elif thisTag == 'epochNumber':
             epochNumber = int(thisText)
-    trainCV(inDir, dataDir, 'features', seqName, seqLength, model, None,
+    train(inDir, dataDir, 'features', seqName, seqLength, model, None,
           batchSize, epochNumber, featureLength)
     #train(inDir, dataDir, 'features', seqName, seqLength, model, None,
     #      batchSize, epochNumber, featureLength)
