@@ -46,6 +46,7 @@ The elements within the configuration file control the training process.  A typi
 </confgData>
 ```
 
+```
 inDir: The directory where the jpg images are stored
 dataDir: The directory where all the data will be output in the training process
 seqName:  CNN output name (numpy file format)
@@ -55,6 +56,7 @@ cnnModel: Name of CNN model (currently ignored)
 seqLength: Number of jpg images in each modality (temporal span)
 batchSize: tensorflow control
 epochNumber: tensorflow control
+```
 
 ## TODO
 
