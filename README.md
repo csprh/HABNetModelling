@@ -32,8 +32,8 @@ trainHAB.py
 The training is controlled using the input configuration xml file (e.g. classifyHAB0.xml)
 The elements within the configuration file control the training process.  A typical config file is shown below.
 
-
-"<confgData>
+```
+<confgData>
 	<inDir>/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3/</inDir>
 	<dataDir>/mnt/storage/home/csprh/scratch/HAB/DATA3/</dataDir>
 	<seqName>seqFeats</seqName>
@@ -43,7 +43,8 @@ The elements within the configuration file control the training process.  A typi
 	<seqLength>5</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
-</confgData>"
+</confgData>
+```
 
 inDir: The directory where the jpg images are stored
 dataDir: The directory where all the data will be output in the training process
