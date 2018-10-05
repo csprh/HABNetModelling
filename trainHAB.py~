@@ -10,7 +10,6 @@ from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 import numpy
-import tensorflow as tf
 import tensorflow_hub as hub
 
 # Train the model
