@@ -79,6 +79,21 @@ class Extractor():
                 )
                 self.target_size = (224,224)
                 self.preprocess_input = nasnet_preprocessor
+            elif cnnModel == 'NASNetLarge':
+                # Get model with pretrained weights.
+                base_model = NASNetLarge(
+                    weights='imagenet',
+                    include_top=True
+                )
+
+                # We'll extract features at the final pool layer.
+                self.model = Model(
+                    inputs=base_model.input,
+                    outputs=base_model.get_layer('global_average_pooling2d_1').output
+                )
+                self.target_size = (331,331)
+                self.preprocess_input = nasnet_preprocessor
+
 
         else:
             # Load the model first.
