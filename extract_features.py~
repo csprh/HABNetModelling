@@ -25,7 +25,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
 
     data = DataSet(seqName, seqLength, inDir, dataDir)
     # get the model.
-    model = Extractor()
+    model = Extractor(cnnModel)
 
     # Loop through data.
 
