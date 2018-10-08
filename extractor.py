@@ -5,6 +5,9 @@ from keras.applications.inception_resnet_v2 import InceptionResNetV2
 from keras.applications.inception_resnet_v2 import preprocess_input as  inception_resnet_v2_preprocessor
 from keras.applications.vgg19 import VGG19
 from keras.applications.vgg19 import preprocess_input as vgg19_preprocessor
+from keras.applications.nasnet import NASNetLarge, NASNetMobile
+from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
+
 #from keras.applications.inception_v3 import preprocess_input as inception_v3_preprocessor
 from keras.models import Model, load_model
 from keras.layers import Input
@@ -61,6 +64,22 @@ class Extractor():
                 )
                 self.target_size = (299,299)
                 self.preprocess_input = inception_resnet_v2_preprocessor
+
+            elif cnnModel == 'NASNetMobile':
+                # Get model with pretrained weights.
+                base_model = NASNetMobile(
+                    weights='imagenet',
+                    include_top=True
+                )
+
+                # We'll extract features at the final pool layer.
+                self.model = Model(
+                    inputs=base_model.input,
+                    outputs=base_model.get_layer('avg_pool').output
+                )
+                self.target_size = (224,224)
+                self.preprocess_input = nasnet_preprocessor
+
         else:
             # Load the model first.
             self.model = load_model(weights)
