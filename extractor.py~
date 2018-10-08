@@ -64,10 +64,10 @@ class Extractor():
                 )
                 self.target_size = (299,299)
                 self.preprocess_input = inception_resnet_v2_preprocessor
-                keras.applications.nasnet.NASNetLarge
+
             elif cnnModel == 'NASNetMobile':
                 # Get model with pretrained weights.
-                base_model = InceptionResNetV2(
+                base_model = NASNetMobile(
                     weights='imagenet',
                     include_top=True
                 )
@@ -77,9 +77,9 @@ class Extractor():
                     inputs=base_model.input,
                     outputs=base_model.get_layer('avg_pool').output
                 )
-                self.target_size = (299,299)
-                self.preprocess_input = inception_resnet_v2_preprocessor
-                keras.applications.nasnet.NASNetLarge
+                self.target_size = (224,224)
+                self.preprocess_input = nasnet_preprocessor
+
         else:
             # Load the model first.
             self.model = load_model(weights)

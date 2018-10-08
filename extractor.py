@@ -75,7 +75,7 @@ class Extractor():
                 # We'll extract features at the final pool layer.
                 self.model = Model(
                     inputs=base_model.input,
-                    outputs=base_model.get_layer('avg_pool').output
+                    outputs=base_model.get_layer('global_average_pooling2d_1').output
                 )
                 self.target_size = (224,224)
                 self.preprocess_input = nasnet_preprocessor

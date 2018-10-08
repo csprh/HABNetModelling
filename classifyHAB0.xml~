@@ -1,10 +1,10 @@
 <confgData>
 	<inDir>/Users/csprh/tmp/CNNIms/florida2/</inDir>
 	<dataDir>/Users/csprh/tmp/DATA2/</dataDir>
-	<seqName>seqFeats</seqName>
+	<seqName>InceptionResNetV2</seqName>
 	<featureLength>20480</featureLength>
 	<model>mlp1</model>
-	<cnnModel>InceptionResNetV2</cnnModel>
+	<cnnModel>NASNetMobile</cnnModel>
 	<seqLength>3</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
