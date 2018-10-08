@@ -4,14 +4,11 @@ from models import ResearchModels
 from dataHAB import DataSet
 import time
 import os.path
-import xml.etree.ElementTree as ET
 import sys
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
-import numpy
-import tensorflow as tf
-import tensorflow_hub as hub
+from inputXMLConfig import inputXMLConfig
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -142,43 +139,21 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     print("%.2f%% (+/- %.2f%%)" % (numpy.mean(cvscores), numpy.std(cvscores)))
     print(cvscores)
 
+
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
     # model can be one of lstm, mlp, svm
-    #import pudb; pu.db
+    import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
     else:
         xmlName = argv[0]
 
-    tree = ET.parse(xmlName)
-    root = tree.getroot()
-
-    for child in root:
-        thisTag = child.tag
-        thisText = child.text
-        if thisTag == 'inDir':
-            inDir = thisText
-        elif thisTag == 'dataDir':
-            dataDir = thisText
-        elif thisTag == 'seqName':
-            seqName = thisText
-        elif thisTag == 'model':
-            model = thisText
-        elif thisTag == 'cnnModel':
-            cnnModel = thisText
-        elif thisTag == 'featureLength':
-            featureLength = int(thisText)
-        elif thisTag == 'seqLength':
-            seqLength = int(thisText)
-        elif thisTag == 'batchSize':
-            batchSize = int(thisText)
-        elif thisTag == 'epochNumber':
-            epochNumber = int(thisText)
-    train(inDir, dataDir, 'features', seqName, seqLength, model, None,
-          batchSize, epochNumber, featureLength)
+    cnfg = inputXMLConfig(xmlName)
+    train(cnfg.inDir, cnfg.dataDir, 'features', cnfg.seqName, cnfg.seqLength, cnfg.model, None,
+          cnfg.batchSize, cnfg.epochNumber, cnfg.featureLength)
     #train(inDir, dataDir, 'features', seqName, seqLength, model, None,
     #      batchSize, epochNumber, featureLength)
 

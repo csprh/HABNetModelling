@@ -57,7 +57,7 @@ class Extractor():
                 # We'll extract features at the final pool layer.
                 self.model = Model(
                     inputs=base_model.input,
-                    outputs=base_model.get_layer('avg_pool').output
+                    outputs=base_model.get_layer('fc2').output
                 )
                 self.target_size = (299,299)
                 self.preprocess_input = inception_resnet_v2_preprocessor
