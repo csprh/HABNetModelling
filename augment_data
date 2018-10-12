@@ -1,6 +1,4 @@
 """
-This script generates extracted features for each video, which other
-models make use of.
 """
 import glob
 import numpy as np

@@ -13,6 +13,12 @@ from keras.models import Model, load_model
 from keras.layers import Input
 import numpy as np
 
+from PIL import Image
+
+
+import matplotlib.image as mpimg
+
+
 class Extractor():
     def __init__(self, cnnModel, weights=None):
         """Either load pretrained from imagenet, or load our saved
@@ -91,7 +97,7 @@ class Extractor():
                     inputs=base_model.input,
                     outputs=base_model.get_layer('global_average_pooling2d_1').output
                 )
-                self.target_size = (224,224)
+                self.target_size = (331,331)
                 self.preprocess_input = nasnet_preprocessor
 
 
@@ -110,6 +116,8 @@ class Extractor():
     def extract(self, image_path):
         img = image.load_img(image_path, target_size=self.target_size)
         x = image.img_to_array(img)
+        im = Image.fromarray(img)
+        im.save('test.png')
         x = np.expand_dims(x, axis=0)
         x = self.preprocess_input(x)
 
