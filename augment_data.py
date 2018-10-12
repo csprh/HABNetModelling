@@ -10,7 +10,9 @@ import sys
 from inputXMLConfig import inputXMLConfig
 from keras.preprocessing import image
 from PIL import Image
-from keras.preprocessing.image import ImageDataGenerator
+
+
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 #from keras.preprocessing.image import ImageDataGenerator
 
 

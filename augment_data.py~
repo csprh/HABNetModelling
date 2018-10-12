@@ -106,7 +106,7 @@ def rotateImage(x,augNumber):
 
     img_gen = ImageDataGenerator()
     x = img_gen.apply_transform(x, transform_parameters)
-    x2 = image.apply_affine_transform(x, theta=theta)
+    #x2 = image.apply_affine_transform(x, theta=theta)
 
 
 
