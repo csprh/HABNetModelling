@@ -10,6 +10,7 @@ import sys
 from inputXMLConfig import inputXMLConfig
 from keras.preprocessing import image
 from PIL import Image
+from keras.preprocessing.image import ImageDataGenerator
 #from keras.preprocessing.image import ImageDataGenerator
 
 
@@ -23,8 +24,8 @@ def augment_data(inDir, seqName, dataDir, seqLength, cnnModel):
 
     max_depth = 0
     bottom_most_dirs = []
-    #thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
-    thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
+    thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
+    #thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
     # data = listOfDirectories;
     for thisDir in data.data:
 
@@ -92,7 +93,23 @@ def rotateImage(x,augNumber):
     if flip == 1:
         x = x[::-1, ...]
 
-    x = image.apply_affine_transform(x, theta=theta)
+    transform_parameters = {'theta': theta}
+                                #'tx': tx,
+                                #'ty': ty,
+                                #'shear': shear,
+                                #'zx': zx,
+                                #'zy': zy,
+                                #'flip_horizontal': flip_horizontal,
+                                #'flip_vertical': flip_vertical,
+                                #'channel_shift_intensity': channel_shift_intensity,
+                                #'brightness': brightness}
+
+    img_gen = ImageDataGenerator()
+    x = img_gen.apply_transform(x, transform_parameters)
+    #x2 = image.apply_affine_transform(x, theta=theta)
+
+
+
 
     return x
 
