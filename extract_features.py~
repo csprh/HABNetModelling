@@ -1,15 +1,6 @@
 """
 This script generates extracted features for each video, which other
 models make use of.
-
-You can change you sequence length and limit to a set number of classes
-below.
-
-class_limit is an integer that denotes the first N classes you want to
-extract features from. This is useful is you don't want to wait to
-extract all 101 classes. For instance, set class_limit = 8 to just
-extract features for the first 8 (alphabetical) classes in the dataset.
-Then set the same number when training models.
 """
 import glob
 import numpy as np

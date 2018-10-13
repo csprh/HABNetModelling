@@ -41,8 +41,8 @@ def augment_data(inDir, seqName, dataDir, seqLength, cnnModel):
     max_depth = 0
     bottom_most_dirs = []
 
-    thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
-    #thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
+    #thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
+    thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
     # data = listOfDirectories;
     for thisDir in data.data:
 
