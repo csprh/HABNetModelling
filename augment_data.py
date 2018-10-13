@@ -114,8 +114,8 @@ def rotateImage(x,augNumber):
                                 #'channel_shift_intensity': channel_shift_intensity,
                                 #'brightness': brightness}
 
-    img_gen = ImageDataGenerator()
-    x = img_gen.apply_transform(x, transform_parameters)
+    #img_gen = ImageDataGenerator()
+    #x = img_gen.apply_transform(x, transform_parameters)
     #x2 = image.apply_affine_transform(x, theta=theta)
 
     x2 = apply_affine_transform(x, theta=theta)
