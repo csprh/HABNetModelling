@@ -8,6 +8,8 @@ from dataHAB import DataSet
 from extractor import Extractor
 import sys
 from inputXMLConfig import inputXMLConfig
+import tensorflow as tf
+from tensorflow import keras
 from keras.preprocessing import image
 from PIL import Image
 
@@ -117,10 +119,11 @@ def rotateImage(x,augNumber):
 
     #img_gen = ImageDataGenerator()
     #x = img_gen.apply_transform(x, transform_parameters)
+    x = image.apply_transform(x,transform_parameters)
     #x2 = image.apply_affine_transform(x, theta=theta)
 
-    x2 = apply_affine_transform(x, theta=theta)
-    return x2
+    #x2 = apply_affine_transform(x, theta=theta)
+    return x
 
 def transform_matrix_offset_center(matrix, x, y):
     o_x = float(x) / 2 + 0.5
