@@ -41,8 +41,8 @@ def augment_data(inDir, seqName, dataDir, seqLength, cnnModel):
     max_depth = 0
     bottom_most_dirs = []
 
-    #thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
-    thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
+    thisOutputDir = '/Users/csprh/tmp/CNNIms/florida3Aug'
+    #thisOutputDir = '/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3Aug'
     # data = listOfDirectories;
     for thisDir in data.data:
 
@@ -123,7 +123,7 @@ def rotateImage(x,augNumber):
 
     #img_gen = ImageDataGenerator()
     #x = img_gen.apply_transform(x, transform_parameters)
-    x = rotate(x, theta, reshape=False)
+    x = rotate(x, theta, reshape=False, mode="nearest")
     #x = image.apply_transform(x,transform_parameters)
     #x2 = image.apply_affine_transform(x, theta=theta)
 
