@@ -11,6 +11,7 @@ from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
 #from keras.applications.inception_v3 import preprocess_input as inception_v3_preprocessor
 from keras.models import Model, load_model
 from keras.layers import Input
+from cifar10vgg import cifar10vgg
 import numpy as np
 
 
@@ -96,8 +97,16 @@ class Extractor():
                 self.target_size = (331,331)
                 self.preprocess_input = nasnet_preprocessor
 
-
+            elif cnnModel == 'cifar10vgg':
+                base_model = cifar10vgg(False)
+                self.model = Model(
+                    inputs=base_model.input,
+                    outputs=base_model.get_layer('flatten_1').output
+                )
+                self.target_size = (32,32)
+                self.preprocess_input = vgg19_preprocessor
         else:
+
             # Load the model first.
             self.model = load_model(weights)
 
