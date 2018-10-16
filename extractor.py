@@ -12,6 +12,7 @@ from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
 from keras.models import Model, load_model
 from keras.layers import Input
 from cifar10vgg import cifar10vgg
+#from cifar10vgg import normalize_production as cifar10vgg.normalize_production
 import numpy as np
 
 
@@ -104,7 +105,7 @@ class Extractor():
                     outputs=base_model.model.get_layer('flatten_1').output
                 )
                 self.target_size = (32,32)
-                self.preprocess_input = vgg19_preprocessor
+                self.preprocess_input =  cifar10vgg.normalize_production
         else:
 
             # Load the model first.
