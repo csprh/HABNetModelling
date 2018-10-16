@@ -84,7 +84,7 @@ class Extractor():
                 self.preprocess_input = nasnet_preprocessor
             elif cnnModel == 'NASNetLarge':
                 # Get model with pretrained weights.
-                base_model = NASNetLarge(
+                base_model2 = NASNetLarge(
                     weights='imagenet',
                     include_top=True
                 )
@@ -104,7 +104,7 @@ class Extractor():
                     outputs=base_model.get_layer('flatten_1').output
                 )
                 self.target_size = (32,32)
-                self.preprocess_input = nasnet_preprocessor
+                self.preprocess_input = vgg19_preprocessor
         else:
 
             # Load the model first.
