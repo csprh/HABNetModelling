@@ -12,7 +12,7 @@ from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
 from keras.models import Model, load_model
 from keras.layers import Input
 from cifar10vgg import cifar10vgg
-#from cifar10vgg import normalize_production as normalize_production
+
 import numpy as np
 
 
@@ -22,7 +22,7 @@ class Extractor():
         """Either load pretrained from imagenet, or load our saved
         weights from our own training."""
 
-
+        self.cnnModel = cnnModel
         self.weights = weights  # so we can check elsewhere which model
 
         if weights is None:
@@ -105,7 +105,6 @@ class Extractor():
                     outputs=base_model.model.get_layer('flatten_1').output
                 )
                 self.target_size = (32,32)
-                self.preprocess_input = normalize_production
         else:
 
             # Load the model first.
@@ -119,11 +118,29 @@ class Extractor():
             self.model.output_layers = [self.model.layers[-1]]
             self.model.layers[-1].outbound_nodes = []
 
+    def normalize_production_here(self,x):
+         #this function is used to normalize instances in production according to saved training set statistics
+         # Input: X - a training set
+         # Output X - a normalized training set according to normalization constants.
+
+         #these values produced during first training and are general for the standard cifar10 training set normalization
+         mean = 120.707
+         std = 64.15
+         return (x-mean)/(std+1e-7)
+
     def extract(self, image_path):
-        img = image.load_img(image_path, target_size=self.target_size)
-        x = image.img_to_array(img)
-        x = np.expand_dims(x, axis=0)
-        x = self.preprocess_input(x)
+
+        if self.cnnModel == 'cifar10vgg':
+            img = image.load_img(image_path)
+            x = image.img_to_array(img)
+            x = self.centeredCrop(x, 32, 32)
+            x = np.expand_dims(x, axis=0)
+            x =  self.normalize_production_here(x)
+        else:
+            img = image.load_img(image_path, target_size=self.target_size)
+            x = image.img_to_array(img)
+            x = np.expand_dims(x, axis=0)
+            x = self.preprocess_input(x)
 
         # Get the prediction.
         features = self.model.predict(x)
@@ -136,3 +153,15 @@ class Extractor():
             features = features[0]
 
         return features
+
+    def centeredCrop(self, img, new_height, new_width):
+
+        width =  np.size(img,1)
+        height =  np.size(img,0)
+
+        left = np.ceil((width - new_width)/2)
+        top = np.ceil((height - new_height)/2)
+        right = np.floor((width + new_width)/2)
+        bottom = np.floor((height + new_height)/2)
+        cImg = img[top:bottom, left:right,:]
+        return cImg
