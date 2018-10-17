@@ -103,6 +103,7 @@ class Extractor():
                 self.model = Model(
                     inputs=base_model.model.input,
                     outputs=base_model.model.get_layer('flatten_1').output
+                    #outputs=base_model.model.get_layer('max_pooling2d_3').output
                 )
                 self.target_size = (32,32)
         else:
