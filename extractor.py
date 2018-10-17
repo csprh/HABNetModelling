@@ -102,7 +102,8 @@ class Extractor():
                 base_model = cifar10vgg(False)
                 self.model = Model(
                     inputs=base_model.model.input,
-                    outputs=base_model.model.get_layer('flatten_1').output
+                    #outputs=base_model.model.get_layer('flatten_1').output
+                    outputs=base_model.model.get_layer('dropout_10').output
                     #outputs=base_model.model.get_layer('max_pooling2d_3').output
                 )
                 self.target_size = (32,32)
@@ -136,7 +137,7 @@ class Extractor():
             x = image.img_to_array(img)
             x = self.centeredCrop(x, 32, 32)
             x = np.expand_dims(x, axis=0)
-            x =  self.normalize_production_here(x)
+            #x =  self.normalize_production_here(x)
         else:
             img = image.load_img(image_path, target_size=self.target_size)
             x = image.img_to_array(img)
