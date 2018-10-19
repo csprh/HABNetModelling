@@ -76,7 +76,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=100)
+    early_stopper = EarlyStopping(monitor='val_loss', patience=5)
 
     # Helper: Save results.
     timestamp = time.time()
@@ -144,7 +144,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 def main(argv):
     """Settings Loaded from Xml Configuration"""
     # model can be one of lstm, mlp, svm
-    import pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'

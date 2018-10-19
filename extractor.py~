@@ -112,7 +112,7 @@ class Extractor():
                 self.model = Sequential()
                 self.model.add(interModel)
                 self.model.add(Flatten())
-                self.model.compile()
+                #self.model.compile()
                 self.target_size = (32,32)
         else:
 
