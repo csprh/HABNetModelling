@@ -100,8 +100,8 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(256, kernel_regularizer=regularizers.l2(0.003)))
-        model.add(Dense(256, kernel_regularizer=regularizers.l2(0.003)))
+        model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
+        model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
 
         model.add(Dense(2, activation='softmax'))
 

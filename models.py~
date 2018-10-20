@@ -100,10 +100,8 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(256, use_bias=False, kernel_regularizer=regularizers.l2(0.003)))
-        model.add(BatchNormalization())
-        model.add(Dense(256, use_bias=False, kernel_regularizer=regularizers.l2(0.003)))
-        model.add(BatchNormalization())
+        model.add(Dense(256, kernel_regularizer=regularizers.l2(0.003)))
+        model.add(Dense(256, kernel_regularizer=regularizers.l2(0.003)))
 
         model.add(Dense(2, activation='softmax'))
 
@@ -123,3 +121,19 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
 
         return model
+
+    def mlp3(self):
+        """Build a simple MLP. It uses extracted features as the input
+        because of the otherwise too-high dimensionality."""
+        # Model.
+        model = Sequential()
+        model.add(Flatten(input_shape=self.input_shape))
+        model.add(Dense(256, use_bias=False, kernel_regularizer=regularizers.l2(0.003)))
+        model.add(BatchNormalization())
+        model.add(Dense(256, use_bias=False, kernel_regularizer=regularizers.l2(0.003)))
+        model.add(BatchNormalization())
+
+        model.add(Dense(2, activation='softmax'))
+
+        return model
+
