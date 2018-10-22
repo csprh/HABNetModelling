@@ -65,7 +65,7 @@ class ResearchModels():
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         print(self.model.summary())
 
-    def lstm1(self):
+    def lstm0(self):
         """Build a simple LSTM network. We pass the extracted features from
         our CNN to this model predomenently."""
         # Model.
@@ -73,10 +73,25 @@ class ResearchModels():
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(512, return_sequences=False,
                        input_shape=self.input_shape))
+        model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(512, activation='relu'))
-        #model.add(Dropout(0.5))
+        model.add(Dropout(0.5))
         model.add(BatchNormalization())
+        model.add(Dense(2, activation='softmax'))
+        return model
+
+    def lstm1(self):
+        """Build a simple LSTM network. We pass the extracted features from
+        our CNN to this model predomenently."""
+        # Model.
+        model = Sequential()
+        #model.add(Bidirectional(LSTM(2048, return_sequences=False,
+        model.add(LSTM(512, return_sequences=False,
+                       input_shape=self.input_shape,
+                       dropout=0.5))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
         return model
 
@@ -104,6 +119,7 @@ class ResearchModels():
         model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
         model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
         model.add(Dense(2, activation='softmax'))
+
         return model
 
     def mlp2(self):
