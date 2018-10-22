@@ -72,10 +72,11 @@ class ResearchModels():
         model = Sequential()
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(512, return_sequences=False,
-                       input_shape=self.input_shape,
-                       dropout=0.5))
+                       input_shape=self.input_shape))
+        model.add(BatchNormalization())
         model.add(Dense(512, activation='relu'))
-        model.add(Dropout(0.5))
+        #model.add(Dropout(0.5))
+        model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model
 
@@ -102,9 +103,7 @@ class ResearchModels():
         model.add(Flatten(input_shape=self.input_shape))
         model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
         model.add(Dense(128, kernel_regularizer=regularizers.l2(0.003)))
-
         model.add(Dense(2, activation='softmax'))
-
         return model
 
     def mlp2(self):
