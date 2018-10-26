@@ -40,6 +40,10 @@ class ResearchModels():
         if self.saved_model is not None:
             print("Loading model %s" % self.saved_model)
             self.model = load_model(self.saved_model)
+        elif model == 'lstm0':
+            print("Loading LSTM0 model.")
+            self.input_shape = (seq_length, features_length)
+            self.model = self.lstm0()
         elif model == 'lstm1':
             print("Loading LSTM1 model.")
             self.input_shape = (seq_length, features_length)
