@@ -21,7 +21,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=15)
+    early_stopper = EarlyStopping(patience=200)
 
     # Helper: Save results.
     timestamp = time.time()
@@ -41,7 +41,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
                      'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
 
-        clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
+        #clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
+        clf = SVC(C=1)
                       # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         clf.fit(fX, Y[:,1])
