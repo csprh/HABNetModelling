@@ -56,7 +56,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                 X,
                 Y,
                 batch_size=batch_size,
-                validation_split=0.1,
+                validation_split=0.5,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger],
                 epochs=nb_epoch)
