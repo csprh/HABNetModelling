@@ -138,7 +138,6 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-
         model.add(Dense(512))
         model.add(Dropout(0.5))
         model.add(Dense(512))
@@ -157,7 +156,6 @@ class ResearchModels():
         model.add(BatchNormalization())
         model.add(Dense(256, use_bias=False, kernel_regularizer=regularizers.l2(0.003)))
         model.add(BatchNormalization())
-
         model.add(Dense(2, activation='softmax'))
 
         return model

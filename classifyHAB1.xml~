@@ -6,6 +6,6 @@
 	<model>mlp1</model>
 	<cnnModel>NASNetMobile</cnnModel>
 	<seqLength>5</seqLength>
-	<batchSize>64</batchSize>
+	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
 </confgData>
