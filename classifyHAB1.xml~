@@ -6,6 +6,6 @@
 	<model>lstm0</model>
 	<cnnModel>NASNetMobile</cnnModel>
 	<seqLength>5</seqLength>
-	<batchSize>128</batchSize>
+	<batchSize>64</batchSize>
 	<epochNumber>2000</epochNumber>
 </confgData>
