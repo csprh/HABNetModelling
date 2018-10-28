@@ -38,12 +38,15 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     X_test, Y_test = data.get_all_sequences_in_memory('test', data_type)
 
     if model == 'svm':
-        tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
-                     'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
+        #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
+        #             'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
 
-        #clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
-        clf = SVC(C=1)
-                      # scoring='%s_macro' % score)
+        tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
+                     'C': [0.10,  10, 50, 1000]}]
+
+        clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
+        #clf = SVC(C=1)
+        # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         clf.fit(fX, Y[:,1])
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
