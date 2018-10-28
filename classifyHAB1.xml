@@ -3,8 +3,8 @@
 	<dataDir>/mnt/storage/home/csprh/scratch/HAB/DATA3/</dataDir>
 	<seqName>NASNetMobile</seqName>
 	<featureLength>10560</featureLength>
-	<model>mlp1</model>
-	<cnnModel>svm</cnnModel>
+	<model>svm</model>
+	<cnnModel>NASNetMobile</cnnModel>
 	<seqLength>5</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>

@@ -4,7 +4,7 @@
 	<seqName>NASNetMobile</seqName>
 	<featureLength>10560</featureLength>
 	<model>mlp1</model>
-	<cnnModel>SVM</cnnModel>
+	<cnnModel>svm</cnnModel>
 	<seqLength>5</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
