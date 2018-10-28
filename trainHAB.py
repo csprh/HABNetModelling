@@ -44,7 +44,14 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
                      'C': [0.10,  10, 50, 1000]}]
 
-        clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
+
+        Cs = [0.001, 0.01, 0.1, 1, 10]
+        gammas = [0.001, 0.01, 0.1, 1]
+        param_grid = {'C': Cs, 'gamma' : gammas}
+        clf = GridSearchCV(SVC(kernel='rbf'), param_grid, cv=2)
+
+
+#       clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
