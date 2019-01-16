@@ -34,7 +34,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
         npypath = os.path.join(thisDir, seqName)
 
 
-
+        #frames = sorted(glob.glob(os.path.join(thisDir, '*png')))
         frames = sorted(glob.glob(os.path.join(thisDir, '*jpg')))
         sequence = []
         for image in frames:
