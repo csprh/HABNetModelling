@@ -1,0 +1,11 @@
+<confgData>
+	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
+	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
+	<seqName>NASNetMobile</seqName>
+	<featureLength>21120</featureLength>
+	<model>mlp1</model>
+	<cnnModel>NASNetMobile</cnnModel>
+	<seqLength>10</seqLength>
+	<batchSize>128</batchSize>
+	<epochNumber>2000</epochNumber>
+</confgData>
