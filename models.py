@@ -68,8 +68,8 @@ class ResearchModels():
 
         # Now compile the network.
         optimizer = Adam(lr=1e-5, decay=1e-6)
-        #self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
-        self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
+        self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
+        #self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
 
         print(self.model.summary())
 
@@ -117,7 +117,7 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
-    def mlp1(self):
+    def mlp0(self):
     
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
@@ -128,15 +128,15 @@ class ResearchModels():
         model.add(Activation('linear'))
         return model
 
-    def mlp0(self):
+    def mlp1(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(256, use_bias=False))
+        model.add(Dense(1024, use_bias=False))
         model.add(BatchNormalization())
-        model.add(Dense(256, use_bias=False))
+        model.add(Dense(1024, use_bias=False))
         model.add(BatchNormalization())
 
         model.add(Dense(2, activation='softmax'))
