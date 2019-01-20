@@ -126,7 +126,7 @@ class ResearchModels():
         model.add(Dropout(0.5))
         model.add(Dense(2, kernel_regularizer=regularizers.l2(0.01)))
         model.add(Activation('linear'))
-
+        return model
 
     def mlp0(self):
         """Build a simple MLP. It uses extracted features as the input
