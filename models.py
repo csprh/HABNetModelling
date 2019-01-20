@@ -1,6 +1,7 @@
 """
 A collection of models we'll use to attempt to classify videos.
 """
+from keras.regularizers import l2
 from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
     BatchNormalization)
 from keras.layers.recurrent import LSTM
@@ -66,7 +67,9 @@ class ResearchModels():
 
         # Now compile the network.
         optimizer = Adam(lr=1e-5, decay=1e-6)
-        self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
+        #self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
+        self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
+
         print(self.model.summary())
 
     def lstm0(self):
@@ -113,9 +116,18 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
-
-
     def mlp1(self):
+    
+        model = Sequential()
+        model.add(Flatten(input_shape=self.input_shape))
+        model.add(Dense(1024))
+        model.add(Activation('relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(nb_classes), W_regularizer=l2(0.01))
+        model.add(Activation('linear'))
+
+
+    def mlp0(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.
