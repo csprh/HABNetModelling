@@ -1,7 +1,7 @@
 """
 A collection of models we'll use to attempt to classify videos.
 """
-from keras.regularizers import l2
+
 from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
     BatchNormalization)
 from keras.layers.recurrent import LSTM
@@ -12,6 +12,7 @@ from keras.layers.convolutional import (Conv2D, MaxPooling3D, Conv3D,
     MaxPooling2D)
 from keras.layers import Bidirectional
 from keras import regularizers
+from keras.regularizers import l2
 from collections import deque
 import sys
 
@@ -123,7 +124,7 @@ class ResearchModels():
         model.add(Dense(1024))
         model.add(Activation('relu'))
         model.add(Dropout(0.5))
-        model.add(Dense(2), W_regularizer=l2(0.01))
+        model.add(Dense(2), kernel_regularizer=regularizers.l2(0.01))
         model.add(Activation('linear'))
 
 
