@@ -21,7 +21,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(patience=5)
+    #early_stopper = EarlyStopping(patience=5)
+    early_stopping = EarlyStopping(monitor='val_loss', patience=20, verbose=verbose, mode='auto')
 
     # Helper: Save results.
     timestamp = time.time()
@@ -67,8 +68,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                 X,
                 Y,
                 batch_size=batch_size,
-                validation_data=(X_test, Y_test),
-                #validation_split=0.3,
+                #validation_data=(X_test, Y_test),
+                validation_split=0.1,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger],
                 epochs=nb_epoch)
