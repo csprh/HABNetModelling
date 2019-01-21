@@ -160,6 +160,7 @@ class DataSet():
         train, test = self.split_train_test_prop(prop)
 
         X1, Y1 = [], []
+        X2, Y2 = [], []
         for sample in test:
 
             sequence = self.get_extracted_sequenceAllMods(data_type, sample)
