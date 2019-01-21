@@ -98,15 +98,14 @@ class DataSet():
         thisall = []
 
         inde = 0
-        dataLen = data.len()
-        rc = np.random.choice([0, 1], size=(dataLen,), p=[prop, 1-prop])
-
+        np.random.choice([0, 1], size=(10,), p=[prop, 1-2.])
         for item in self.data:
-            if  rc[inde] == 0 :
+            inde = inde + 1
+            if  == 'Train':
                 train.append(item)
             else:
                 test.append(item)
-            inde = inde + 1
+            thisall.append(item)
         return train, test
 
 
