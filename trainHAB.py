@@ -22,7 +22,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
     # Helper: Stop when we stop learning.
     #early_stopper = EarlyStopping(patience=5)
-    early_stopper = EarlyStopping(monitor='val_loss', patience=4,  mode='auto')
+    early_stopper = EarlyStopping(monitor='val_acc', patience=4,  mode='auto')
 
     # Helper: Save results.
     timestamp = time.time()
@@ -69,7 +69,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                 Y,
                 batch_size=batch_size,
                 #validation_data=(X_test, Y_test),
-                validation_split=0.2,
+                validation_split=0.1,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger],
                 epochs=nb_epoch)
