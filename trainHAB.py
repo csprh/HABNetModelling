@@ -22,7 +22,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
     # Helper: Stop when we stop learning.
     #early_stopper = EarlyStopping(patience=5)
-    early_stopper = EarlyStopping(monitor='val_loss', patience=20,  mode='auto')
+    early_stopper = EarlyStopping(monitor='val_loss', patience=4,  mode='auto')
 
     # Helper: Save results.
     timestamp = time.time()
