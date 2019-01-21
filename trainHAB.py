@@ -36,7 +36,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
-    X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.01)
+    X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.05)
 
     if model == 'svm':
         #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
@@ -69,7 +69,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                 Y,
                 batch_size=batch_size,
                 #validation_data=(X_test, Y_test),
-                validation_split=0.1,
+                validation_split=0.2,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger],
                 epochs=nb_epoch)
