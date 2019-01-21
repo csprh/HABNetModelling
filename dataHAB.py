@@ -98,7 +98,7 @@ class DataSet():
         thisall = []
 
         inde = 0
-        dataLen = self.data.len()
+        dataLen = len(self.data)
         rc = np.random.choice([0, 1], size=(dataLen,), p=[prop, 1-prop])
 
         for item in self.data:
