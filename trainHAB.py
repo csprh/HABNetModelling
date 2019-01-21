@@ -5,10 +5,12 @@ from dataHAB import DataSet
 import time
 import os.path
 import sys
+import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
+
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -45,7 +47,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
                      'C': [0.10,  10, 50, 1000]}]
 
-
+        YI = numpy.int64(Y)
+        Y_testI = numpy.int64(Y_test)
         Cs = [0.001, 0.01, 0.1, 1, 10]
         gammas = [0.001, 0.01, 0.1, 1]
         param_grid = {'C': Cs, 'gamma' : gammas}
@@ -56,9 +59,9 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
-        clf.fit(fX, Y[:,1])
+        clf.fit(fX, YI[:,1])
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
-        svmScore = clf.score(fX_test, Y_test[:,1])
+        svmScore = clf.score(fX_test, Y_testI[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
