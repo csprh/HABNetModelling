@@ -47,8 +47,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
                      'C': [0.10,  10, 50, 1000]}]
 
-        YI = numpy.int64(Y)
-        Y_testI = numpy.int64(Y_test)
+        YI = np.int64(Y)
+        Y_testI = np.int64(Y_test)
         Cs = [0.001, 0.01, 0.1, 1, 10]
         gammas = [0.001, 0.01, 0.1, 1]
         param_grid = {'C': Cs, 'gamma' : gammas}
