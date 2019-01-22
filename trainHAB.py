@@ -11,6 +11,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.ensemble import RandomForestClassifier
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -39,6 +40,20 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
     X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.05)
+
+    if model == 'RF'
+        YI = np.int64(Y)
+        Y_testI = np.int64(Y_test)
+        fX = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
+
+        ## This line instantiates the model.
+        rf = RandomForestClassifier()
+        ## Fit the model on your training data.
+        rf.fit(fX, YI[:,1])
+        ## And score it on your testing data.
+        rfScore = rf.score(fX_test, Y_testI[:,1])
+        print("RF Score = %f ." % rfScore)
 
     if model == 'svm':
         #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
