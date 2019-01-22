@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
-
+from sklearn.preprocessing import MinMaxScaler
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -47,6 +47,10 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
                      'C': [0.10,  10, 50, 1000]}]
 
+
+        scaling = MinMaxScaler(feature_range=(-1,1)).fit(X)
+        X = scaling.transform(X)
+        X_test = scaling.transform(X_test)
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
         #Cs = [0.001, 0.01, 0.1, 1, 10]
