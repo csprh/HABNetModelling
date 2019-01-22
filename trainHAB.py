@@ -49,8 +49,10 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
-        Cs = [0.001, 0.01, 0.1, 1, 10]
-        gammas = [0.001, 0.01, 0.1, 1]
+        #Cs = [0.001, 0.01, 0.1, 1, 10]
+        Cs = [0.01, 0.1]
+        #gammas = [0.001, 0.01, 0.1, 1]
+        gammas = [0.01, 0.1]
         param_grid = {'C': Cs, 'gamma' : gammas}
         clf = GridSearchCV(SVC(kernel='rbf'), param_grid, cv=2)
 
