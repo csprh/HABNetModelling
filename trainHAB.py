@@ -41,7 +41,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
     X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.05)
 
-    if model == 'RF'
+    if model == 'RF':
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
