@@ -41,14 +41,20 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
     X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.05)
 
-    if model == 'RF'
+    if model == 'RF':
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
+        rf=RandomForestClassifier(random_state=42)
         ## This line instantiates the model.
-        rf = RandomForestClassifier()
+        param_grid = {
+            'n_estimators': [200, 500],
+            'max_features': ['auto', 'sqrt', 'log2'],
+            'max_depth' : [4,5,6,7,8],
+            'criterion' :['gini', 'entropy']
+        }
         ## Fit the model on your training data.
         rf.fit(fX, YI[:,1])
         ## And score it on your testing data.
