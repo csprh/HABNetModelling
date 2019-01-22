@@ -48,9 +48,6 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                      'C': [0.10,  10, 50, 1000]}]
 
 
-        scaling = MinMaxScaler(feature_range=(-1,1)).fit(X)
-        X = scaling.transform(X)
-        X_test = scaling.transform(X_test)
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
         #Cs = [0.001, 0.01, 0.1, 1, 10]
@@ -65,8 +62,12 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
+        scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
+        fX = scaling.transform(fX)
+
         clf.fit(fX, YI[:,1])
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
+        fX_test = scaling.transform(fX_test)
         svmScore = clf.score(fX_test, Y_testI[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
