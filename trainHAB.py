@@ -47,21 +47,26 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        rf=RandomForestClassifier(random_state=42)
-        ## This line instantiates the model.
-        param_grid = {
-            'n_estimators': [200, 500],
-            'max_features': ['auto', 'sqrt', 'log2'],
-            'max_depth' : [4,5,6,7,8],
-            'criterion' :['gini', 'entropy']
-        }
+        rf=RandomForestClassifier(n_estimators=500,
+                                              criterion='entropy',
+                                              max_depth=16,
+                                              max_features='auto',
+                                              random_state=42)
 
-        CV_rfc = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
+        ## This line instantiates the model.
+        #param_grid = {
+        #    'n_estimators': [200, 500],
+        #    'max_features': ['auto', 'sqrt', 'log2'],
+        #    'max_depth' : [4,5,6,7,8],
+        #    'criterion' :['gini', 'entropy']
+        #}
+
+        #CV_rfc = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
         ## Fit the model on your training data.
-        CV_rfc.fit(fX, YI[:,1])
-        print(CV_rfc.best_params_)
+        rf.fit(fX, YI[:,1])
+
         ## And score it on your testing data.
-        rfScore = CV_rfc.score(fX_test, Y_testI[:,1])
+        rfScore = rf.score(fX_test, Y_testI[:,1])
         print("RF Score = %f ." % rfScore)
 
     if model == 'svm':
