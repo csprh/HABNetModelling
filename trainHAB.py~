@@ -11,6 +11,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 
 # Train the model
@@ -80,6 +81,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
         YI = np.int64(Y)
         Y_testI = np.int64(Y_test)
+
         #Cs = [0.001, 0.01, 0.1, 1, 10]
         Cs = [0.01, 0.1]
         #gammas = [0.001, 0.01, 0.1, 1]
@@ -92,20 +94,27 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
+        rm = ResearchModels(model, seq_length, None, features_length=featureLength)
+
+        pca = PCA(n_components=1000)
+        pca.fit(fX)
+
+
         scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
         fX = scaling.transform(fX)
-
-        clf.fit(fX, YI[:,1])
+        fX = pca.transform(fX)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
         fX_test = scaling.transform(fX_test)
+        fX_test = pca.transform(fX_test)
+
+
+        clf.fit(fX, YI[:,1])
+
         svmScore = clf.score(fX_test, Y_testI[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
-        rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
-        pca = PCA(n_components=1000)
-        X = pca.fit_transform(X)
         rm.model.fit(
                 X,
                 Y,
