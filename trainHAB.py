@@ -48,9 +48,9 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
-        fX = scaling.transform(fX)
-        fX_test = scaling.transform(fX_test)
+        #scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
+        #fX = scaling.transform(fX)
+        #fX_test = scaling.transform(fX_test)
         rf=RandomForestClassifier(n_estimators=500,
                                               criterion='entropy',
                                               max_depth=8,
@@ -58,14 +58,14 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
                                               random_state=42)
 
         ## This line instantiates the model.
-        #param_grid = {
-        #    'n_estimators': [500, 1000, 2000],
+        param_grid = {
+            'n_estimators': [500, 1000, 2000],
         #    'max_features': ['auto', 'sqrt', 'log2'],
-        #    'max_depth' : [8,10,12,14],
+            'max_depth' : [8,10,12,14],
         #    'criterion' :['gini', 'entropy']
-        #}
+        }
 
-        #CV_rfc = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
+        rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
         ## Fit the model on your training data.
         rf.fit(fX, YI[:,1])
 
