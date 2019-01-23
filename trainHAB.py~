@@ -47,9 +47,9 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        rf=RandomForestClassifier(n_estimators=500,
+        rf=RandomForestClassifier(n_estimators=2000,
                                               criterion='entropy',
-                                              max_depth=16,
+                                              max_depth=32,
                                               max_features='auto',
                                               random_state=42)
 
@@ -67,6 +67,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
         ## And score it on your testing data.
         rfScore = rf.score(fX_test, Y_testI[:,1])
+        np.savetxt('rfImports2.txt', rf.feature_importances_);
         print("RF Score = %f ." % rfScore)
 
     if model == 'svm':
