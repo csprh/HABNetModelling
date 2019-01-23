@@ -196,7 +196,7 @@ def trainCV(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 def main(argv):
     """Settings Loaded from Xml Configuration"""
     # model can be one of lstm, mlp, svm
-    #import pudb; pu.db
+    import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'
