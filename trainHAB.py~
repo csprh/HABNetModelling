@@ -94,7 +94,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
         fX = X.reshape(X.shape[0], seq_length*featureLength)
-        rm = ResearchModels(model, seq_length, None, features_length=featureLength)
+        #rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
         pca = PCA(n_components=1000)
         pca.fit(fX)
