@@ -101,10 +101,10 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
 
         scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
-        fX = scaling.transform(fX)
+        #fX = scaling.transform(fX)
         fX = pca.transform(fX)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
-        fX_test = scaling.transform(fX_test)
+        #fX_test = scaling.transform(fX_test)
         fX_test = pca.transform(fX_test)
 
 
