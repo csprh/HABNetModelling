@@ -11,6 +11,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 
 # Train the model

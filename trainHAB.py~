@@ -104,6 +104,8 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         # Get the model.
         rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
+        pca = PCA(n_components=1000)
+        X = pca.fit_transform(X)
         rm.model.fit(
                 X,
                 Y,
