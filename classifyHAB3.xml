@@ -3,7 +3,7 @@
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
 	<seqName>NASNetMobile</seqName>
 	<featureLength>10560</featureLength>
-	<model>svm</model>
+	<model>RF</model>
 	<cnnModel>NASNetMobile</cnnModel>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>

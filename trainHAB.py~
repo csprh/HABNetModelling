@@ -48,17 +48,20 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         fX = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        rf=RandomForestClassifier(n_estimators=2000,
+        scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
+        fX = scaling.transform(fX)
+        fX_test = scaling.transform(fX_test)
+        rf=RandomForestClassifier(n_estimators=200,
                                               criterion='entropy',
-                                              max_depth=32,
+                                              max_depth=8,
                                               max_features='auto',
                                               random_state=42)
 
         ## This line instantiates the model.
         #param_grid = {
-        #    'n_estimators': [200, 500],
+        #    'n_estimators': [500, 1000, 2000],
         #    'max_features': ['auto', 'sqrt', 'log2'],
-        #    'max_depth' : [4,5,6,7,8],
+        #    'max_depth' : [8,10,12,14],
         #    'criterion' :['gini', 'entropy']
         #}
 
