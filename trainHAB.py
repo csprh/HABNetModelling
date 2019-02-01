@@ -40,7 +40,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
-    X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.05)
+    X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.2)
 
     if model == 'RF':
         YI = np.int64(Y)
@@ -51,21 +51,21 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         #scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
         #fX = scaling.transform(fX)
         #fX_test = scaling.transform(fX_test)
-        rf=RandomForestClassifier(n_estimators=500,
+        rf=RandomForestClassifier(n_estimators=1000,
                                               criterion='entropy',
-                                              max_depth=8,
+                                              max_depth=14,
                                               max_features='auto',
                                               random_state=42)
 
         ## This line instantiates the model.
-        param_grid = {
-            'n_estimators': [500, 1000, 2000],
+        #param_grid = {
+        #    'n_estimators': [900, 1100],
         #    'max_features': ['auto', 'sqrt', 'log2'],
-            'max_depth' : [8,10,12,14],
+        #    'max_depth' : [16,18,20,22],
         #    'criterion' :['gini', 'entropy']
-        }
+        #}
 
-        rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
+        #rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
         ## Fit the model on your training data.
         rf.fit(fX, YI[:,1])
 
@@ -117,7 +117,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         print("SVM score =  %f ." % svmScore)
     else:
         # Get the model.
-        rm = ResearchModels(model, seq_length, None, features_length=featureLength)
+        rm = ResearchModels(model, seq_length, None,features_length=featureLength)
         rm.model.fit(
                 X,
                 Y,
