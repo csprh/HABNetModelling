@@ -88,7 +88,7 @@ class Extractor():
                 base_model = NASNetMobile(
                     weights='imagenet',
                     include_top=False,
-                    pooling = 'avg'
+                    pooling = 'none'
                 )
                 self.model = Sequential()
                 self.model.add(base_model)
