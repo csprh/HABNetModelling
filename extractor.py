@@ -90,14 +90,12 @@ class Extractor():
                     include_top=False,
                     pooling = 'avg'
                 )
-
-                base_model.add(Flatten())
-                self.model = base_model
+                self.model = Sequential()
+                self.model.add(base_model)
+                self.model.add(Flatten())
 
                 self.target_size = (224,224)
                 self.preprocess_input = nasnet_preprocessor
-
-
 
             elif cnnModel == 'NASNetLarge':
                 # Get model with pretrained weights.
