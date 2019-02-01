@@ -83,6 +83,22 @@ class Extractor():
                 )
                 self.target_size = (224,224)
                 self.preprocess_input = nasnet_preprocessor
+           elif cnnModel == 'NASNetMobile2':
+                # Get model with pretrained weights.
+                base_model = NASNetMobile(
+                    weights='imagenet',
+                    include_top=False,
+                    pooling = 'avg'
+                )
+
+                base_model.add(Flatten())
+                self.model = base_model
+
+                self.target_size = (224,224)
+                self.preprocess_input = nasnet_preprocessor
+
+
+
             elif cnnModel == 'NASNetLarge':
                 # Get model with pretrained weights.
                 base_model2 = NASNetLarge(

@@ -1,11 +1,11 @@
 <confgData>
-	<inDir>/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida3/</inDir>
-	<dataDir>/mnt/storage/home/csprh/scratch/HAB/DATA3/</dataDir>
+	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
+	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
 	<seqName>NASNetMobile</seqName>
 	<featureLength>10560</featureLength>
-	<model>svm</model>
+	<model>RF</model>
 	<cnnModel>NASNetMobile</cnnModel>
-	<seqLength>5</seqLength>
+	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
 </confgData>
