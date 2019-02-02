@@ -201,5 +201,5 @@ class Extractor():
         top = np.ceil((height - new_height)/2)
         right = np.floor((width + new_width)/2)
         bottom = np.floor((height + new_height)/2)
-        cImg[int(top):int(bottom), int(left):int(right),:] = img
+        cImg[int(top):int(bottom), int(left):int(right)] = img
         return cImg
