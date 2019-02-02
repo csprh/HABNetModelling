@@ -197,8 +197,8 @@ class Extractor():
         width =  np.size(img,1)
         height =  np.size(img,0)
 
-        left = np.ceil((width - new_width)/2)
-        top = np.ceil((height - new_height)/2)
+        left = np.ceil((new_width - width)/2)
+        top = np.ceil((new_height - height)/2)
         right = np.floor((width + new_width)/2)
         bottom = np.floor((height + new_height)/2)
         cImg[int(top):int(bottom), int(left):int(right)] = img
