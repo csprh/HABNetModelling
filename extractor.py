@@ -193,7 +193,7 @@ class Extractor():
         return cImg
 
     def centeredCrop2(self, img, new_height, new_width):
-        cImg = numpy.zeros((new_height,new_width))
+        cImg = np.zeros((new_height,new_width))
         width =  np.size(img,1)
         height =  np.size(img,0)
 
