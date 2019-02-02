@@ -90,10 +90,11 @@ class Extractor():
                     include_top=False,
                     pooling = 'none'
                 )
-                self.model = Sequential()
-                self.model.add(base_model)
-                self.model.add(Flatten())
+                #self.model = Sequential()
+                #self.model.add(base_model)
+                #self.model.add(Flatten())
 
+                self.model = base_model
                 self.target_size = (224,224)
                 self.preprocess_input = nasnet_preprocessor
 
