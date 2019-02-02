@@ -40,7 +40,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
         for image in frames:
             features = model.extract(image)
             featsflat = features[4,4,:]
-            sequence.append(featsflat)
+            sequence.append(features)
 
         # Save the sequence.
         np.save(npypath, sequence)
