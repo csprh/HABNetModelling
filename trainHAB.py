@@ -27,6 +27,9 @@ from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+import xgboost as xgb
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,

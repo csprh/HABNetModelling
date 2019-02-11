@@ -27,6 +27,9 @@ from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+import xgboost as xgb
 
 # Train the model
 def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
@@ -105,6 +108,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         preds[preds > 0.5] = 1
         preds[preds <= 0.5] = 0
         print(accuracy_score(preds, Y_testI), 1 - accuracy_score(preds, Y_testI))
+
     if model == 'svm':
         #Currently, SVMs do not work for very large bottleneck features.
         #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
