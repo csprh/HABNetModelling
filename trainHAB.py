@@ -1,4 +1,18 @@
-""" Train a model """
+# A file to perform machine learning on HAB data
+#
+# Copyright: (c) 2019 Paul Hill
+
+"""
+This file contains a script that inputs the configuration file and then
+extracts a whole dataset of HAB datacube data.  An available list of ML
+classifiers are available to classify the outputs previously extracted
+bottleneck features.
+
+By default it loads the configuration file classifyHAB1.xml.  However it can
+take one argument that specifies the config file to use i.e.
+python3 trainHAB.py classifyHAB3.xml
+"""
+
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
 from models import ResearchModels
 from dataHAB import DataSet
@@ -25,7 +39,6 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
     # Helper: Stop when we stop learning.
-    #early_stopper = EarlyStopping(patience=2)
     early_stopper = EarlyStopping(monitor='val_acc', patience=2,  mode='auto')
 
     # Helper: Save results.
@@ -41,6 +54,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
     X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.2)
+
 
     if model == 'RF':
         YI = np.int64(Y)
@@ -74,7 +88,26 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
         np.savetxt('rfImports2.txt', rf.feature_importances_);
         print("RF Score = %f ." % rfScore)
 
+    if model == 'xgb':
+        # Train xgboost
+        YI = np.int64(Y)
+        Y_testI = np.int64(Y_test)
+        fX = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
+
+        dtrain = xgb.DMatrix(fX, YI)
+        dtest = xgb.DMatrix(fX_test, Y_testI)
+        param = {'max_depth' : 3, 'eta' : 0.1, 'objective' : 'binary:logistic', 'seed' : 42}
+        num_round = 50
+        bst = xgb.train(param, dtrain, num_round, [(dtest, 'test'), (dtrain, 'train')])
+
+        preds = bst.predict(dtest)
+        preds[preds > 0.5] = 1
+        preds[preds <= 0.5] = 0
+        print(accuracy_score(preds, Y_testI), 1 - accuracy_score(preds, Y_testI))
+
     if model == 'svm':
+        #Currently, SVMs do not work for very large bottleneck features.
         #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
         #             'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
 

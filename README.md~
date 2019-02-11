@@ -5,7 +5,7 @@ This code is for generating classfication scores for HAB databases
 There are two basic classification methods:
 
 1. Extract features from each frame with a ConvNet, passing the sequence to an RNN, in a separate network
-2. Extract features from each frame with a ConvNet and pass the sequence to an MLP
+2. Extract features from each frame with a ConvNet and pass the sequence to an MLP/LSTM/RF system
 
 ## Requirements
 
@@ -20,7 +20,7 @@ directory (one jpg per time stamp).
 
 ## Extracting features
 
-For the four models (`lstm1`, 'lstm2', 'mlp1' and `mlp2`) features are firstly extracted from each jpg image using the 
+For the five models (`lstm1`, 'lstm2', 'mlp1', `mlp2`, 'RF') features are firstly extracted from each png image using the 
 `extract\_features.py` script. 
 
 ## Training
@@ -46,15 +46,17 @@ The elements within the configuration file control the training process.  A typi
 </confgData>
 ```
 
+```
 inDir: The directory where the jpg images are stored
 dataDir: The directory where all the data will be output in the training process
 seqName:  CNN output name (numpy file format)
 featureLength:  Length of the features output from the CNN
-model:  name of model topology: one of mlp1, mlp2, lstm1, lstm2
+model:  name of model topology: one of mlp1, mlp2, lstm1, lstm2, RF
 cnnModel: Name of CNN model (currently ignored)
 seqLength: Number of jpg images in each modality (temporal span)
 batchSize: tensorflow control
 epochNumber: tensorflow control
+```
 
 ## TODO
 

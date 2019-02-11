@@ -1,7 +1,18 @@
+# This file contains a script to extract bottleneck features from each image
+# within a datacube.
+#
+# Copyright: (c) 2019 Paul Hill
+
 """
-This script generates extracted features for each video, which other
-models make use of.
+This file contains a function that loops through all of the input datacube
+images and extracts and contatenates bottleneck features from them using a
+specified CNN.
+
+By default it loads the configuration file classifyHAB1.xml.  However it can
+take one argument that specifies the config file to use i.e.
+python3 extract_features.py classifyHAB3.xml
 """
+
 import glob
 import numpy as np
 import os.path
@@ -15,14 +26,11 @@ from inputXMLConfig import inputXMLConfig
 def extract(inDir, seqName, dataDir, seqLength, cnnModel):
 
     # Get the dataset.
-
     data = DataSet(seqName, seqLength, inDir, dataDir)
     # get the model.
     model = Extractor(cnnModel)
 
     # Loop through data.
-
-
     max_depth = 0
     bottom_most_dirs = []
 
@@ -33,24 +41,23 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
         # Get the path to the sequence for this video.
         npypath = os.path.join(thisDir, seqName)
 
-
         frames = sorted(glob.glob(os.path.join(thisDir, '*png')))
-        #frames = sorted(glob.glob(os.path.join(thisDir, '*jpg')))
         sequence = []
         for image in frames:
             features = model.extract(image)
-            featsflat = features[4,4,:]
-            sequence.append(featsflat)
-
+            if cnnModel == 'NASNetMobile2':
+                featsflat = features[4,4,:]
+                sequence.append(featsflat)
+            else:
+                sequence.append(features)
         # Save the sequence.
         np.save(npypath, sequence)
-
 
     """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
     # model can be one of lstm, mlp, svm
-    import pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'classifyHAB1.xml'

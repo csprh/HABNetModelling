@@ -1,3 +1,20 @@
+# This file contains functions to define different types of CNNs and extract
+# bottleneck features from them given an input image
+#
+# Copyright: (c) 2019 Paul Hill
+
+"""
+Originally, the input images (currently 100x100 samples) were expanded and
+interpolated to the input size of the CNN.  Now the image is centred using it's
+native size within a blank image (full of zeros).  This will not affect the
+bottleneck characterising features (I think).
+
+Note, the NASNetMobile2 features are 2D and will either need to be flattened.
+In the present system, just the central tensor is taken (in order to
+characterise the center of the image where the event took place)
+"""
+
+
 from keras.preprocessing import image
 from keras.applications.inception_v3 import InceptionV3
 from keras.applications.inception_v3 import preprocess_input as inception_v3_preprocessor
@@ -12,15 +29,11 @@ from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
 from keras.models import Model, load_model, Sequential
 from keras.layers import Input, Flatten
 from cifar10vgg import cifar10vgg
-
 import numpy as np
-
 
 
 class Extractor():
     def __init__(self, cnnModel, weights=None):
-        """Either load pretrained from imagenet, or load our saved
-        weights from our own training."""
 
         self.cnnModel = cnnModel
         self.weights = weights  # so we can check elsewhere which model
@@ -161,10 +174,11 @@ class Extractor():
             x = np.expand_dims(x, axis=0)
             #x =  self.normalize_production_here(x)
         else:
-            #img = image.load_img(image_path, target_size=self.target_size)
+            tSize=self.target_size
             img = image.load_img(image_path)
             x = image.img_to_array(img)
-            x = self.centeredCrop2(x, 224, 224)
+
+            x = self.centeredCrop2(x, tSize(0), tSize(1))
             x = np.expand_dims(x, axis=0)
             x = self.preprocess_input(x)
 
