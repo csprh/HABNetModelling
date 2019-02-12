@@ -1,6 +1,4 @@
-# A file to import configuration information for HAB training form XML file
-#
-# Copyright: (c) 2019 Paul Hill
+""" Inport configuration file """
 import xml.etree.ElementTree as ET
 import numpy
 
