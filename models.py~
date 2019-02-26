@@ -3,16 +3,7 @@
 #
 # Copyright: (c) 2019 Paul Hill
 
-"""
-This file contains a script that inputs the configuration file and then
-extracts a whole dataset of HAB datacube data.  An available list of ML
-classifiers are available to classify the outputs previously extracted
-bottleneck features.
 
-By default it loads the configuration file classifyHAB1.xml.  However it can
-take one argument that specifies the config file to use i.e.
-python3 trainHAB.py classifyHAB3.xml
-"""
 
 from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
     BatchNormalization)
@@ -88,7 +79,7 @@ class ResearchModels():
 
     def lstm0(self):
         """Build a simple LSTM network. We pass the extracted features from
-        our CNN to this model predomenently."""
+        our CNN to this model"""
         # Model.
         model = Sequential()
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
@@ -104,7 +95,7 @@ class ResearchModels():
 
     def lstm1(self):
         """Build a simple LSTM network. We pass the extracted features from
-        our CNN to this model predomenently."""
+        our CNN to this model"""
         # Model.
         model = Sequential()
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
@@ -118,7 +109,7 @@ class ResearchModels():
 
     def lstm2(self):
         """Build a simple LSTM network. We pass the extracted features from
-        our CNN to this model predomenently."""
+        our CNN to this model."""
         # Model.
         model = Sequential()
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,

@@ -159,7 +159,7 @@ class DataSet():
         """
         # Get the right dataset.
         train, test = self.split_train_test_prop(prop)
-        self.train = trains
+        self.train = train
         self.test = test
         X1, Y1 = [], []
         X2, Y2 = [], []

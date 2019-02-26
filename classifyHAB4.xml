@@ -1,10 +1,10 @@
 <confgData>
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
-	<seqName>NASNetMobile2</seqName>
-	<featureLength>10560</featureLength>
-	<model>xgb</model>
-	<cnnModel>NASNetMobile2</cnnModel>
+	<seqName>NASNetMobile22</seqName>
+	<featureLength>42240</featureLength>
+	<model>lstm0</model>
+	<cnnModel>NASNetMobile22</cnnModel>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>2000</epochNumber>
