@@ -60,7 +60,7 @@ def main(argv):
     #import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = 'classifyHAB1.xml'
+        xmlName = 'oldXMLs/NASNet22_lstm0.xml'
     else:
         xmlName = argv[0]
 

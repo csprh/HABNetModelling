@@ -10,7 +10,7 @@ bottleneck features.
 
 By default it loads the configuration file classifyHAB1.xml.  However it can
 take one argument that specifies the config file to use i.e.
-python3 trainHAB.py classifyHAB3.xml
+python3 trainHAB.py ./cnfgXMLs/NASNet22_lstm0.xml
 """
 
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
@@ -174,7 +174,7 @@ def main(argv):
     import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = 'classifyHAB1.xml'
+        xmlName = './cnfgXMLs/NASNet22_lstm0.xml'
     else:
         xmlName = argv[0]
 
