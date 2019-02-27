@@ -120,7 +120,7 @@ class DataSet():
         return train, test, thisall
 
 
-    def get_all_sequences_in_memory(self, train_test):
+    def get_all_sequences_in_memory(self, train_test, data_type):
         """
         Load all the sequences into memory for speed (train, test or all)
         """
@@ -139,14 +139,14 @@ class DataSet():
         X, Y = [], []
         for sample in data:
 
-            sequence = self.get_extracted_sequenceAllMods(sample)
+            sequence = self.get_extracted_sequenceAllMods(data_type, sample)
 
             X.append(sequence)
             Y.append(self.get_class_one_hot(sample))
 
         return np.array(X), np.array(Y)
 
-    def get_all_sequences_in_memory_prop(self,  prop):
+    def get_all_sequences_in_memory_prop(self, data_type, prop):
         """
         Load all the sequences into memory (in proportion) for speed (train, test)
         """
@@ -158,22 +158,57 @@ class DataSet():
         X2, Y2 = [], []
         for sample in train:
 
-            sequence = self.get_extracted_sequenceAllMods(sample)
+            sequence = self.get_extracted_sequenceAllMods(data_type, sample)
 
             X1.append(sequence)
             Y1.append(self.get_class_one_hot(sample))
 
         for sample in test:
 
-            sequence = self.get_extracted_sequenceAllMods(sample)
+            sequence = self.get_extracted_sequenceAllMods(data_type, sample)
 
             X2.append(sequence)
             Y2.append(self.get_class_one_hot(sample))
 
         return np.array(X1), np.array(Y1), np.array(X2), np.array(Y2)
 
+    @threadsafe_generator
+    def frame_generator(self, batch_size, train_test, data_type):
+        """Return a generator that we can use to train on. There are
+        a couple different things we can return:
 
-    def get_extracted_sequenceAllMods(self, filename):
+        data_type: 'features', 'images'
+        """
+        # Get the right dataset for the generator.
+        train, test = self.split_train_test()
+        data = train if train_test == 'train' else test
+
+        print("Creating %s generator with %d samples." % (train_test, len(data)))
+
+        while 1:
+            X, y = [], []
+
+            # Generate batch_size samples.
+            for _ in range(batch_size):
+                # Reset to be safe.
+                sequence = None
+
+                # Get a random sample.
+                sample = random.choice(data)
+
+
+                # Get the sequence from disk.
+                sequence = self.get_extracted_sequenceAllMods(data_type, sample)
+
+                if sequence is None:
+                    raise ValueError("Can't find sequence. Did you generate them?")
+
+                X.append(sequence)
+                y.append(self.get_class_one_hot(sample))
+
+            yield np.array(X), np.array(y)
+
+    def get_extracted_sequenceAllMods(self, data_type, filename):
         """Get the saved extracted features.  Concatenate all mods"""
 
         thisreturn = []
@@ -188,7 +223,7 @@ class DataSet():
                 thisreturn = np.concatenate((thisreturn, thisfeats), axis=1)
         return thisreturn
 
-    def get_extracted_sequence(self,  filename):
+    def get_extracted_sequence(self, data_type, filename):
         """Get a single image from the eighth modality."""
 
         path = filename + '/8/' + self.seqName + '.npy'
