@@ -1,17 +1,12 @@
 """
 Class for managing our data.
 """
-import csv
 import numpy as np
 import random
-import glob
 import os.path
-import sys
-import operator
 import threading
-from processor import process_image
 from keras.utils import to_categorical
-import os.path
+
 
 class threadsafe_iterator:
     def __init__(self, iterator):
@@ -25,18 +20,19 @@ class threadsafe_iterator:
         with self.lock:
             return next(self.iterator)
 
+
 def threadsafe_generator(func):
     """Decorator"""
     def gen(*a, **kw):
         return threadsafe_iterator(func(*a, **kw))
     return gen
 
+
 class DataSet():
 
     def __init__(self, seqName, seq_length, inDir, dataDir,  image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
-
         self.inDir = inDir
         self.dataDir = dataDir
         self.seqName = seqName
@@ -90,26 +86,23 @@ class DataSet():
 
         return label_hot
 
-
     def split_train_test_prop(self, prop):
         """Split the data into train and test groups (and return them and all)."""
         train = []
         test = []
-        thisall = []
 
         inde = 0
         dataLen = len(self.data)
         np.random.seed(0)
-        rc = np.random.choice([0, 1], size=(dataLen,), p=[prop, 1-prop])
+        rc = np.random.choice([0, 1], size=(dataLen,), p=[1-prop, prop])
 
         for item in self.data:
-            if  rc[inde] == 0 :
+            if  rc[inde] == 0:
                 train.append(item)
             else:
                 test.append(item)
             inde = inde + 1
         return train, test
-
 
     def split_train_test(self):
         """Split the data into train and test groups (and return them and all)."""
@@ -153,13 +146,13 @@ class DataSet():
 
         return np.array(X), np.array(Y)
 
-    def get_all_sequences_in_memory2(self, data_type, prop):
+    def get_all_sequences_in_memory_prop(self, data_type, prop):
         """
         Load all the sequences into memory (in proportion) for speed (train, test)
         """
         # Get the right dataset.
         train, test = self.split_train_test_prop(prop)
-        self.train = trains
+        self.train = train
         self.test = test
         X1, Y1 = [], []
         X2, Y2 = [], []

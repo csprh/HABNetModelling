@@ -56,7 +56,7 @@ def train(inDir, dataDir,data_type, seqName, seq_length, model, image_shape,
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
-    X, Y, X_test, Y_test = data.get_all_sequences_in_memory2( data_type, 0.2)
+    X, Y, X_test, Y_test = data.get_all_sequences_in_memory_prop( data_type, 0.2)
 
 
     if model == 'RF':
