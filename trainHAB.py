@@ -36,7 +36,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
 
     checkpointer = ModelCheckpoint(
-        filepath=os.path.join(dataDir, 'checkpoints', model + '-' + data_type + \
+        filepath=os.path.join(dataDir, 'checkpoints', model + \
             '.{epoch:03d}-{val_loss:.3f}.hdf5'), verbose=1, save_best_only=True)
     # Helper: TensorBoard
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
