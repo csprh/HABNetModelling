@@ -36,7 +36,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
 
     checkpointer = ModelCheckpoint(
-        filepath=os.path.join(dataDir, 'checkpoints', model +  \
+        filepath=os.path.join(dataDir, 'checkpoints', model + \
             '.{epoch:03d}-{val_loss:.3f}.hdf5'), verbose=1, save_best_only=True)
     # Helper: TensorBoard
     tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
@@ -56,13 +56,13 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
     steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
     #X, Y = data.get_all_sequences_in_memory('train', data_type)
-    X, Y, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
+    X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
 
 
     if model == 'RF':
-        YI = np.int64(Y)
+        Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
-        fX = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_train = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
         #scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
@@ -84,7 +84,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 
         #rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
         ## Fit the model on your training data.
-        rf.fit(fX, YI[:,1])
+        rf.fit(fX_train, Y_trainI[:,1])
 
         ## And score it on your testing data.
         rfScore = rf.score(fX_test, Y_testI[:,1])
@@ -93,12 +93,12 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 
     if model == 'xgb':
         # Train xgboost
-        YI = np.int64(Y)
+        Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
-        fX = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_train = X.reshape(X.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        dtrain = xgb.DMatrix(fX, YI)
+        dtrain = xgb.DMatrix(fX_train, Y_trainI)
         dtest = xgb.DMatrix(fX_test, Y_testI)
         param = {'max_depth' : 3, 'eta' : 0.1, 'objective' : 'binary:logistic', 'seed' : 42}
         num_round = 50
@@ -118,7 +118,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
                      'C': [0.10,  10, 50, 1000]}]
 
 
-        YI = np.int64(Y)
+        Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
 
         #Cs = [0.001, 0.01, 0.1, 1, 10]
@@ -132,22 +132,22 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 #       clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
-        fX = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_train = X.reshape(X_train.shape[0], seq_length*featureLength)
         #rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
         pca = PCA(n_components=10000)
-        pca.fit(fX)
+        pca.fit(fX_train)
 
 
         scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
-        fX = scaling.transform(fX)
-        fX = pca.transform(fX)
+        fX_train = scaling.transform(fX_train)
+        fX_train = pca.transform(fX_train)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
         fX_test = scaling.transform(fX_test)
         fX_test = pca.transform(fX_test)
 
 
-        clf.fit(fX, YI[:,1])
+        clf.fit(fX_train, Y_trainI[:,1])
 
         svmScore = clf.score(fX_test, Y_testI[:,1])
         print("SVM score =  %f ." % svmScore)
@@ -155,8 +155,8 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         # Get the model.
         rm = ResearchModels(model, seq_length, None,features_length=featureLength)
         rm.model.fit(
-                X,
-                Y,
+                X_train,
+                Y_train,
                 batch_size=batch_size,
                 #validation_data=(X_test, Y_test),
                 validation_split=0.1,
@@ -170,7 +170,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
-    # model can be one of lstm, mlp, svm
+
     import pudb; pu.db
 
     if (len(argv)==0):
