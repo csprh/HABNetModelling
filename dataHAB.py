@@ -30,7 +30,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length, inDir, dataDir,  image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length, inDir, dataDir,  modNumber=11,image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
         self.inDir = inDir
@@ -41,6 +41,7 @@ class DataSet():
         self.dataLowest = self.get_data(self.inDir)
         self.data = self.extract_data(self.dataLowest)
         self.image_shape = image_shape
+        self.modNumber = modNumber
 
     @staticmethod
     def get_data(inDir):
@@ -177,7 +178,7 @@ class DataSet():
         """Get the saved extracted features.  Concatenate all mods"""
 
         thisreturn = []
-        for i in range(1,11):
+        for i in range(1,self.modNumber):
 
             thispath = filename + '/' + str(i) + '/' +  self.seqName + '.npy'
             thisfeats = np.load(thispath)
