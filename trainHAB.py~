@@ -151,8 +151,6 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         timestamp = time.time()
         csv_logger = CSVLogger(os.path.join(dataDir, 'logs', model + '-' + 'training-' + \
            str(timestamp) + '.log'))
-        # Get samples per epoch.
-        # Multiply by 0.7 to attempt to guess how much of data.data is the train set.
 
         # Get the model.
         rm = ResearchModels(model, seq_length, None,features_length=featureLength)

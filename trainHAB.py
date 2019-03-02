@@ -155,7 +155,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         # Get the model.
         rm = ResearchModels(model, seq_length, None,features_length=featureLength)
 
-        filepath="weightsbest.hdf5"
+        filepath=dataDir + "weightsbest.hdf5"
         checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
         rm.model.fit(
                 X_train,
