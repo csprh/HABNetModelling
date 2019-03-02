@@ -2,7 +2,6 @@
 Class for managing our data.
 """
 import numpy as np
-import random
 import os.path
 import threading
 from keras.utils import to_categorical
@@ -30,7 +29,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length, inDir, dataDir,  modNumber=11,image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length, inDir, dataDir,  modNumber=11, image_shape=(224, 224, 3)):
 
         self.seq_length = seq_length
         self.inDir = inDir
@@ -98,7 +97,7 @@ class DataSet():
         rc = np.random.choice([0, 1], size=(dataLen,), p=[1-prop, prop])
 
         for item in self.data:
-            if  rc[inde] == 0:
+            if rc[inde] == 0:
                 train.append(item)
             else:
                 test.append(item)
@@ -119,7 +118,6 @@ class DataSet():
                 test.append(item)
             thisall.append(item)
         return train, test, thisall
-
 
     def get_all_sequences_in_memory(self, train_test):
         """
@@ -173,17 +171,18 @@ class DataSet():
 
         return np.array(X1), np.array(Y1), np.array(X2), np.array(Y2)
 
-
     def get_extracted_sequenceAllMods(self, filename):
         """Get the saved extracted features.  Concatenate all mods"""
-
+        """This function takes the base filename and loops through all the
+           modalities loading the output bottleneck features.  It concatentates
+           these features """
         thisreturn = []
-        for i in range(1,self.modNumber):
+        for i in range(1, self.modNumber):
 
-            thispath = filename + '/' + str(i) + '/' +  self.seqName + '.npy'
+            thispath = filename + '/' + str(i) + '/' + self.seqName + '.npy'
             thisfeats = np.load(thispath)
 
-            if i == 1 :
+            if i == 1:
                 thisreturn = thisfeats
             else:
                 thisreturn = np.concatenate((thisreturn, thisfeats), axis=1)
@@ -197,4 +196,3 @@ class DataSet():
             return np.load(path)
         else:
             return None
-

@@ -20,7 +20,7 @@ directory (one jpg per time stamp).
 
 ## Extracting features
 
-For the five models ('lstm0', `lstm1`, 'lstm2', 'mlp1', `mlp2`, 'RF') features are firstly extracted from each png image using the 
+For the five models (`lstm1`, 'lstm2', 'mlp1', `mlp2`, 'RF') features are firstly extracted from each png image using the 
 `extract\_features.py` script. 
 
 ## Training

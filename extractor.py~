@@ -204,7 +204,7 @@ class Extractor():
     def centerImage(self, img, new_height, new_width):
         # For CNNs using a size larger than the image, just take the image
         # put it in the center and pad with zeros.
-        cImg = np.zeros((new_height, new_width, 3))
+        cImg = np.zeros((new_height,new_width, 3))
         width =  np.size(img, 1)
         height =  np.size(img, 0)
 

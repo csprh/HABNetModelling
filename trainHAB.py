@@ -35,30 +35,15 @@ import xgboost as xgb
 def train(inDir, dataDir, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength):
 
-    checkpointer = ModelCheckpoint(
-        filepath=os.path.join(dataDir, 'checkpoints', model + \
-            '.{epoch:03d}-{val_loss:.3f}.hdf5'), verbose=1, save_best_only=True)
-    # Helper: TensorBoard
-    tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
-    # Helper: Stop when we stop learning.
-    early_stopper = EarlyStopping(monitor='val_acc', patience=500,  mode='auto')
-
-    # Helper: Save results.
-    timestamp = time.time()
-    csv_logger = CSVLogger(os.path.join(dataDir, 'logs', model + '-' + 'training-' + \
-        str(timestamp) + '.log'))
 
     data = DataSet(seqName, seq_length, inDir, dataDir)
 
-    # Get samples per epoch.
-    # Multiply by 0.7 to attempt to guess how much of data.data is the train set.
-    steps_per_epoch = (len(data.data) * 0.7) // batch_size
 
-    #X, Y = data.get_all_sequences_in_memory('train', data_type)
     X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
 
-
+    # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
+    # separately here.  None are currently out performing keras based models
     if model == 'RF':
         Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
@@ -91,11 +76,11 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         np.savetxt('rfImports2.txt', rf.feature_importances_);
         print("RF Score = %f ." % rfScore)
 
-    if model == 'xgb':
+    elif model == 'xgb':
         # Train xgboost
         Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
-        fX_train = X.reshape(X.shape[0], seq_length*featureLength)
+        fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
         dtrain = xgb.DMatrix(fX_train, Y_trainI)
@@ -109,14 +94,14 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         preds[preds <= 0.5] = 0
         print(accuracy_score(preds, Y_testI), 1 - accuracy_score(preds, Y_testI))
 
-    if model == 'svm':
+    elif model == 'svm':
         #Currently, SVMs do not work for very large bottleneck features.
+        #Current code is
         #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
         #             'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
 
         tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
                      'C': [0.10,  10, 50, 1000]}]
-
 
         Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
@@ -132,7 +117,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 #       clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=3)
         #clf = SVC(C=1)
         # scoring='%s_macro' % score)
-        fX_train = X.reshape(X_train.shape[0], seq_length*featureLength)
+        fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
         #rm = ResearchModels(model, seq_length, None, features_length=featureLength)
 
         pca = PCA(n_components=10000)
@@ -152,16 +137,33 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
         svmScore = clf.score(fX_test, Y_testI[:,1])
         print("SVM score =  %f ." % svmScore)
     else:
+
+        checkpointer = ModelCheckpoint(
+        filepath=os.path.join(dataDir, 'checkpoints', model + \
+            '.{epoch:03d}-{val_loss:.3f}.hdf5'), verbose=1, save_best_only=True)
+        # Helper: TensorBoard
+        tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
+
+        # Helper: Stop when we stop learning.
+        early_stopper = EarlyStopping(monitor='val_acc', patience=500,  mode='auto')
+
+        # Helper: Save results.
+        timestamp = time.time()
+        csv_logger = CSVLogger(os.path.join(dataDir, 'logs', model + '-' + 'training-' + \
+           str(timestamp) + '.log'))
+
         # Get the model.
         rm = ResearchModels(model, seq_length, None,features_length=featureLength)
+
+        filepath="weightsbest.hdf5"
+        checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
         rm.model.fit(
                 X_train,
                 Y_train,
                 batch_size=batch_size,
-                #validation_data=(X_test, Y_test),
                 validation_split=0.1,
                 verbose=1,
-                callbacks=[tb, early_stopper, csv_logger],
+                callbacks=[tb, early_stopper, csv_logger, checkpoint],
                 epochs=nb_epoch)
 
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
