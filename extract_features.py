@@ -45,11 +45,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
         sequence = []
         for image in frames:
             features = model.extract(image)
-            if cnnModel == 'NASNetMobile22':
-                featsflat = features[4,4,:]
-                sequence.append(featsflat)
-            else:
-                sequence.append(features)
+            sequence.append(features)
         # Save the sequence.
         np.save(npypath, sequence)
 
