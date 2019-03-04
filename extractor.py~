@@ -110,6 +110,7 @@ class Extractor():
                 )
 
                 self.model.add(Cropping2D(cropping=((3, 3), (3, 3))))
+                self.model.add(Flatten())
                 self.target_size = (224, 224)
                 self.preprocess_input = nasnet_preprocessor
 
@@ -120,12 +121,16 @@ class Extractor():
                     include_top=True
                 )
 
+
                 # We'll extract features at the final pool layer.
-                self.model = Model(
+                interModel = Model(
                     inputs=base_model.input,
                     outputs=base_model.get_layer('global_average_pooling2d_1').output
                 )
+                self.model = Sequential()
+                self.model.add(interModel)
                 self.model.add(Cropping2D(cropping=((2, 2), (2, 2))))
+                self.model.add(Flatten())
                 self.target_size = (224, 224)
                 self.preprocess_input = nasnet_preprocessor
 
