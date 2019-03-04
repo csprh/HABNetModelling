@@ -44,7 +44,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
         frames = sorted(glob.glob(os.path.join(thisDir, '*png')))
         sequence = []
         for image in frames:
-            features = model.extract(image)
+            features = model.model.extract(image)
             sequence.append(features)
         # Save the sequence.
         np.save(npypath, sequence)
