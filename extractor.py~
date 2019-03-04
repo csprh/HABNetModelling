@@ -101,6 +101,26 @@ class Extractor():
 
             elif cnnModel == 'NASNetMobileCropTo11':
                 # Get model with pretrained weights.
+                base_model = NASNetMobile(
+                    weights='imagenet',
+                    include_top=True
+                )
+
+
+                # We'll extract features at the final pool layer.
+                interModel = Model(
+                    inputs=base_model.input,
+                    outputs=base_model.get_layer('activation_188').output
+                )
+                self.model = Sequential()
+                self.model.add(interModel)
+                self.model.add(Cropping2D(cropping=((3, 3), (3, 3))))
+                self.model.add(Flatten())
+                self.target_size = (224, 224)
+                self.preprocess_input = nasnet_preprocessor
+
+            elif cnnModel == 'NASNetMobileCropTo33':
+
                 # Get model with pretrained weights.
                 base_model = NASNetMobile(
                     weights='imagenet',
@@ -111,26 +131,12 @@ class Extractor():
                 # We'll extract features at the final pool layer.
                 interModel = Model(
                     inputs=base_model.input,
-                    outputs=base_model.get_layer('global_average_pooling2d_1').output
+                    outputs=base_model.get_layer('activation_188').output
                 )
                 self.model = Sequential()
                 self.model.add(interModel)
-                self.model.add(Cropping2D(cropping=((3, 3), (3, 3)),input_shape=(None, 7, 7, 1056)))
+                self.model.add(Cropping2D(cropping=((2, 2), (2, 2))))
                 self.model.add(Flatten())
-                self.target_size = (224, 224)
-                self.preprocess_input = nasnet_preprocessor
-
-            elif cnnModel == 'NASNetMobileCropTo33':
-                # Get model with pretrained weights.
-                base_model = NASNetMobile(
-                    weights='imagenet',
-                    include_top=True
-                )
-                base_model.layers.pop()
-                x = Cropping2D(cropping=((2, 2), (2, 2)))(base_model.get_layer('global_average_pooling2d_1').output)
-                x = Flatten()(x)
-                self.model = Model(input = base_model.input, output = x)
-
                 self.target_size = (224, 224)
                 self.preprocess_input = nasnet_preprocessor
 

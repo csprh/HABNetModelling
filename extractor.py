@@ -217,7 +217,7 @@ class Extractor():
             img = image.load_img(image_path)
             x = image.img_to_array(img)
 
-            x = self.centerImage(x, tSize(0), tSize(1))
+            x = self.centerImage(x, tSize[0], tSize[1])
             x = np.expand_dims(x, axis=0)
             x = self.preprocess_input(x)
 
