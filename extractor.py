@@ -115,7 +115,7 @@ class Extractor():
                 )
                 self.model = Sequential()
                 self.model.add(interModel)
-                self.model.add(Cropping2D(cropping=((3, 3), (3, 3)),input_shape=(7, 7)))
+                self.model.add(Cropping2D(cropping=((3, 3), (3, 3))),input_shape=(7, 7))
                 self.model.add(Flatten())
                 self.target_size = (224, 224)
                 self.preprocess_input = nasnet_preprocessor
@@ -135,7 +135,7 @@ class Extractor():
                 )
                 self.model = Sequential()
                 self.model.add(interModel)
-                self.model.add(Cropping2D(cropping=((2, 2), (2, 2)),input_shape=(7, 7)))
+                self.model.add(Cropping2D(cropping=((2, 2), (2, 2))),input_shape=(7, 7))
                 self.model.add(Flatten())
                 self.target_size = (224, 224)
                 self.preprocess_input = nasnet_preprocessor
