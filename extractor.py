@@ -24,9 +24,11 @@ from keras.applications.vgg19 import preprocess_input as vgg19_preprocessor
 from keras.applications.nasnet import NASNetLarge, NASNetMobile
 from keras.applications.nasnet import preprocess_input as nasnet_preprocessor
 
+
 # from keras.applications.inception_v3 import preprocess_input as inception_v3_preprocessor
 from keras.models import Model, load_model, Sequential
 from keras.layers import Flatten
+from keras.layers.convolutional import Cropping2D
 from cifar10vgg import cifar10vgg
 import numpy as np
 
@@ -44,6 +46,7 @@ class Extractor():
                     weights='imagenet',
                     include_top=True
                 )
+
 
                 # We'll extract features at the final pool layer.
                 self.model = Model(
