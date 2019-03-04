@@ -127,7 +127,7 @@ class Extractor():
                     include_top=True
                 )
                 base_model.layers.pop()
-                x = Cropping2D(cropping=((2, 2), (2, 2))(base_model.get_layer('global_average_pooling2d_1').output)
+                x = Cropping2D(cropping=((2, 2), (2, 2)))(base_model.get_layer('global_average_pooling2d_1').output)
                 x = Flatten()(x)
                 self.model = Model(input = base_model.input, output = x)
 
