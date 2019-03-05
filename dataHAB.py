@@ -90,10 +90,13 @@ class DataSet():
         return label_hot
 
 
-    def subsample_data(self, input, subFactor):
+    def subsample_data(self):
+        """Subsample all the data by factor"""
+        thisInput = self.data
+        subFactor = self.svdSubsampleFactor
         ind  = 0
         output = []
-        for item in input:
+        for item in thisInput:
             ind = ind + 1
             if ind % subFactor == 0 :
                 output.append(item)
@@ -191,7 +194,7 @@ class DataSet():
         reducedDataX1, X1, Y1 = [], [], []
         X2, Y2 = [], []
         # Get the right dataset.
-        reducedData = self.subsample_data(self, self.data, self.svdSubsampleFactor)
+        reducedData = self.subsample_data()
 
         for sample in reducedData:
             sequence = self.get_extracted_sequenceAllMods(sample)
