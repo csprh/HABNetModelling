@@ -1,10 +1,11 @@
 <confgData>
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
-	<seqName>NASNetMobileCropTo33</seqName>
-	<featureLength>42240</featureLength>
+	<seqName>NASNetMobileCropTo11</seqName>
+	<featureLength>95040</featureLength>
+	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
-	<cnnModel>NASNetMobileCropTo33</cnnModel>
+	<cnnModel>NASNetMobileCropTo11</cnnModel>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>
