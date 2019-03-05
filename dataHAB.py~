@@ -94,7 +94,7 @@ class DataSet():
         inde = 0
         data_len = len(self.data)
         np.random.seed(0)
-        rc = np.random.choice([0, 1], size=(dataLen,), p=[1-prop, prop])
+        rc = np.random.choice([0, 1], size=(data_len,), p=[1-prop, prop])
         ind = 0
         for item in self.data:
             if rc[inde] == 0:

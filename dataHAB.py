@@ -99,7 +99,7 @@ class DataSet():
         for item in self.data:
             if rc[inde] == 0:
                 ind = ind + 1
-                if ind % 2 == 2:
+                if ind % 2 == 1:
                     train.append(item)
             else:
                 test.append(item)
