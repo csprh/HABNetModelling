@@ -31,8 +31,8 @@ class inputXMLConfig():
                 self.batchSize = int(thisText)
             elif thisTag == 'epochNumber':
                 self.epochNumber = int(thisText)
-            elif thisTag == 'SVDFeatLen':
-                self.SVDFeatLen = int(thisText)
+            elif thisTag == 'epochNumber':
+                self.epochNumber = int(thisText)
 
 
 

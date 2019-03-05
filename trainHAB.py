@@ -33,11 +33,11 @@ import xgboost as xgb
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model, image_shape,
-          batch_size, nb_epoch, featureLength):
+          batch_size, nb_epoch, featureLength, SVDFeatLen):
 
 
 
-    data = DataSet(seqName, seq_length, inDir, dataDir)
+    data = DataSet(seqName, seq_length, SVDFeatLen, inDir, dataDir)
 
 
     X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
@@ -182,7 +182,7 @@ def main(argv):
 
     cnfg = inputXMLConfig(xmlName)
     train(cnfg.inDir, cnfg.dataDir, cnfg.seqName, cnfg.seqLength, cnfg.model, None,
-          cnfg.batchSize, cnfg.epochNumber, cnfg.featureLength)
+          cnfg.batchSize, cnfg.epochNumber, cnfg.featureLength, cnfg.SVDFeatLen)
 
 if __name__ == '__main__':
     main(sys.argv[1:])

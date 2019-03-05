@@ -5,6 +5,7 @@ import numpy as np
 import os.path
 import threading
 from keras.utils import to_categorical
+from sklearn import *
 
 
 class threadsafe_iterator:
@@ -29,7 +30,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length, inDir, dataDir,  modNumber=11, image_shape=(224, 224, 3)):
+    def __init__(self, seqName, seq_length, SVDFeatLen, inDir, dataDir,  modNumber=11, image_shape=(224, 224, 3), svdSubsampleFactor=8):
 
         self.seq_length = seq_length
         self.inDir = inDir
@@ -41,6 +42,8 @@ class DataSet():
         self.data = self.extract_data(self.dataLowest)
         self.image_shape = image_shape
         self.modNumber = modNumber
+        self.SVDFeatLen = SVDFeatLen
+        self.svdSubsampleFactor = svdSubsampleFactor
 
     @staticmethod
     def get_data(inDir):
@@ -86,6 +89,17 @@ class DataSet():
 
         return label_hot
 
+
+    def subsampledata(self, input, subFactor):
+        ind  = 0
+        output = []
+        for item in input:
+            ind = ind + 1
+            if ind % subFactor == 0 :
+                output.append(item)
+        return output
+
+
     def split_train_test_prop(self, prop):
         """Split the data into train and test groups (and return them and all)."""
         train = []
@@ -95,12 +109,9 @@ class DataSet():
         data_len = len(self.data)
         np.random.seed(0)
         rc = np.random.choice([0, 1], size=(data_len,), p=[1-prop, prop])
-        ind = 0
         for item in self.data:
-            if rc[inde] == 0:
-                ind = ind + 1
-                if ind % 3 == 1:
-                    train.append(item)
+            if rc[inde] == 0 :
+                train.append(item)
             else:
                 test.append(item)
             inde = inde + 1
@@ -168,6 +179,46 @@ class DataSet():
 
             sequence = self.get_extracted_sequenceAllMods(sample)
 
+            X2.append(sequence)
+            Y2.append(self.get_class_one_hot(sample))
+
+        return np.array(X1), np.array(Y1), np.array(X2), np.array(Y2)
+
+    def get_all_sequences_in_memory_svd(self,  prop):
+        """
+        Load all the sequences into memory (in proportion) for speed (train, test)
+        """
+        reducedDataX1, X1, Y1 = [], [], []
+        X2, Y2 = [], []
+        # Get the right dataset.
+        reducedData = subsampledata(self, self.data, self.svdSubsampleFactor)
+
+        for sample in reducedData:
+            sequence = self.get_extracted_sequenceAllMods(sample)
+            reducedDataX1.append(sequence)
+
+
+
+        thisSVDT = TruncatedSVD(self.SVDFeatLen)
+        thisSVDT.fit(reducedDataX1);
+
+        train, test = self.split_train_test_prop(prop)
+        self.train = train
+        self.test = test
+
+        for sample in train:
+
+            sequence = self.get_extracted_sequenceAllMods(sample)
+
+            sequence = thisSVDT.tranform(sequence)
+            X1.append(sequence)
+            Y1.append(self.get_class_one_hot(sample))
+
+        for sample in test:
+
+            sequence = self.get_extracted_sequenceAllMods(sample)
+
+            sequence = thisSVDT.tranform(sequence)
             X2.append(sequence)
             Y2.append(self.get_class_one_hot(sample))
 
