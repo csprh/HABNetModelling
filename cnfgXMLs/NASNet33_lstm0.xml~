@@ -2,7 +2,7 @@
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
 	<seqName>NASNetMobileCropTo33</seqName>
-	<featureLength>95040</featureLength>
+	<featureLength>42240</featureLength>
 	<model>lstm0</model>
 	<cnnModel>NASNetMobileCropTo33</cnnModel>
 	<seqLength>10</seqLength>

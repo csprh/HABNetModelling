@@ -92,13 +92,15 @@ class DataSet():
         test = []
 
         inde = 0
-        dataLen = len(self.data)
+        data_len = len(self.data)
         np.random.seed(0)
-        rc = np.random.choice([0, 1], size=(dataLen,), p=[1-prop, prop])
-
+        rc = np.random.choice([0, 1], size=(data_len,), p=[1-prop, prop])
+        ind = 0
         for item in self.data:
             if rc[inde] == 0:
-                train.append(item)
+                ind = ind + 1
+                if ind % 2 == 2:
+                    train.append(item)
             else:
                 test.append(item)
             inde = inde + 1
