@@ -40,7 +40,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
     data = DataSet(seqName, seq_length, SVDFeatLen, inDir, dataDir)
 
 
-    X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
+    X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_svd(0.2)
 
     # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
     # separately here.  None are currently out performing keras based models
