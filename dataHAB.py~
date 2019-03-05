@@ -90,7 +90,7 @@ class DataSet():
         return label_hot
 
 
-    def subsampledata(self, input, subFactor):
+    def subsample_data(self, input, subFactor):
         ind  = 0
         output = []
         for item in input:
@@ -191,7 +191,7 @@ class DataSet():
         reducedDataX1, X1, Y1 = [], [], []
         X2, Y2 = [], []
         # Get the right dataset.
-        reducedData = subsampledata(self, self.data, self.svdSubsampleFactor)
+        reducedData = self.subsampledata(self, self.data, self.svdSubsampleFactor)
 
         for sample in reducedData:
             sequence = self.get_extracted_sequenceAllMods(sample)
@@ -201,6 +201,7 @@ class DataSet():
 
         thisSVDT = TruncatedSVD(self.SVDFeatLen)
         thisSVDT.fit(reducedDataX1);
+
         train, test = self.split_train_test_prop(prop)
         self.train = train
         self.test = test
@@ -209,7 +210,7 @@ class DataSet():
 
             sequence = self.get_extracted_sequenceAllMods(sample)
 
-            sequence = thisSVDT.tranform()
+            sequence = thisSVDT.tranform(sequence)
             X1.append(sequence)
             Y1.append(self.get_class_one_hot(sample))
 
@@ -217,6 +218,7 @@ class DataSet():
 
             sequence = self.get_extracted_sequenceAllMods(sample)
 
+            sequence = thisSVDT.tranform(sequence)
             X2.append(sequence)
             Y2.append(self.get_class_one_hot(sample))
 

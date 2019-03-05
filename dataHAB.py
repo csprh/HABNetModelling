@@ -90,7 +90,7 @@ class DataSet():
         return label_hot
 
 
-    def subsampledata(self, input, subFactor):
+    def subsample_data(self, input, subFactor):
         ind  = 0
         output = []
         for item in input:
@@ -191,7 +191,7 @@ class DataSet():
         reducedDataX1, X1, Y1 = [], [], []
         X2, Y2 = [], []
         # Get the right dataset.
-        reducedData = subsampledata(self, self.data, self.svdSubsampleFactor)
+        reducedData = self.subsample_data(self, self.data, self.svdSubsampleFactor)
 
         for sample in reducedData:
             sequence = self.get_extracted_sequenceAllMods(sample)
