@@ -30,7 +30,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length, SVDFeatLen, inDir, dataDir,  modNumber=11, image_shape=(224, 224, 3), svdSubsampleFactor=8):
+    def __init__(self, seqName, seq_length,  inDir, dataDir, SVDFeatLen = -1, modNumber=11, image_shape=(224, 224, 3), svdSubsampleFactor=8):
 
         self.seq_length = seq_length
         self.inDir = inDir

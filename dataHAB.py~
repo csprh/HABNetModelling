@@ -91,7 +91,7 @@ class DataSet():
 
 
     def subsample_data(self):
-        """Subsample all the data"""
+        """Subsample all the data by factor"""
         thisInput = self.data
         subFactor = self.svdSubsampleFactor
         ind  = 0

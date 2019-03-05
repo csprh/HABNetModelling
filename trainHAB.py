@@ -37,7 +37,7 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
 
 
 
-    data = DataSet(seqName, seq_length, SVDFeatLen, inDir, dataDir)
+    data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen)
 
 
     if SVDFeatLen == -1 :
