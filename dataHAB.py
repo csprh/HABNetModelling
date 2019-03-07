@@ -51,12 +51,15 @@ class DataSet():
 
         max_depth = 0
         bottom_most_dirs = []
+
         for dirpath, dirnames, filenames in os.walk(inDir):
             depth = len(dirpath.split(os.sep))
             if max_depth < depth:
                 max_depth = depth
-                bottom_most_dirs = [dirpath]
-            elif max_depth == depth:
+
+        for dirpath, dirnames, filenames in os.walk(inDir):
+            depth = len(dirpath.split(os.sep))
+            if max_depth == depth:
                 bottom_most_dirs.append(dirpath)
 
         return bottom_most_dirs
