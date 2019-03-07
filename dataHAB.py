@@ -135,32 +135,6 @@ class DataSet():
             thisall.append(item)
         return train, test, thisall
 
-    def get_all_sequences_in_memory(self, train_test):
-        """
-        Load all the sequences into memory for speed (train, test or all)
-        """
-        # Get the right dataset.
-        train, test, thisall = self.split_train_test()
-        if train_test == 'train':
-            data = train
-            print("Loading %d samples into memory for training." % len(data))
-        elif train_test == 'test':
-            data = test
-            print("Loading %d samples into memory for training." % len(data))
-        elif train_test == 'all':
-            data = thisall
-            print("Loading all %d samples into memory" % len(thisall))
-
-        X, Y = [], []
-        for sample in data:
-
-            sequence = self.get_extracted_sequenceAllMods(sample)
-
-            X.append(sequence)
-            Y.append(self.get_class_one_hot(sample))
-
-        return np.array(X), np.array(Y)
-
     def get_all_sequences_in_memory_prop(self,  prop):
         """
         Load all the sequences into memory (in proportion) for speed (train, test)
