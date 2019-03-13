@@ -61,6 +61,9 @@ def main(argv):
         xmlName = argv[0]
 
     cnfg = inputXMLConfig(xmlName)
+    if (len(argv)==2):
+        cnfg.inDir = argv[2]
+
     extract(cnfg.inDir, cnfg.seqName, cnfg.dataDir, cnfg.seqLength, cnfg.cnnModel)
 
 

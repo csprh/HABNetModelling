@@ -30,7 +30,7 @@ def threadsafe_generator(func):
 
 class DataSet():
 
-    def __init__(self, seqName, seq_length,  inDir, dataDir, SVDFeatLen = -1, modNumber=11, image_shape=(224, 224, 3), svdSubsampleFactor=8):
+    def __init__(self, seqName, seq_length,  inDir, dataDir, SVDFeatLen = -1, modNumber=10, image_shape=(224, 224, 3), svdSubsampleFactor=8):
 
         self.seq_length = seq_length
         self.inDir = inDir
@@ -38,15 +38,15 @@ class DataSet():
         self.seqName = seqName
 
         # Get the data.
-        self.dataLowest = self.get_data(self.inDir)
-        self.data = self.extract_data(self.dataLowest)
+        self.dataLowest = self.get_botom_dirs(self.inDir)
+        self.data = self.get_datapt_dirs(self.dataLowest)
         self.image_shape = image_shape
         self.modNumber = modNumber
         self.SVDFeatLen = SVDFeatLen
         self.svdSubsampleFactor = svdSubsampleFactor
 
     @staticmethod
-    def get_data(inDir):
+    def get_botom_dirs(inDir):
         """Load our data from file."""
 
         max_depth = 0
@@ -65,7 +65,7 @@ class DataSet():
         return bottom_most_dirs
 
     @staticmethod
-    def extract_data(dataLowest):
+    def get_datapt_dirs(dataLowest):
         """ Get rid of last layer of dataLowest and put into data """
         output = []
         bottom_most_dirs = []
@@ -123,20 +123,6 @@ class DataSet():
             inde = inde + 1
         return train, test
 
-    def split_train_test(self):
-        """Split the data into train and test groups (and return them and all)."""
-        train = []
-        test = []
-        thisall = []
-
-        for item in self.data:
-            parts = item.split(os.path.sep)
-            if parts[-3] == 'Train':
-                train.append(item)
-            else:
-                test.append(item)
-            thisall.append(item)
-        return train, test, thisall
 
     def get_all_sequences_in_memory_prop(self,  prop):
         """
@@ -210,7 +196,7 @@ class DataSet():
            modalities loading the output bottleneck features.  It concatentates
            these features """
         thisreturn = []
-        for i in range(1, self.modNumber):
+        for i in range(1, self.modNumber+1):
 
             thispath = filename + '/' + str(i) + '/' + self.seqName + '.npy'
             thisfeats = np.load(thispath)
