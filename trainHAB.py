@@ -36,6 +36,10 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
           batch_size, nb_epoch, featureLength, SVDFeatLen):
 
 
+    modelNameInt = dataDir + seqName + '_' + model
+    modelName = modelNameInt + '.h5'
+    modelNameBest = modelNameInt + '_best.h5'
+
 
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen)
 
@@ -168,6 +172,10 @@ def train(inDir, dataDir, seqName, seq_length, model, image_shape,
                 verbose=1,
                 callbacks=[tb, early_stopper, csv_logger, checkpoint],
                 epochs=nb_epoch)
+
+        rm.model.save(modelName)
+        rm.model.load_weights(filepath)
+        rm.model.save(modelNameBest)
 
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
