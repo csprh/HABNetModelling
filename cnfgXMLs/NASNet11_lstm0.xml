@@ -5,7 +5,6 @@
 	<featureLength>10560</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
-	<cnnModel>NASNetMobileCropTo11</cnnModel>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>

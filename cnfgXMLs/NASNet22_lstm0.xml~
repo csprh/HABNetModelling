@@ -3,6 +3,7 @@
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
 	<seqName>NASNetMobileCropTo33</seqName>
 	<featureLength>42240</featureLength>
+	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
 	<cnnModel>NASNetMobileCropTo33</cnnModel>
 	<seqLength>10</seqLength>

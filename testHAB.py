@@ -3,36 +3,27 @@
 # Copyright: (c) 2019 Paul Hill
 
 """
-This file contains a script that inputs the configuration file and then
-a single datapoint whole dataset of HAB datacube data.  An available list of ML
-classifiers are available to classify the outputs previously extracted
-bottleneck features.
+This file contains a script that inputs an XML configuration file (containing
+the definition of the trained models) and the directory containing a directory
+structure of the bottleneck features extracted from the datacube images by
+the defined CNNs.
 
-By default it loads the configuration file classifyHAB1.xml.  However it can
-take one argument that specifies the config file to use i.e.
-python3 trainHAB.py ./cnfgXMLs/NASNet22_lstm0.xml
+The detection and probablity of a HAB is then output to stdout
+
+By default it loads the configuration file SNet11_lstm0.xml.  However it can
+take one argument that specifies the config file to use and the directory where
+the datacube is to be found
+i.e. python3 trainHAB.py ./cnfgXMLs/NASNet11_lstm0.xml dirIn
 """
 
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogger
-from models import ResearchModels
-from keras.models import Sequential, load_model
+from keras.models import load_model
 from dataHAB import DataSet
-import time
-import os.path
 import sys
-import numpy as np
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import StratifiedKFold
 from inputXMLConfig import inputXMLConfig
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.decomposition import PCA
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
 
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
-
 
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
@@ -45,6 +36,7 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
     Y_prob = model.predict_proba(X_test)
 
     sys.stdout.write(str(Y_prob))
+    sys.stdout.write(str(Y_new))
 
 """Main Thread"""
 def main(argv):

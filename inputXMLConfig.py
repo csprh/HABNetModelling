@@ -21,8 +21,6 @@ class inputXMLConfig():
                 self.seqName = thisText
             elif thisTag == 'model':
                 self.model = thisText
-            elif thisTag == 'cnnModel':
-                self.cnnModel = thisText
             elif thisTag == 'featureLength':
                 self.featureLength = int(thisText)
             elif thisTag == 'seqLength':

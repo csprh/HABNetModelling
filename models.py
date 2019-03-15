@@ -98,7 +98,6 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(128, return_sequences=False,
                        input_shape=self.input_shape,
                        dropout=0.5))
@@ -112,24 +111,12 @@ class ResearchModels():
         our CNN to this model."""
         # Model.
         model = Sequential()
-        #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(512, return_sequences=False,
                        input_shape=self.input_shape))
         model.add(BatchNormalization())
         model.add(Dense(512, activation='relu'))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
-        return model
-
-    def mlp0(self):
-
-        model = Sequential()
-        model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(1024))
-        model.add(Activation('relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(2, kernel_regularizer=regularizers.l2(0.01)))
-        model.add(Activation('linear'))
         return model
 
     def mlp1(self):

@@ -8,9 +8,10 @@ This file contains a function that loops through all of the input datacube
 images and extracts and contatenates bottleneck features from them using a
 specified CNN.
 
-By default it loads the configuration file classifyHAB1.xml.  However it can
-take one argument that specifies the config file to use i.e.
-python3 extract_features.py classifyHAB3.xml
+By default it loads the configuration file SNet11_lstm0.xml.  However it can
+take one argument that specifies the config file to use and the directory where
+(a single) datacube is to be found
+i.e. python3 extract_features.py ./cnfgXMLs/NASNet11_lstm0.xml dirIn
 """
 
 import glob
@@ -23,12 +24,12 @@ from inputXMLConfig import inputXMLConfig
 
 
 
-def extract(inDir, seqName, dataDir, seqLength, cnnModel):
+def extract(inDir, seqName, dataDir, seqLength):
 
     # Get the dataset.
     data = DataSet(seqName, seqLength, inDir, dataDir)
     # get the model.
-    model = Extractor(cnnModel)
+    model = Extractor(seqName)
 
     # Loop through data.
     max_depth = 0
@@ -53,7 +54,7 @@ def extract(inDir, seqName, dataDir, seqLength, cnnModel):
 def main(argv):
     """Settings Loaded from Xml Configuration"""
     # model can be one of lstm, mlp, svm
-    import pudb; pu.db
+    # import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = 'cnfgXMLs/NASNet11_lstm0.xml'
@@ -63,8 +64,8 @@ def main(argv):
     cnfg = inputXMLConfig(xmlName)
     if (len(argv)==2):
         cnfg.inDir = argv[2]
-    extract(cnfg.inDir, cnfg.seqName, cnfg.dataDir, cnfg.seqLength, cnfg.cnnModel)
 
+    extract(cnfg.inDir, cnfg.seqName, cnfg.dataDir, cnfg.seqLength)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
