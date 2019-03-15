@@ -8,9 +8,9 @@ This file contains a function that loops through all of the input datacube
 images and extracts and contatenates bottleneck features from them using a
 specified CNN.
 
-By default it loads the configuration file SNet11_lstm0.xml.  However it can
-take one argument that specifies the config file to use and the directory where
-(a single) datacube is to be found
+By default it loads the configuration file NASNet11_lstm0.xml.  However it can
+take one argument that specifies the config file to use and also the directory where
+(a single) datacube is to be found (so it can be used in a batch file for detection)
 i.e. python3 extract_features.py ./cnfgXMLs/NASNet11_lstm0.xml dirIn
 """
 

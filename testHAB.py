@@ -51,7 +51,7 @@ def main(argv):
 
     cnfg = inputXMLConfig(xmlName)
     if (len(argv)==2):
-        cnfg.inDir = argv[2]
+        cnfg.inDir = argv[1]
 
     train(cnfg.inDir, cnfg.seqName, cnfg.seqLength, cnfg.model, cnfg.featureLength, cnfg.SVDFeatLen)
 

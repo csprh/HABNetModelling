@@ -37,7 +37,7 @@ mstringApp = 'matlab'
 mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\"'
 os.system(mstring)
 extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
-testHAB.main('cnfgXMLs/NASNet11_lstm0.xml', outputDirectory)
+testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
 
 
 
