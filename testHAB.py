@@ -35,14 +35,17 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
     Y_new =  model.predict_classes(np.array( [X_test,]))
     Y_prob = model.predict_proba(np.array( [X_test,]))
 
-    sys.stdout.write(str(Y_prob))
-    sys.stdout.write(str(Y_new))
+    if (Y_new == 1):
+        stringOut = 'This Datacube is HAB: Prob (HAB) = '+ str(Y_prob[1])
+    else:
+        stringOut = 'This Datacube is not HAB: Prob (HAB) = ' + str(Y_prob[1])
+    sys.stdout.write(stringOut)
 
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
 
-    import pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = './cnfgXMLs/NASNet11_lstm0.xml'
