@@ -53,7 +53,7 @@ def main(argv):
     if (len(argv)==2):
         cnfg.inDir = argv[1]
 
-    train(cnfg.inDir, cnfg.seqName, cnfg.seqLength, cnfg.model, cnfg.featureLength, cnfg.SVDFeatLen)
+    test(cnfg.inDir, cnfg.dataDir, cnfg.seqName, cnfg.seqLength, cnfg.model, cnfg.featureLength, cnfg.SVDFeatLen)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
