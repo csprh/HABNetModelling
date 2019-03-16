@@ -21,7 +21,7 @@ from keras.models import load_model
 from dataHAB import DataSet
 import sys
 from inputXMLConfig import inputXMLConfig
-
+import numpy as np
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
@@ -32,8 +32,8 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen)
     X_test = data.get_extracted_sequenceAllMods(inDir)
-    Y_new = model.predict_classes(X_test)
-    Y_prob = model.predict_proba(X_test)
+    Y_new =  model.predict_classes(np.array( [X_test,]))
+    Y_prob = model.predict_proba(np.array( [X_test,]))
 
     sys.stdout.write(str(Y_prob))
     sys.stdout.write(str(Y_new))
