@@ -39,7 +39,7 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
         stringOut = 'This Datacube is HAB: Prob (HAB) = '+ str(Y_prob[0,1])
     else:
         stringOut = 'This Datacube is not HAB: Prob (HAB) = ' + str(Y_prob[0,1])
-    sys.stdout.write(stringOut)
+    sys.stdout.write(stringOut + '\n')
 
 """Main Thread"""
 def main(argv):
