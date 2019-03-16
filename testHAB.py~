@@ -45,7 +45,7 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 def main(argv):
     """Settings Loaded from Xml Configuration"""
 
-    import pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = './cnfgXMLs/NASNet11_lstm0.xml'

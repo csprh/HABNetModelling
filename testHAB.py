@@ -36,9 +36,9 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
     Y_prob = model.predict_proba(np.array( [X_test,]))
 
     if (Y_new == 1):
-        stringOut = 'This Datacube is HAB: Prob (HAB) = '+ str(Y_prob[1])
+        stringOut = 'This Datacube is HAB: Prob (HAB) = '+ str(Y_prob[0,1])
     else:
-        stringOut = 'This Datacube is not HAB: Prob (HAB) = ' + str(Y_prob[1])
+        stringOut = 'This Datacube is not HAB: Prob (HAB) = ' + str(Y_prob[0,1])
     sys.stdout.write(stringOut)
 
 """Main Thread"""
