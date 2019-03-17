@@ -16,7 +16,7 @@ function genSingleH5sWrapper(lat, lon, sample_date, h5nameOut)
 % Updates for WIN compatibility: JVillegas 21 Feb 2019, Khalifa University
 
 lat = str2double(lat); lon = str2double(lon);
-sample_date = str2int(sample_date);
+sample_date = str2num(sample_date);
 
 addpath('../extractData');
 [~, pythonStr, tmpStruct] = getHABConfig;
