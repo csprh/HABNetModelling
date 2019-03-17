@@ -47,6 +47,7 @@ trainHAB.py
 The training is controlled using the input configuration xml file (e.g. classifyHAB0.xml)
 The elements within the configuration file control the training process.  A typical config file is shown below.
 
+
 ```
 <confgData>
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
@@ -72,6 +73,22 @@ seqLength: Number of png images in each modality (temporal span)
 batchSize: tensorflow control
 epochNumber: tensorflow control
 ```
+
+## Testing
+
+The actual training (and testing is done using the python file)
+
+* **testHAB.py**
+
+* **HABDetectScript.py**   However, the script HABDetectScript.py shows how to chain all the necessary
+parts together to get a detection from a lat, lon and date 
+i.e. generate datacube, generate images from datacube, extract
+features from images and then produce a classification from the features
+
+
+* **genSingleH5sWrapper.m**: Top level wrapper code to generate H5 file from 
+lat, lon and date (inputs all config info and then calls genSingleH5s)
+
 
 ## TODO
 
