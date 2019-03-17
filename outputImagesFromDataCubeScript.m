@@ -15,7 +15,7 @@ function outputImagesFromDataCubeScript(h5name, outputDirectory)
 
 addpath('../extractData/postProcess');
 addpath('../extractData');
-[~, tmpStruct] = getHABConfig;
+[~, ~, TmpStruct] = getHABConfig;
 
 resolution = str2num(tmpStruct.confgData.resolution.Text);
 distance1 = str2num(tmpStruct.confgData.distance1.Text);
