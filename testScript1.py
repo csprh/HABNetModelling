@@ -38,11 +38,12 @@ cntArray = mat_contents['count2']
 
 for i in range(0, 10):
 
-    lat = latArray[i]
-    lon = lonArray[i]
-    sample_date = datArray[i]
-    cnt = cntArray[i]
-
+    ii = i *100
+    lat = latArray[ii,0]
+    lon = lonArray[ii,0]
+    sample_date = datArray[ii,0]
+    cnt = cntArray[ii,0]
+    print('Count = ' + str(cnt))
     #h5name = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/florida2/Cube_09073_09081_737173.h5'
     #outputDirectory = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/CNNIms'
     #h5name = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/testCubes/Cube_09073_09081_737173.h5'
