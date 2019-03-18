@@ -31,10 +31,10 @@ import scipy.io as sio
 mat_fname = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/work/florida_2003-2018-50K.mat'
 mat_contents = sio.loadmat(mat_fname)
 
-lonArray = mmat_contents['longitude']
-latArray = mmat_contents['latitude']
-datArray = mmat_contents['sample_date']
-cntArray = mmat_contents['count2']
+lonArray = mat_contents['longitude']
+latArray = mat_contents['latitude']
+datArray = mat_contents['sample_date']
+cntArray = mat_contents['count2']
 
 for i in range(0, 10):
 

@@ -36,7 +36,7 @@ latArray = mmat_contents['latitude']
 datArray = mmat_contents['sample_date']
 cntArray = mmat_contents['count2']
 
-for i = 1 : 50
+for i in range(0, 10):
 
     lat = latArray[i]
     lon = lonArray[i]
