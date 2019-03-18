@@ -1,5 +1,5 @@
 """
-Class for managing HAB input data (and bottle neck features).
+Class for managing our data.
 """
 import numpy as np
 import os.path

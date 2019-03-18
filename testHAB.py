@@ -12,7 +12,7 @@ The detection and probablity of a HAB is then output to stdout
 
 By default it loads the configuration file SNet11_lstm0.xml.  However it can
 take one argument that specifies the config file to use and the directory where
-the datacube is to be found
+the datacube is to be found i.e. dirIn
 i.e. python3 trainHAB.py ./cnfgXMLs/NASNet11_lstm0.xml dirIn
 """
 

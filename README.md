@@ -89,6 +89,9 @@ features from images and then produce a classification from the features
 * **genSingleH5sWrapper.m**: Top level wrapper code to generate H5 file from 
 lat, lon and date (inputs all config info and then calls genSingleH5s)
 
+* **outputImagesFromDataCubeScript.m**: Load all configs and call
+  outputImagesFromDataCube.m (take H5 datacube and then output images for
+feature extraction / classification 
 
 ## TODO
 

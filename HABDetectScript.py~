@@ -1,8 +1,10 @@
-# This script demonstrates how to generate a classification from a datacube
-#
-# Firstly, the datacube is defined and a working directory (output directory)
+# This script demonstrates how to generate a classification from a
+# lat, lon and date (or a pre downloaded dataCube )
+# Firstly, the lat, lon and date is defined and a working directory (output directory)
 #
 # The following scripts are called
+
+# genSingleH5sWrapper.m: A Matlab script that generates a datacube (H5 format)
 
 # outputImagesFromDataCubeScript: A matlab script that generates quantised
 # images that are put into outputDirectory (from the datacube)
@@ -39,11 +41,11 @@ outputDirectory = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/CNNIms'
 mstringApp = 'matlab'
 
 # GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
-mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\"'
+mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\;quit;"'
 os.system(mstring)
 
 # GENERATE IMAGES FROM DATA CUBE
-mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\"'
+mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\;quit;"'
 os.system(mstring)
 
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES

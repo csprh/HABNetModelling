@@ -26,6 +26,11 @@ import extract_features
 import testHAB
 import pudb; pu.db
 
+import scipy.io as sio
+
+mat_fname = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/work/florida_2003-2018-50K.mat'
+mat_contents = sio.loadmat(mat_fname)
+
 lat = 26.488;
 lon = -82.1073;
 sample_date = 737174;

@@ -36,6 +36,5 @@ inStruc.dayEnd =  str2num(sample_date);
 inStruc.thisCount = 0;
 inStruc.h5name = h5nameOut;
 
-% Extract single datacube
 genSingleH5s(inStruc, confgData);
 
