@@ -42,5 +42,4 @@ inStruc.thisCount = 0;
 inStruc.h5name = h5nameOut;
 
 genSingleH5s(inStruc, confgData);
-quit()
 

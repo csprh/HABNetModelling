@@ -31,8 +31,4 @@ inputRangeY = [0 distance1/resolution];
 load groupMaxAndMin
 
 outputImagesFromDataCube(outputDirectory, numberOfDays, groupMinMax, inputRangeX, inputRangeY, alphaSize, outputRes, h5name);
-quit;
-
-%needs to quit as called by HABDetectScript
-
 
