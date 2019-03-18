@@ -31,33 +31,41 @@ import scipy.io as sio
 mat_fname = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/work/florida_2003-2018-50K.mat'
 mat_contents = sio.loadmat(mat_fname)
 
-lat = 26.488;
-lon = -82.1073;
-sample_date = 737174;
+lonArray = mmat_contents['longitude']
+latArray = mmat_contents['latitude']
+datArray = mmat_contents['sample_date']
+cntArray = mmat_contents['count2']
 
-#h5name = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/florida2/Cube_09073_09081_737173.h5'
-#outputDirectory = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/CNNIms'
-#h5name = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/testCubes/Cube_09073_09081_737173.h5'
-#mstringApp = '/Applications/MATLAB_R2016a.app/bin/matlab'
+for i in range(0, 10):
+
+    lat = latArray[i]
+    lon = lonArray[i]
+    sample_date = datArray[i]
+    cnt = cntArray[i]
+
+    #h5name = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/florida2/Cube_09073_09081_737173.h5'
+    #outputDirectory = '/Users/csprh/Dlaptop/MATLAB/MYCODE/HAB/WORK/HAB/CNNIms'
+    #h5name = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/testCubes/Cube_09073_09081_737173.h5'
+    #mstringApp = '/Applications/MATLAB_R2016a.app/bin/matlab'
 
 
-h5name = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/testCubes/Cube_Test.h5'
-outputDirectory = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/CNNIms'
-mstringApp = 'matlab'
+    h5name = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/testCubes/Cube_Test.h5'
+    outputDirectory = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/CNNIms'
+    mstringApp = 'matlab'
 
-# GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
-mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\;quit;"'
-os.system(mstring)
+    # GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
+    mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\;quit;"'
+    os.system(mstring)
 
-# GENERATE IMAGES FROM DATA CUBE
-mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\;quit;"'
-os.system(mstring)
+    # GENERATE IMAGES FROM DATA CUBE
+    mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\;quit;"'
+    os.system(mstring)
 
-# EXTRACT BOTTLENECK FEATURES FROM IMAGES
-extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
+    # EXTRACT BOTTLENECK FEATURES FROM IMAGES
+    extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
 
-# GENERATE CLASSIFICATION FROM BOTTLENECK FEATURES AND TRAINED MODEL
-testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
+    # GENERATE CLASSIFICATION FROM BOTTLENECK FEATURES AND TRAINED MODEL
+    testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
 
 
 
