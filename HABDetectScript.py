@@ -39,11 +39,11 @@ outputDirectory = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/tmpTest/CNNIms'
 mstringApp = 'matlab'
 
 # GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
-mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\"'
+mstring = mstringApp + ' -nosplash -r \"genSingleH5sWrapper ' + str(lat) + ' ' + str(lon) + ' ' + str(sample_date) + ' ' +  h5name  + '\;quit;"'
 os.system(mstring)
 
 # GENERATE IMAGES FROM DATA CUBE
-mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\"'
+mstring = mstringApp + ' -nosplash -r \"outputImagesFromDataCubeScript ' +  h5name + ' ' + outputDirectory + '\;quit;"'
 os.system(mstring)
 
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES
