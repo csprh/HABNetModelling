@@ -31,7 +31,7 @@ from keras.layers import Flatten
 from keras.layers.convolutional import Cropping2D
 from cifar10vgg import cifar10vgg
 from keras import backend as K
-K.clear_session()
+ K.clear_session()
 import numpy as np
 
 
