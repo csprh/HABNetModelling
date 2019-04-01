@@ -46,11 +46,11 @@ outputDirectory = elem.attrib["testImsDir"]
 
 
 # GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
-mstring = mstringApp + ' -nosplash -r \"test_getAllH5s '\;quit;"'
+mstring = mstringApp + ' -nosplash -r \"test_getAllH5s; quit;"'
 os.system(mstring)
 
 # GENERATE IMAGES FROM DATA CUBE
-mstring = mstringApp + ' -nosplash -r \"test_cubeSequence '\;quit;"'
+mstring = mstringApp + ' -nosplash -r \"test_cubeSequence; quit;"'
 os.system(mstring)
 
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES
