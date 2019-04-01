@@ -1,6 +1,6 @@
 <confgData>
-	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida4/</inDir>
-	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/DATA4/</dataDir>
+	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida/train</inDir>
+	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/floridaDATA/</dataDir>
 	<seqName>NASNetMobileCropTo33</seqName>
 	<featureLength>42240</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
