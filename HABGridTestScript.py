@@ -42,6 +42,7 @@ mstringApp = 'matlab'
 root = ET.parse(xmlName)
 elem = Element("confgData")
 elem.attrib["testDate"] = "737174"
+root.write(xmlName)
 outputDirectory = elem.attrib["testImsDir"]
 
 
