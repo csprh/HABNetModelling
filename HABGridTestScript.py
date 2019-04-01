@@ -35,7 +35,7 @@ import pudb; pu.db
 sample_date = 737174;
 
 #mstringApp = '/Applications/MATLAB_R2016a.app/bin/matlab'
-xmlName = '/home/cosc/csprh/linux/HABCODE/scratch/HAB/code/extractData/configHABunderDesk.xml'
+xmlName = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/configHABunderDesk.xml'
 
 mstringApp = 'matlab'
 
