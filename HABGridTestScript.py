@@ -47,7 +47,7 @@ imsDir = os.path.join(imsDir, sample_date_string)
 modelD = os.getcwd()
 os.chdir('../extractData')
 # GENERATE DATACUBES FOR A BUNCH OF LAT, LON POSITIONS IN A GRID
-mstring = mstringApp + ' -nosplash -r \"test_getAllH5s; quit;\"'
+mstring = mstringApp + ' -nosplash -r \"test_genAllH5s; quit;\"'
 os.system(mstring)
 os.chdir('postProcess')
 # GENERATE IMAGES FROM DATA CUBES
