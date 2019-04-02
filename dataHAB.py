@@ -133,10 +133,10 @@ class DataSet():
         for sample in self.data:
             sequence = self.get_extracted_sequenceAllMods(sample)
             X1.append(sequence)
-            head, tail = os.path.split(x)
+            head, tail = os.path.split(sample)
             INDS.append(tail)
 
-        return np.array(X1) INDS
+        return np.array(X1), INDS
 
     def get_all_sequences_in_memory_prop(self,  prop):
         """
