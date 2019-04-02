@@ -44,16 +44,17 @@ imsDir = tree.find('.//testImsDir').text
 tree.write(xmlName)
 
 imsDir = os.path.join(imsDir, sample_date_string)
-
+modelD = os.getcwd()
+os.chdir('../extractData')
 # GENERATE DATACUBES FOR A BUNCH OF LAT, LON POSITIONS IN A GRID
-#mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData\'); test_getAllH5s; quit;\"'
-mstring = mstringApp + ' -nosplash -r \" ../extractData/test_getAllH5s; quit;\"'
+mstring = mstringApp + ' -nosplash -r \"test_getAllH5s; quit;\"'
 os.system(mstring)
-
+os.chdir('postProcess')
 # GENERATE IMAGES FROM DATA CUBES
-mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData/postProcess\'); test_cubeSequence; quit;\"'
+mstring = mstringApp + ' -nosplash -r \"test_cubeSequence; quit;\"'
 os.system(mstring)
 
+os.chdir(modelD)
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES
 extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
 
