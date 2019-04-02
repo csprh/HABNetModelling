@@ -25,21 +25,30 @@ import numpy as np
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
+    resultFile = inDir + 'classesProbs.txt' 
+    file.open(resultFile,?w?)
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
 
     model = load_model(modelName)
 
-    data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen)
+    data, INDS = DataSet(seqName, seq_length, inDir, dataDir, SVDFeatLen)
     X_test = data.get_extracted_sequenceAllMods(inDir)
-    Y_new =  model.predict_classes(np.array( [X_test,]))
-    Y_prob = model.predict_proba(np.array( [X_test,]))
+    #Y_new =  model.predict_classes(np.array( [X_test,]))
+    #Y_prob = model.predict_proba(np.array( [X_test,]))
+    Y_new =  model.predict_classes(np.array(X_test))
+    Y_prob = model.predict_proba(np.array(X_test))
 
-    if (Y_new == 1):
-        stringOut = 'This Datacube is HAB: Prob (HAB) = '+ str(Y_prob[0,1])
-    else:
-        stringOut = 'This Datacube is not HAB: Prob (HAB) = ' + str(Y_prob[0,1])
-    sys.stdout.write(stringOut + '\n')
+
+
+    for thisInd in range(len(Y_prob)):
+        thisIND = INDS[thisInd]
+        Y = Y_new[thisInd]
+        P = Y_prob[thisInd,1]
+        outString = "Index = %s, Class = %d, Probability = %f " %(thisIND, Y, P)
+        file.write() 
+    file.close() 
+
 
 """Main Thread"""
 def main(argv):
