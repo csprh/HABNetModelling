@@ -31,6 +31,7 @@ from xml.etree import ElementTree as et
 import pudb; pu.db
 
 sample_date = 737174;
+sample_date_string = str(sample_date)
 
 #mstringApp = '/Applications/MATLAB_R2016a.app/bin/matlab'
 xmlName = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/configHABunderDesk.xml'
@@ -38,23 +39,25 @@ xmlName = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/configHABunderDes
 mstringApp = 'matlab'
 
 tree = et.parse(xmlName)
-tree.find('.//testDate').text = '737174'
+tree.find('.//testDate').text = sample_date_string
+imsDir = tree.find('.//testImsDir').text
 tree.write(xmlName)
 
-# GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
-mstring = mstringApp + ' -nosplash -r \"addpath('../extractData/postProcess');
-addpath('../extractData'); test_getAllH5s; quit;"'
+imsDir = os.path.join(imsDir, sample_date_string)
+
+# GENERATE DATACUBES FOR A BUNCH OF LAT, LON POSITIONS IN A GRID
+mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData\'); test_getAllH5s; quit;"'
 os.system(mstring)
 
-# GENERATE IMAGES FROM DATA CUBE
-mstring = mstringApp + ' -nosplash -r \"test_cubeSequence; quit;"'
+# GENERATE IMAGES FROM DATA CUBES
+mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData/postProcess'); test_cubeSequence; quit;"'
 os.system(mstring)
 
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES
-extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
+extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
 
 # GENERATE CLASSIFICATION FROM BOTTLENECK FEATURES AND TRAINED MODEL
-testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', outputDirectory])
+testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
 
 
 

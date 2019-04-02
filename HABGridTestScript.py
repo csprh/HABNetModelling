@@ -46,11 +46,11 @@ tree.write(xmlName)
 imsDir = os.path.join(imsDir, sample_date_string)
 
 # GENERATE DATACUBES FOR A BUNCH OF LAT, LON POSITIONS IN A GRID
-mstring = mstringApp + ' -nosplash -r \"addpath('../extractData'); test_getAllH5s; quit;"'
+mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData\'); test_getAllH5s; quit;\"'
 os.system(mstring)
 
 # GENERATE IMAGES FROM DATA CUBES
-mstring = mstringApp + ' -nosplash -r \"addpath('../extractData/postProcess'); test_cubeSequence; quit;"'
+mstring = mstringApp + ' -nosplash -r \"addpath(\'../extractData/postProcess\'); test_cubeSequence; quit;\"'
 os.system(mstring)
 
 # EXTRACT BOTTLENECK FEATURES FROM IMAGES
