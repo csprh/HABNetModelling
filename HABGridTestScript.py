@@ -25,9 +25,7 @@ import os
 import extract_features
 import testHAB
 
-import xml.etree.ElementTree as ET
-from xml.etree.ElementTree import Element
-
+from xml.etree import ElementTree as et
 
 
 import pudb; pu.db
@@ -39,12 +37,9 @@ xmlName = '/home/cosc/csprh/linux/HABCODE/code/HAB/extractData/configHABunderDes
 
 mstringApp = 'matlab'
 
-root = ET.parse(xmlName)
-elem = Element("confgData")
-elem.attrib["testDate"] = "737174"
-root.write(xmlName)
-outputDirectory = elem.attrib["testImsDir"]
-
+tree = et.parse(xmlName)
+tree.find('.//testDate').text = '737174'
+tree.write(xmlName)
 
 # GENERATE DATACUBE FROM LAT, LON, DATE (not necessary if you already have datacube).
 mstring = mstringApp + ' -nosplash -r \"test_getAllH5s; quit;"'
