@@ -124,6 +124,20 @@ class DataSet():
         return train, test
 
 
+    def get_all_sequences_in_memory_grid_test(self):
+        """
+        Load all the sequences into memory (in proportion) for speed (train, test)
+        """
+        X1 = []
+        INDS = []
+        for sample in self.data:
+            sequence = self.get_extracted_sequenceAllMods(sample)
+            X1.append(sequence)
+            head, tail = os.path.split(x)
+            INDS.append(tail)
+
+        return np.array(X1) INDS
+
     def get_all_sequences_in_memory_prop(self,  prop):
         """
         Load all the sequences into memory (in proportion) for speed (train, test)

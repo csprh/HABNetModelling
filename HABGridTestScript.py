@@ -51,6 +51,7 @@ mstring = mstringApp + ' -nosplash -r \"test_genAllH5s; quit;\"'
 os.system(mstring)
 os.chdir('postProcess')
 # GENERATE IMAGES FROM DATA CUBES
+# GENERATED LAT AND LONS latLonList.txt TEXT FILE IN imsDir
 mstring = mstringApp + ' -nosplash -r \"test_cubeSequence; quit;\"'
 os.system(mstring)
 
@@ -59,6 +60,7 @@ os.chdir(modelD)
 extract_features.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
 
 # GENERATE CLASSIFICATION FROM BOTTLENECK FEATURES AND TRAINED MODEL
+# GENERATED CLASSIFICATIONS ENTERED INTO classesProbs.txt TEXT FILE IN imsDir
 testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
 
 

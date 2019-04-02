@@ -1,5 +1,5 @@
 """
-Class for managing our data.
+Class for managing HAB input data (and bottle neck features).
 """
 import numpy as np
 import os.path
@@ -123,6 +123,32 @@ class DataSet():
             inde = inde + 1
         return train, test
 
+
+    def get_all_sequences_in_memory_grid_test(self):
+        """
+        Load all the sequences into memory (in proportion) for speed (train, test)
+        """
+        # Get the right dataset.
+        train, test = self.split_train_test_prop(prop)
+        self.train = train
+        self.test = test
+        X1, Y1 = [], []
+        X2, Y2 = [], []
+        for sample in train:
+
+            sequence = self.get_extracted_sequenceAllMods(sample)
+
+            X1.append(sequence)
+            Y1.append(self.get_class_one_hot(sample))
+
+        for sample in test:
+
+            sequence = self.get_extracted_sequenceAllMods(sample)
+
+            X2.append(sequence)
+            Y2.append(self.get_class_one_hot(sample))
+
+        return np.array(X1), np.array(Y1), np.array(X2), np.array(Y2)
 
     def get_all_sequences_in_memory_prop(self,  prop):
         """
