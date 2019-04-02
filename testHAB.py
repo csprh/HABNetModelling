@@ -26,7 +26,7 @@ import numpy as np
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
     resultFile = inDir + 'classesProbs.txt' 
-    file.open(resultFile,?w?)
+    file.open(resultFile,'w')
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
 
