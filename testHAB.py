@@ -26,7 +26,7 @@ import numpy as np
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
     resultFile = inDir + 'classesProbs.txt' 
-    file.open(resultFile,'w')
+    open(resultFile,'w')
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
 
@@ -46,8 +46,8 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
         Y = Y_new[thisInd]
         P = Y_prob[thisInd,1]
         outString = "Index = %s, Class = %d, Probability = %f " %(thisIND, Y, P)
-        file.write() 
-    file.close() 
+        write() 
+    close() 
 
 
 """Main Thread"""
