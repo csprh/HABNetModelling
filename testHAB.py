@@ -32,8 +32,9 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
     model = load_model(modelName)
 
-    data, INDS = DataSet(seqName, seq_length, inDir, dataDir, SVDFeatLen)
-    X_test = data.get_extracted_sequenceAllMods(inDir)
+    data = DataSet(seqName, seq_length, inDir, dataDir, SVDFeatLen)
+    X_test, INDS = data.get_all_sequences_in_memory_grid_test():
+    #X_test = data.get_extracted_sequenceAllMods(inDir)
     #Y_new =  model.predict_classes(np.array( [X_test,]))
     #Y_prob = model.predict_proba(np.array( [X_test,]))
     Y_new =  model.predict_classes(np.array(X_test))
