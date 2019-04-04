@@ -26,7 +26,7 @@ import numpy as np
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
-    resultFile = os.path.join(imsDir, 'classesProbs.txt')
+    resultFile = os.path.join(inDir, 'classesProbs.txt')
  
     f = open(resultFile,'w')
     modelNameInt = dataDir + seqName + '_' + model
