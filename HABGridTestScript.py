@@ -45,7 +45,7 @@ tree.write(xmlName)
 
 imsDir = os.path.join(imsDir, sample_date_string)
 modelD = os.getcwd()
-testHAB.main(['cnfgXMLs/NASNet11_lstm0.xml', imsDir])
+
 os.chdir('../extractData')
 # GENERATE DATACUBES FOR A BUNCH OF LAT, LON POSITIONS IN A GRID
 mstring = mstringApp + ' -nosplash -r \"test_genAllH5s; quit;\"'

@@ -48,7 +48,7 @@ def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
         thisIND = INDS[thisInd]
         Y = Y_new[thisInd]
         P = Y_prob[thisInd,1]
-        outString = "Index = %s, Class = %d, Probability = %f " %(thisIND, Y, P)
+        outString = "Index = %s, Class = %d, Probability = %f \n" %(thisIND, Y, P)
         f.write(outString) 
     f.close() 
 
