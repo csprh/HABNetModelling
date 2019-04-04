@@ -20,6 +20,7 @@ from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogg
 from keras.models import load_model
 from dataHAB import DataSet
 import sys
+import os
 from inputXMLConfig import inputXMLConfig
 import numpy as np
 # Train the model
