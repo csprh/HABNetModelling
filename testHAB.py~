@@ -25,8 +25,8 @@ import numpy as np
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
-    resultFile = os.path.join(imsDir, 'classesProbs.txt')
- 
+imsDir = os.path.join(imsDir, sample_date_string)
+    resultFile = inDir + 'classesProbs.txt' 
     f = open(resultFile,'w')
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
