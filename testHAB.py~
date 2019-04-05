@@ -1,4 +1,4 @@
-# A file to perform machine learning on HAB data
+# A file to perform machine learning testing on HAB data
 #
 # Copyright: (c) 2019 Paul Hill
 
@@ -8,7 +8,9 @@ the definition of the trained models) and the directory containing a directory
 structure of the bottleneck features extracted from the datacube images by
 the defined CNNs.
 
-The detection and probablity of a HAB is then output to stdout
+
+# The classifications and probabilities for all datacubes are stored in 
+# text file stored in the date based directory (imsDir)..classesProbs.txt
 
 By default it loads the configuration file SNet11_lstm0.xml.  However it can
 take one argument that specifies the config file to use and the directory where
@@ -20,13 +22,14 @@ from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, CSVLogg
 from keras.models import load_model
 from dataHAB import DataSet
 import sys
+import os
 from inputXMLConfig import inputXMLConfig
 import numpy as np
 # Train the model
 def test(inDir, dataDir, seqName, seq_length, model, featureLength, SVDFeatLen):
 
-imsDir = os.path.join(imsDir, sample_date_string)
-    resultFile = inDir + 'classesProbs.txt' 
+    resultFile = os.path.join(inDir, 'classesProbs.txt')
+ 
     f = open(resultFile,'w')
     modelNameInt = dataDir + seqName + '_' + model
     modelName = modelNameInt + '.h5'
@@ -47,7 +50,7 @@ imsDir = os.path.join(imsDir, sample_date_string)
         thisIND = INDS[thisInd]
         Y = Y_new[thisInd]
         P = Y_prob[thisInd,1]
-        outString = "Index = %s, Class = %d, Probability = %f " %(thisIND, Y, P)
+        outString = "Index = %s, Class = %d, Probability = %f \n" %(thisIND, Y, P)
         f.write(outString) 
     f.close() 
 

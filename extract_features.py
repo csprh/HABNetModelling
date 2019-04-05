@@ -1,5 +1,5 @@
 # This file contains a script to extract bottleneck features from each image
-# within a datacube.
+# within a set of datacubes.
 #
 # Copyright: (c) 2019 Paul Hill
 
@@ -10,7 +10,7 @@ specified CNN.
 
 By default it loads the configuration file NASNet11_lstm0.xml.  However it can
 take one argument that specifies the config file to use and also the directory where
-(a single) datacube is to be found (so it can be used in a batch file for detection)
+datacubes are to be found.
 i.e. python3 extract_features.py ./cnfgXMLs/NASNet11_lstm0.xml dirIn
 """
 

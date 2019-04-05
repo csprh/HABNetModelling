@@ -126,7 +126,9 @@ class DataSet():
 
     def get_all_sequences_in_memory_grid_test(self):
         """
-        Load all the sequences into memory (in proportion) for speed (train, test)
+        Load all the sequences into memory for testing
+        the last directory name is output in INDS for correlation with 
+        MATLAB datacube extraction
         """
         X1 = []
         INDS = []

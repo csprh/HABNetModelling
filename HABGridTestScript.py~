@@ -7,20 +7,19 @@
 
 # Then then following scripts are called
 
-# test_genAllH5s.m: A MATLAB script that generates a datacube (H5 format) 
+# test_genAllH5s.m: A Matlab script that generates a datacube (H5 format) 
 # for a grid of lat and lon values
 
-# test_cubeSequence.m: A MATLAB script that generates quantised
+# test_cubeSequence.m: A Matlab script that generates quantised
 # images that are put into outputDirectory (from the datacubes)
 
 # extract_features: A python script that extracts bottle neck features using
 # CNNs defined in the config file xml.  The features are stored in
-# imsDir
+# outputDirectory
 
 # testHAB: A python script that uses the model defined in the xml file and
-# generates a classification based on the datacubes extracted images
-# The classifications and probabilities for all datacubes are stored in 
-# text file stored in the date based directory (imsDir)..classesProbs.txt
+# generates a classification based on the datacube extracted images
+# The classification probablity is printed to stdout.
 #
 # THE UNIVERSITY OF BRISTOL: HAB PROJECT
 # Author Dr Paul Hill March 2019
@@ -31,6 +30,7 @@ import extract_features
 import testHAB
 
 from xml.etree import ElementTree as et
+
 
 import pudb; pu.db
 
