@@ -1,0 +1,11 @@
+<confgData>
+	<inDir>/mnt/storage/home/csprh/scratch/HAB/CNNIms/florida/train/</inDir>
+	<dataDir>/mnt/storage/home/csprh/scratch/HAB/floridaDATA/</dataDir>
+	<seqName>NASNetMobileCropTo11</seqName>
+	<featureLength>10560</featureLength>
+	<SVDFeatLen>-1</SVDFeatLen>
+	<model>lstm0</model>
+	<seqLength>10</seqLength>
+	<batchSize>128</batchSize>
+	<epochNumber>500</epochNumber>
+</confgData>
