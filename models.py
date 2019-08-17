@@ -131,7 +131,7 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Bidirectional(LSTM(256, return_sequences=True, input_shape=self.input_shape)))
-        model.add(SeqSelfAttention(attention_activation='sigmoid'))
+        model.add(SeqSelfAttention(attention_activation='sigmoid',input_shape=self.input_shape))
         #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(Dropout(0.5))
