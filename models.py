@@ -81,6 +81,7 @@ class ResearchModels():
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         #self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
 
+        self.model.build(self.input_shape)
         print(self.model.summary())
 
     def lstm0(self):
@@ -131,7 +132,7 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Bidirectional(LSTM(256, return_sequences=True, input_shape=self.input_shape)))
-        model.add(SeqSelfAttention(attention_activation='sigmoid',input_shape=self.input_shape))
+        model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(Dropout(0.5))
