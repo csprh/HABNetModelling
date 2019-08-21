@@ -8,4 +8,5 @@
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>
+        <modNumber>12</modNumber>
 </confgData>

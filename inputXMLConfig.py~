@@ -25,7 +25,7 @@ class inputXMLConfig():
                 self.featureLength = int(thisText)
             elif thisTag == 'seqLength':
                 self.seqLength = int(thisText)
-            elif thisTag == 'modNumber':
+            elif thisTag == 'modNumber'
                 self.modNumber = int(thisText)
             elif thisTag == 'batchSize':
                 self.batchSize = int(thisText)

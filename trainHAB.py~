@@ -51,10 +51,10 @@ from sklearn.metrics import accuracy_score
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
-          batch_size, nb_epoch, featureLength, SVDFeatLen, modNumber):
+          batch_size, nb_epoch, featureLength, SVDFeatLen):
 
     modelNameInt = dataDir + seqName + '_' + model
-    data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
+    data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, )
 
     if SVDFeatLen == -1 :
        X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
