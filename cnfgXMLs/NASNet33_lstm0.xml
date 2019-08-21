@@ -3,7 +3,7 @@
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/floridaDATA/</dataDir>
 	<seqName>NASNetMobileCropTo33</seqName>
 	<featureLength>95040</featureLength>
-	<SVDFeatLen>95040</SVDFeatLen>
+	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
