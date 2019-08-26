@@ -71,7 +71,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         #scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
         #fX = scaling.transform(fX)
-        #fX_test = scaling.transform(fX_test)s
+        #fX_test = scaling.transform(fX_test)
         rf=RandomForestClassifier(n_estimators=1000,
                                               criterion='entropy',
                                               max_depth=14,
