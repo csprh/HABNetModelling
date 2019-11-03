@@ -18,3 +18,5 @@ for ii = 1: Days
     
 end
 surface(thisPortionP);
+ylabel('Modality');
+xlabel('Days prior to HAB');

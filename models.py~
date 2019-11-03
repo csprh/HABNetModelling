@@ -7,8 +7,8 @@
 
 from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
     BatchNormalization)
-import keras
-#from keras_self_attention import SeqSelfAttention
+import keras 
+from keras_self_attention import SeqSelfAttention
 from keras.layers.recurrent import LSTM
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
