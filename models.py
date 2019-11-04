@@ -135,6 +135,9 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
+        model.add(TimeDistributed(MaxPooling1D(pool_size=16), input_shape=self.input_shape))
+        #model.add(TimeDistributed(Dropout(0.5)))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
         #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
         model.add(MaxPooling1D(pool_size=16))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
