@@ -13,7 +13,7 @@ from keras.layers.recurrent import LSTM
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
 from keras.layers.wrappers import TimeDistributed
-from keras.layers.convolutional import (Conv2D, Conv1D, MaxPooling3D, Conv3D, MaxPooling1D,
+from keras.layers.convolutional import (Conv2D, MaxPooling3D, Conv3D, MaxPooling1D,
     MaxPooling2D)
 from keras.layers import Bidirectional
 from keras import regularizers
@@ -62,7 +62,7 @@ class ResearchModels():
             self.model = self.lstm2()
         elif model == 'lstm3':
             print("Loading LSTM3 model.")
-            self.input_shape = (seq_length, features_length)
+            self.input_shape = (seq_length, features_length,1)
             self.model = self.lstm3()
         elif model == 'lstm0Attention':
             print("Loading lstm0Attention model.")
@@ -135,10 +135,7 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(TimeDistributed(Conv1D(filters=1, kernel_size=3, activation='relu'), input_shape=self.input_shape))
-        model.add(TimeDistributed(Dropout(0.5)))
-        model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
-        #model.add(TimeDistributed(MaxPooling1D(pool_size=16), input_shape=self.input_shape))
+        model.add(TimeDistributed(MaxPooling1D(pool_size=16), input_shape=self.input_shape))
         #model.add(TimeDistributed(Dropout(0.5)))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
         #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
