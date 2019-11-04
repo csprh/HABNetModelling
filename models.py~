@@ -145,6 +145,8 @@ class ResearchModels():
         #model.add(MaxPooling1D(pool_size=2, input_shape = (self.input_shape[0], self.input_shape[1])))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(units=512, return_sequences=True,input_shape=self.input_shape))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
         #model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(LSTM(512, return_sequences=True))
         #model.add(Dropout(0.5))
@@ -155,6 +157,7 @@ class ResearchModels():
         model.add(Flatten())
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
+        model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model
 
