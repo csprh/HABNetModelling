@@ -133,7 +133,7 @@ class Extractor():
                 # We'll extract features at the final pool layer.
                 interModel = Model(
                     inputs=base_model.input,
-                    outputs=base_model.get_layer('activation_187').output
+                    outputs=base_model.get_layer('global_average_pooling2d').output
                 )
                 self.model = Sequential()
                 self.model.add(interModel)
