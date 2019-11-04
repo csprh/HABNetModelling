@@ -8,7 +8,7 @@
 from keras.layers import (Dense, Flatten, Dropout, ZeroPadding3D, Activation,
     BatchNormalization)
 import keras
-#from keras_self_attention import SeqSelfAttention
+from keras_self_attention import SeqSelfAttention
 from keras.layers.recurrent import LSTM
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam, RMSprop
@@ -144,10 +144,12 @@ class ResearchModels():
         #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
         #model.add(MaxPooling1D(pool_size=2, input_shape = (self.input_shape[0], self.input_shape[1])))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
-        model.add(LSTM(512, return_sequences=True))
-        model.add(Dropout(0.5))
-        model.add(LSTM(256, return_sequences=False))
-        model.add(Dropout(0.5))
+        model.add(keras.layers.Bidirectional(LSTM(units=128, return_sequences=True)))
+        model.add(SeqSelfAttention(attention_activation='sigmoid'))
+        #model.add(LSTM(512, return_sequences=True))
+        #model.add(Dropout(0.5))
+        #model.add(LSTM(256, return_sequences=False))
+        #model.add(Dropout(0.5))
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
