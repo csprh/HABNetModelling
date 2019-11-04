@@ -139,9 +139,11 @@ class ResearchModels():
         model.add(MaxPooling1D(pool_size=16))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(512, return_sequences=False))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.5))
+        model.add(LSTM(256, return_sequences=True))
+        model.add(Dropout(0.5))
         model.add(Dense(512, activation='relu'))
-        model.add(Dropout(0.2))
+        model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
         return model
 
