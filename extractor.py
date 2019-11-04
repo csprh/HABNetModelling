@@ -126,17 +126,18 @@ class Extractor():
                 # Get model with pretrained weights.
                 base_model = NASNetMobile(
                     weights='imagenet',
-                    include_top=True
+                    include_top=False
                 )
-
-
+                base_model._layers.pop(0)
+                base_model._layers.pop(0)
                 # We'll extract features at the final pool layer.
-                interModel = Model(
-                    inputs=base_model.input,
-                    outputs=base_model.get_layer('global_average_pooling2d').output
-                )
+                #interModel = Model(
+                #    inputs=base_model.input,
+                #    outputs=base_model.get_layer('global_average_pooling2d').output
+                #)
+
                 self.model = Sequential()
-                self.model.add(interModel)
+                self.model.add(base_model)
                 self.model.add(Cropping2D(cropping=((2, 2), (2, 2))))
                 self.model.add(Flatten())
                 self.target_size = (224, 224)
