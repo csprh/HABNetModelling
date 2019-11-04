@@ -62,7 +62,7 @@ class ResearchModels():
             self.model = self.lstm2()
         elif model == 'lstm3':
             print("Loading LSTM3 model.")
-            self.input_shape = (seq_length, features_length,1)
+            self.input_shape = (seq_length, features_length)
             self.model = self.lstm3()
         elif model == 'lstm0Attention':
             print("Loading lstm0Attention model.")
