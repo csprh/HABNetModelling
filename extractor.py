@@ -128,8 +128,9 @@ class Extractor():
                     weights='imagenet',
                     include_top=True
                 )
-                base_model._layers.pop(0)
-                base_model._layers.pop(0)
+                base_model.layers.pop()
+                base_model.layers.pop()
+                #base_model.layers.pop()
                 # We'll extract features at the final pool layer.
                 #interModel = Model(
                 #    inputs=base_model.input,
