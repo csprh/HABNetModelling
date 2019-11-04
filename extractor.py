@@ -128,8 +128,8 @@ class Extractor():
                     weights='imagenet',
                     include_top=True
                 )
-                base_model.layers.pop()
-                base_model.layers.pop()
+                #base_model.layers.pop()
+                #base_model.layers.pop()
                 #base_model.layers.pop()
                 # We'll extract features at the final pool layer.
                 #interModel = Model(
@@ -137,8 +137,8 @@ class Extractor():
                 #    outputs=base_model.get_layer('global_average_pooling2d').output
                 #)
 
-                self.model = Sequential()
-                self.model.add(base_model)
+                self.model = Sequential(base_model.layers[:-2])
+                #self.model.add(base_model)
                 self.model.add(Cropping2D(cropping=((2, 2), (2, 2))))
                 self.model.add(Flatten())
                 self.target_size = (224, 224)
