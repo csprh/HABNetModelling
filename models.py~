@@ -62,7 +62,7 @@ class ResearchModels():
             self.model = self.lstm2()
         elif model == 'lstm3':
             print("Loading LSTM3 model.")
-            self.input_shape = (seq_length, features_length,1)
+            self.input_shape = (seq_length, features_length)
             self.model = self.lstm3()
         elif model == 'lstm0Attention':
             print("Loading lstm0Attention model.")
@@ -135,11 +135,11 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(TimeDistributed(MaxPooling1D(pool_size=16), input_shape=self.input_shape))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=16), input_shape=self.input_shape))
         #model.add(TimeDistributed(Dropout(0.5)))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
         #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
-        #model.add(MaxPooling1D(pool_size=16))
+        model.add(MaxPooling1D(pool_size=16, input_shape = (None, seq_length, features_length))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
         model.add(LSTM(512, return_sequences=False))
         model.add(Dropout(0.5))
