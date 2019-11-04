@@ -135,7 +135,7 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(TimeDistributed(Conv1D(filters=2, kernel_size=7, strides=4  activation='relu'), input_shape=(self.input_shape[0], self.input_shape[1],1)))
+        model.add(TimeDistributed(Conv1D(filters=2, kernel_size=7, strides=4,  activation='relu'), input_shape=(self.input_shape[0], self.input_shape[1],1)))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=64)))
         model.add(TimeDistributed(Flatten()))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=4), input_shape=(None, self.input_shape[0], self.input_shape[1])))
