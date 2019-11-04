@@ -126,7 +126,7 @@ class Extractor():
                 # Get model with pretrained weights.
                 base_model = NASNetMobile(
                     weights='imagenet',
-                    include_top=False
+                    include_top=True
                 )
                 base_model._layers.pop(0)
                 base_model._layers.pop(0)
