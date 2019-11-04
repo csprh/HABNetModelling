@@ -2,11 +2,10 @@
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/florida/train</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/floridaDATA/</dataDir>
 	<seqName>NASNetMobileCropTo11</seqName>
-	<featureLength>12672</featureLength>
+	<featureLength>10560</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
-	<model>lstm3</model>
+	<model>lstm0Attention</model>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>
-	<modNumber>12</modNumber>
 </confgData>

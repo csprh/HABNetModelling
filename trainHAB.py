@@ -57,10 +57,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
     modelNameInt = dataDir + seqName + '_' + model
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
-    if SVDFeatLen == -1 :
-       X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
-    else :
-       X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_svd(0.2)
+    X_train, Y_train, X_test, Y_test = data.get_all_sequences_in_memory_prop(0.2)
 
     # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
     # separately here.  None are currently out performing keras based models
@@ -157,7 +154,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
         # Helper: Stop when we stop learning.
-        early_stopper = EarlyStopping(monitor='val_acc', patience=500,  mode='auto')
+        early_stopper = EarlyStopping(monitor='val_acc', patience=20,  mode='auto')
 
         # Helper: Save results.
         timestamp = time.time()
@@ -192,7 +189,7 @@ def main(argv):
     import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = './cnfgXMLs/NASNet11_lstm0.xml'
+        xmlName = './cnfgXMLs/NASNet11_lstm3.xml'
     else:
         xmlName = argv[0]
 

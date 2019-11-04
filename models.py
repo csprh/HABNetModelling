@@ -60,6 +60,10 @@ class ResearchModels():
             print("Loading LSTM2 model.")
             self.input_shape = (seq_length, features_length)
             self.model = self.lstm2()
+        elif model == 'lstm3':
+            print("Loading LSTM3 model.")
+            self.input_shape = (seq_length, features_length)
+            self.model = self.lstm2()
         elif model == 'lstm0Attention':
             print("Loading lstm0Attention model.")
             self.input_shape = (seq_length, features_length)
@@ -123,6 +127,21 @@ class ResearchModels():
         model.add(BatchNormalization())
         model.add(Dense(512, activation='relu'))
         model.add(BatchNormalization())
+        model.add(Dense(2, activation='softmax'))
+        return model
+
+    def lstm3(self):
+        """Build a simple LSTM network. We pass the extracted features from
+        our CNN to this model"""
+        # Model.
+        model = Sequential()
+        #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
+        model.add(MaxPooling1D(pool_size=16))
+        #model.add(Bidirectional(LSTM(2048, return_sequences=False,
+        model.add(LSTM(512, return_sequences=False))
+        model.add(Dropout(0.2))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.2))
         model.add(Dense(2, activation='softmax'))
         return model
 
