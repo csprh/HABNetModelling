@@ -135,16 +135,16 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(TimeDistributed(Conv1D(filters=8, kernel_size=5, strides=2,  activation='relu'), input_shape=(self.input_shape[0], self.input_shape[1],1)))
-        model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
-        model.add(TimeDistributed(Flatten()))
+        #model.add(TimeDistributed(Conv1D(filters=8, kernel_size=5, strides=2,  activation='relu'), input_shape=(self.input_shape[0], self.input_shape[1],1)))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
+        #model.add(TimeDistributed(Flatten()))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=4), input_shape=(None, self.input_shape[0], self.input_shape[1])))
         #model.add(TimeDistributed(Dropout(0.5)))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
         #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
         #model.add(MaxPooling1D(pool_size=2, input_shape = (self.input_shape[0], self.input_shape[1])))
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
-        model.add(keras.layers.Bidirectional(LSTM(units=128, return_sequences=True)))
+        model.add(keras.layers.Bidirectional(LSTM(units=128, return_sequences=True,input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(LSTM(512, return_sequences=True))
         #model.add(Dropout(0.5))
