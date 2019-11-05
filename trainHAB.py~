@@ -154,7 +154,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
         # Helper: Stop when we stop learning.
-        early_stopper = EarlyStopping(monitor='val_accuarcy', patience=50,  mode='auto')
+        early_stopper = EarlyStopping(monitor='val_accuracy', patience=50,  mode='auto')
 
         # Helper: Save results.
         timestamp = time.time()
@@ -165,7 +165,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         rm = ResearchModels(model, seq_length, None,features_length=featureLength)
 
         filepath=dataDir + "weightsbest.hdf5"
-        checkpoint = ModelCheckpoint(filepath, monitor='val_accuarcy', verbose=1, save_best_only=True, mode='max')
+        checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
         rm.model.fit(
                 X_train,
                 Y_train,
@@ -189,7 +189,7 @@ def main(argv):
     import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = './cnfgXMLs/NASNet33_lstm0.xml'
+        xmlName = './cnfgXMLs/NASNet33_lstm3.xml'
     else:
         xmlName = argv[0]
 
