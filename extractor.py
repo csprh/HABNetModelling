@@ -124,26 +124,18 @@ class Extractor():
             elif cnnModel == 'NASNetMobileCropTo33':
 
 
-                original_model    = NASNetMobile()
-                bottleneck_input  = original_model.get_layer(index=0).input
-                bottleneck_output = original_model.get_layer(index=-3).output
-                bottleneck_model  = Model(inputs=bottleneck_input, outputs=bottleneck_output)
-                # Get model with pretrained weights.
-                #base_model = NASNetMobile(
-                #    weights='imagenet',
-                #    include_top=True
-                #)
-                #base_model.layers.pop()
-                #base_model.layers.pop()
-                #base_model.layers.pop()
+                base_model = NASNetMobile(
+                    weights='imagenet',
+                    include_top=True
+                )
                 # We'll extract features at the final pool layer.
-                #interModel = Model(
-                #    inputs=base_model.input,
-                #    outputs=base_model.get_layer('global_average_pooling2d').output
-                #)
+                interModel = Model(
+                    inputs=base_model.get_layer(index=0).input,
+                    outputs=base_model.get_layer(index=-3).output
+                )
 
                 self.model = Sequential()
-                self.model.add(bottleneck_model)
+                self.model.add(interModel)
                 self.model.add(Cropping2D(cropping=((2, 2), (2, 2))))
                 self.model.add(Flatten())
                 self.target_size = (224, 224)
