@@ -230,7 +230,7 @@ class DataSet():
            these features """
         thisreturn = []
         for i in range(1, np.size(ModInds)+1):
-            thisMod = ModInds[i-1]+1
+            thisMod = ModInds[i-1]
             thispath = filename + '/' + str(thisMod) + '/' + self.seqName + '.npy'
             thisfeats = np.load(thispath)
 
