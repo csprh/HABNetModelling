@@ -94,10 +94,11 @@ class ResearchModels():
         # Model.
         model = Sequential()
         #model.add(Bidirectional(LSTM(2048, return_sequences=False,
-        model.add(LSTM(512, return_sequences=False,
+        model.add(LSTM(512, return_sequences=True,
                        input_shape=self.input_shape))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
+        model.add(Flatten())
         model.add(Dense(512, activation='relu'))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())

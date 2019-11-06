@@ -158,7 +158,7 @@ class ResearchModels():
         #model.add(TimeDistributed(Conv1D(filters=32, kernel_size=3,  activation='relu')))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
         model.add(Flatten())
-        model.add(Dense(512, activation='relu'))
+        model.add(Dense(256, activation='relu'))
         #model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
