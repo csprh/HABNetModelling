@@ -44,12 +44,30 @@ def extract(inDir, seqName, dataDir, seqLength):
 
         frames = sorted(glob.glob(os.path.join(thisDir, '*png')))
         sequence = []
+        sequence2 = []
+        sequence4 = []
+        sequence6 = []
+        sequence8 = []
+        ind = 0
         for image in frames:
+            ind = ind + 1
+
             features = model.extract(image)
+            if ind > 2:
+                sequence2.append(features)
+            elif ind > 4:
+                sequence4.append(features)
+            elif ind > 6:
+                sequence6.append(features)
+            elif ind > 8:
+                sequence8.append(features)
             sequence.append(features)
         # Save the sequence.
         np.save(npypath, sequence)
-
+        np.save(npypath +'_2', sequence2)
+        np.save(npypath +'_4', sequence4)
+        np.save(npypath +'_6', sequence6)
+        np.save(npypath +'_8', sequence8)
     """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
