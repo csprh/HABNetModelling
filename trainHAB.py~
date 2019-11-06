@@ -48,7 +48,7 @@ from inputXMLConfig import inputXMLConfig
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, cohen_kappa_score, f1_score
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
@@ -175,11 +175,19 @@ def train(inDir, dataDir, seqName, seq_length, model,
                 callbacks=[tb, early_stopper, csv_logger, checkpoint],
                 epochs=nb_epoch)
 
+
         rm.model.save(modelName)
         rm.model.load_weights(filepath)
         rm.model.save(modelNameBest)
 
+
+        yhat = rm.model.predict(X_test)
+        f1 = sklearn.metrics.f1_score(Y_test,yhat)
+        print("f1: %.2f%%" % f1)
+        kappa = sklearn.metrics.f1_score(Y_test,yhat)
+        print("f1: %.2f%%" % f1)
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
+
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
 
 """Main Thread"""
