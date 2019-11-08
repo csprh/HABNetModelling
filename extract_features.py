@@ -48,6 +48,10 @@ def extract(inDir, seqName, dataDir, seqLength):
         sequence4 = []
         sequence6 = []
         sequence8 = []
+        sequence2_b = []
+        sequence4_b = []
+        sequence6_b = []
+        sequence8_b = []
         ind = 0
         for image in frames:
             ind = ind + 1
@@ -61,6 +65,14 @@ def extract(inDir, seqName, dataDir, seqLength):
                 sequence6.append(features)
             elif ind > 8:
                 sequence8.append(features)
+            if ind < 3:
+                sequence2_b.append(features)
+            elif ind < 5:
+                sequence4_b.append(features)
+            elif ind < 7:
+                sequence6_b.append(features)
+            elif ind < 9:
+                sequence8_b.append(features)
             sequence.append(features)
         # Save the sequence.
         np.save(npypath, sequence)
@@ -68,6 +80,10 @@ def extract(inDir, seqName, dataDir, seqLength):
         np.save(npypath +'_4', sequence4)
         np.save(npypath +'_6', sequence6)
         np.save(npypath +'_8', sequence8)
+        np.save(npypath +'_2_b', sequence2_b)
+        np.save(npypath +'_4_b', sequence4_b)
+        np.save(npypath +'_6_b', sequence6_b)
+        np.save(npypath +'_8_b', sequence8_b)
     """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""

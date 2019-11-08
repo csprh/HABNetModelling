@@ -20,3 +20,5 @@ end
 surface(thisPortionP);
 ylabel('Modality');
 xlabel('Days prior to HAB');
+
+3,4,5,6,7,9,11
