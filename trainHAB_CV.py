@@ -62,7 +62,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
     X, Y = data.get_all_sequences_in_memory()
 
-    kfold = StratifiedKFold(n_splits=3, shuffle=True, random_state=seed)
+    kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     cvscores = []
 
     """Loop through Train and Test CV Datasets"""
@@ -145,7 +145,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
         # Helper: Stop when we stop learning.
-        early_stopper = EarlyStopping(monitor='val_accuracy', patience=50,  mode='auto')
+        early_stopper = EarlyStopping(monitor='val_accuracy', patience=10,  mode='auto')
 
         # Helper: Save results.
         timestamp = time.time()
@@ -173,9 +173,11 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
 
         yhat = rm.model.predict(X_test)
-        f1 = f1_score(Y_test,yhat)
+        yhat1 = np.argmax(yhat, axis=1)
+        Y_test1 = np.argmax(Y_test, axis=1)
+        f1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % f1)
-        kappa = cohen_kappa_score(Y_test,yhat)
+        kappa = cohen_kappa_score(Y_test1,yhat1)
         print("kappa: %.2f%%" % kappa)
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
