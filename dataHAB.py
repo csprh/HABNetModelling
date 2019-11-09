@@ -140,6 +140,22 @@ class DataSet():
 
         return np.array(X1), INDS
 
+    def get_all_sequences_in_memory(self):
+        """
+        Load all the sequences into memory (in proportion) for speed (train, test)
+        """
+        # Get the right dataset.
+        data = self.data
+        X1, Y1 = [], []
+        for sample in data:
+
+            sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,8,10])
+
+            X1.append(sequence)
+            Y1.append(self.get_class_one_hot(sample))
+
+        return np.array(X1), np.array(Y1)
+
     def get_all_sequences_in_memory_prop(self,  prop):
         """
         Load all the sequences into memory (in proportion) for speed (train, test)

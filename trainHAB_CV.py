@@ -68,15 +68,15 @@ def train(inDir, dataDir, seqName, seq_length, model,
     """Loop through Train and Test CV Datasets"""
     for train, test in kfold.split(X_train, Y_train):
 
-        X_train =     X[train]
-        X_test =      X[test]
+     X_train =     X[train]
+     X_test =      X[test]
 
-        Y_train  =    Y[train]
-        Y_test  =     Y[test]
+     Y_train  =    Y[train]
+     Y_test  =     Y[test]
 
-    # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
-    # separately here.  None are currently out performing keras based models
-    if model == 'RF':
+     # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
+     # separately here.  None are currently out performing keras based models
+     if model == 'RF':
         Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
         fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
@@ -115,7 +115,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         print("RFE Score = %f ." % rfeScore)
 
 
-    elif model == 'xgb':
+     elif model == 'xgb':
         # Train xgboost
         Y_trainI = np.int64(Y_train)
         Y_testI = np.int64(Y_test)
@@ -133,7 +133,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         preds[preds <= 0.5] = 0
         print("XGB score =  %f ." % accuracy_score(preds, Y_testI))
 
-    else:
+     else:
 
         modelName = modelNameInt + '.h5'
         modelNameBest = modelNameInt + '_best.h5'
@@ -175,6 +175,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
         yhat = rm.model.predict(X_test)
         yhat1 = np.argmax(yhat, axis=1)
         Y_test1 = np.argmax(Y_test, axis=1)
+        ac = accuracy_score(Y_test1,yhat1)
+        print("ac: %.2f%%" % ac)
         f1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % f1)
         kappa = cohen_kappa_score(Y_test1,yhat1)
