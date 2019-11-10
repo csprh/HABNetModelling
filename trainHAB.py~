@@ -184,6 +184,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
         yhat = rm.model.predict(X_test)
         yhat1 = np.argmax(yhat, axis=1)
         Y_test1 = np.argmax(Y_test, axis=1)
+        ac = accuracy_score(Y_test1,yhat1)
+        print("ac: %.2f%%" % ac)
         f1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % f1)
         kappa = cohen_kappa_score(Y_test1,yhat1)
