@@ -81,7 +81,7 @@ class ResearchModels():
             sys.exit()
 
         # Now compile the network.
-        optimizer = Adam(lr=1e-5, decay=1e-6)
+        optimizer = Adam(lr=1e-6, decay=1e-6)
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         #self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
 
