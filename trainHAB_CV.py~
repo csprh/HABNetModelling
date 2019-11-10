@@ -55,7 +55,7 @@ from sklearn.model_selection import StratifiedKFold
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
           batch_size, nb_epoch, featureLength, SVDFeatLen, modNumber):
-    seed = 7
+    seed = 2
     modelNameInt = dataDir + seqName + '_' + model
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
@@ -73,8 +73,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
      X_train =     X[train]
      X_test =      X[test]
 
-     Y_train  =    Y[train]
-     Y_test  =     Y[test]
+     Y_train  =    Yhot[train]
+     Y_test  =     Yhot[test]
 
      # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
      # separately here.  None are currently out performing keras based models

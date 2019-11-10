@@ -55,7 +55,7 @@ from sklearn.model_selection import StratifiedKFold
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
           batch_size, nb_epoch, featureLength, SVDFeatLen, modNumber):
-    seed = 7
+    seed = 2
     modelNameInt = dataDir + seqName + '_' + model
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
@@ -178,7 +178,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         yhat1 = np.argmax(yhat, axis=1)
         Y_test1 = np.argmax(Y_test, axis=1)
         Ac = accuracy_score(Y_test1,yhat1)
-        print("ac: %.2f%%" % ac)
+        print("ac: %.2f%%" % Ac)
         F1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % f1)
         Kappa = cohen_kappa_score(Y_test1,yhat1)
