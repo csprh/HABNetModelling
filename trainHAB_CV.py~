@@ -185,11 +185,11 @@ def train(inDir, dataDir, seqName, seq_length, model,
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
-        cvAC.append(ac * 100)
+        cvAC.append(Ac * 100)
         cvF1.append(F1 * 100)
         cvKappa.append(Kappa * 100)
 
-       print("Accuracy: %0.2f (+/- %0.2f)" % (cvAC.mean(), cvAC.std() * 2))
+    print("Accuracy: %0.2f (+/- %0.2f)" % (cvAC.mean(), cvAC.std() * 2))
 
 """Main Thread"""
 def main(argv):

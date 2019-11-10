@@ -185,7 +185,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
-        cvAC.append(ac * 100)
+        cvAC.append(Ac * 100)
         cvF1.append(F1 * 100)
         cvKappa.append(Kappa * 100)
 
@@ -198,7 +198,7 @@ def main(argv):
     import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = './cnfgXMLs/NASNet33_4_lstm0.xml'
+        xmlName = './cnfgXMLs/NASNet33_lstm0.xml'
     else:
         xmlName = argv[0]
 
