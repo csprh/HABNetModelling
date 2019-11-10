@@ -60,7 +60,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
 
-    X, Y = data.get_all_sequences_in_memory()
+    X, Yhot = data.get_all_sequences_in_memory()
+    Y = Yhot[:,1]
 
     kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     cvAC = []
@@ -72,8 +73,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
      X_train =     X[train]
      X_test =      X[test]
 
-     Y_train  =    Y[train]
-     Y_test  =     Y[test]
+     Y_train  =    Yhot[train]
+     Y_test  =     Yhot[test]
 
      # Non Keras models 'Random Forest: RF....xgboost: xgb.....svm' are treated
      # separately here.  None are currently out performing keras based models

@@ -55,12 +55,13 @@ from sklearn.model_selection import StratifiedKFold
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
           batch_size, nb_epoch, featureLength, SVDFeatLen, modNumber):
-
+    seed = 7
     modelNameInt = dataDir + seqName + '_' + model
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
 
-    X, Y = data.get_all_sequences_in_memory()
+    X, Yhot = data.get_all_sequences_in_memory()
+    Y = Yhot[:,1]
 
     kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
     cvAC = []
