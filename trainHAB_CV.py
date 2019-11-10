@@ -63,10 +63,11 @@ def train(inDir, dataDir, seqName, seq_length, model,
     X, Y = data.get_all_sequences_in_memory()
 
     kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
-    cvscores = []
-
+    cvAC = []
+    cvF1 = []
+    cvKappa = []
     """Loop through Train and Test CV Datasets"""
-    for train, test in kfold.split(X_train, Y_train):
+    for train, test in kfold.split(X, Y):
 
      X_train =     X[train]
      X_test =      X[test]
@@ -175,15 +176,20 @@ def train(inDir, dataDir, seqName, seq_length, model,
         yhat = rm.model.predict(X_test)
         yhat1 = np.argmax(yhat, axis=1)
         Y_test1 = np.argmax(Y_test, axis=1)
-        ac = accuracy_score(Y_test1,yhat1)
+        Ac = accuracy_score(Y_test1,yhat1)
         print("ac: %.2f%%" % ac)
-        f1 = f1_score(Y_test1,yhat1)
+        F1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % f1)
-        kappa = cohen_kappa_score(Y_test1,yhat1)
+        Kappa = cohen_kappa_score(Y_test1,yhat1)
         print("kappa: %.2f%%" % kappa)
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
+        cvAC.append(ac * 100)
+        cvF1.append(F1 * 100)
+        cvKappa.append(Kappa * 100)
+
+    print("Accuracy: %0.2f (+/- %0.2f)" % (cvAC.mean(), cvAC.std() * 2))
 
 """Main Thread"""
 def main(argv):
