@@ -55,7 +55,7 @@ from sklearn.model_selection import StratifiedKFold
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
           batch_size, nb_epoch, featureLength, SVDFeatLen, modNumber):
-
+    seed = 7
     modelNameInt = dataDir + seqName + '_' + model
     data = DataSet(seqName, seq_length,  inDir, dataDir, SVDFeatLen, modNumber)
 
