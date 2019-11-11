@@ -193,9 +193,13 @@ def train(inDir, dataDir, seqName, seq_length, model,
     cvACn = np.array(cvAC)
     cvF1n = np.array(cvF1)
     cvKappan = np.array(cvKappa)
-    print("Accuracy: %0.2f (+/- %0.2f)" % (cvACn.mean(), cvACn.std() * 2))
-    print("F1: %0.2f (+/- %0.2f)" % (cvF1n.mean(), cvF1n.std() * 2))
-    print("Kappa: %0.2f (+/- %0.2f)" % (cvKappan.mean(), cvKappan.std() * 2))
+
+    file1 = open(seqName,"w")#write mode
+    file1.write("Accuracy: %0.2f (+/- %0.2f)" % (cvACn.mean(), cvACn.std() * 2))
+    file1.write("F1: %0.2f (+/- %0.2f)" % (cvF1n.mean(), cvF1n.std() * 2))
+    file1.write("Kappa: %0.2f (+/- %0.2f)" % (cvKappan.mean(), cvKappan.std() * 2))
+    file1.close()
+
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""

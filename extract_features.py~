@@ -80,10 +80,10 @@ def extract(inDir, seqName, dataDir, seqLength):
         np.save(npypath +'_4', sequence4)
         np.save(npypath +'_6', sequence6)
         np.save(npypath +'_8', sequence8)
-        np.save(npypath +'_2', sequence2_b)
-        np.save(npypath +'_4', sequence4_b)
-        np.save(npypath +'_6', sequence6_b)
-        np.save(npypath +'_8', sequence8_b)
+        np.save(npypath +'_2_b', sequence2_b)
+        np.save(npypath +'_4_b', sequence4_b)
+        np.save(npypath +'_6_b', sequence6_b)
+        np.save(npypath +'_8_b', sequence8_b)
     """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
