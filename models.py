@@ -81,7 +81,7 @@ class ResearchModels():
             sys.exit()
 
         # Now compile the network.
-        optimizer = Adam(lr=0.000055, decay=0.000055)
+        optimizer = Adam(lr=1e-5, decay=1e-5)
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         #self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
 
@@ -157,9 +157,9 @@ class ResearchModels():
         #model.add(Dropout(0.5))
         #model.add(TimeDistributed(Conv1D(filters=32, kernel_size=3,  activation='relu')))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
-        #model.add(Flatten())
+        model.add(Flatten())
         model.add(Dense(128, activation='relu'))
-        model.add(Dropout(0.5))
+        #model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model

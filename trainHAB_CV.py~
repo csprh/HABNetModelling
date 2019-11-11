@@ -182,7 +182,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         F1 = f1_score(Y_test1,yhat1)
         print("f1: %.2f%%" % F1)
         Kappa = cohen_kappa_score(Y_test1,yhat1)
-        print("kappa: %.2f%%" % kappa)
+        print("kappa: %.2f%%" % Kappa)
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
