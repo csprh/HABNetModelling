@@ -50,7 +50,7 @@ from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, cohen_kappa_score, f1_score
 from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold, ShuffleSplit
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
@@ -63,7 +63,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
     X, Yhot = data.get_all_sequences_in_memory()
     Y = Yhot[:,1]
 
-    kfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+    kfold = ShuffleSplit(n_splits=5, random_state=seed)
     cvAC = []
     cvF1 = []
     cvKappa = []
@@ -186,12 +186,16 @@ def train(inDir, dataDir, seqName, seq_length, model,
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
         print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
-        cvAC.append(Ac * 100)
-        cvF1.append(F1 * 100)
-        cvKappa.append(Kappa * 100)
+        cvAC.append(Ac)
+        cvF1.append(F1)
+        cvKappa.append(Kappa)
 
-    print("Accuracy: %0.2f (+/- %0.2f)" % (cvAC.mean(), cvAC.std() * 2))
-
+    cvACn = np.array(cvAC)
+    cvF1n = np.array(cvF1)
+    cvKappan = np.array(cvKappa)
+    print("Accuracy: %0.2f (+/- %0.2f)" % (cvACn.mean(), cvACn.std() * 2))
+    print("F1: %0.2f (+/- %0.2f)" % (cvF1n.mean(), cvF1n.std() * 2))
+    print("Kappa: %0.2f (+/- %0.2f)" % (cvKappan.mean(), cvKappan.std() * 2))
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
