@@ -204,7 +204,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
 def main(argv):
     """Settings Loaded from Xml Configuration"""
 
-    import pudb; pu.db
+    #import pudb; pu.db
 
     if (len(argv)==0):
         xmlName = './cnfgXMLs/NASNet33_lstm0.xml'
