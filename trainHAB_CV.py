@@ -147,7 +147,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         tb = TensorBoard(log_dir=os.path.join(dataDir, 'logs', model))
 
         # Helper: Stop when we stop learning.
-        early_stopper = EarlyStopping(monitor='val_accuracy', patience=10,  mode='auto')
+        early_stopper = EarlyStopping(monitor='val_accuracy', patience=100,  mode='auto')
 
         # Helper: Save results.
         timestamp = time.time()
@@ -180,7 +180,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         Ac = accuracy_score(Y_test1,yhat1)
         print("ac: %.2f%%" % Ac)
         F1 = f1_score(Y_test1,yhat1)
-        print("f1: %.2f%%" % f1)
+        print("f1: %.2f%%" % F1)
         Kappa = cohen_kappa_score(Y_test1,yhat1)
         print("kappa: %.2f%%" % kappa)
         scores = rm.model.evaluate(X_test, Y_test, verbose=1)
