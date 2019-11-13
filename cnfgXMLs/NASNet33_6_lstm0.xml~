@@ -5,7 +5,7 @@
 	<featureLength>47520</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
-	<seqLength>10</seqLength>
+	<seqLength>6</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>
 	<modNumber>12</modNumber>
