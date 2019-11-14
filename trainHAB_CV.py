@@ -104,17 +104,17 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         ## And score it on your testing data.
         rfScore = rf.score(fX_test, Y_testI[:,1])
-        np.savetxt('rfImports.txt', rf.feature_importances_);
-        print("RF Score = %f ." % rfScore)
+        #np.savetxt('rfImports.txt', rf.feature_importances_);
+        #print("RF Score = %f ." % rfScore)
 
-        rfe = RFE(rf, n_features_to_select=1000, verbose =3 )
+        #rfe = RFE(rf, n_features_to_select=1000, verbose =3 )
 
-        rfe.fit(fX_train, Y_trainI[:,1])
+        #rfe.fit(fX_train, Y_trainI[:,1])
 
         ## And score it on your testing data.
-        rfeScore = rfe.score(fX_test, Y_testI[:,1])
-        np.savetxt('rfe.txt', rfe.ranking_);
-        print("RFE Score = %f ." % rfeScore)
+        #rfeScore = rfe.score(fX_test, Y_testI[:,1])
+        #np.savetxt('rfe.txt', rfe.ranking_);
+        #print("RFE Score = %f ." % rfeScore)
 
 
      elif model == 'xgb':

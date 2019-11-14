@@ -64,10 +64,14 @@ class ResearchModels():
             print("Loading LSTM3 model.")
             self.input_shape = (seq_length, features_length)
             self.model = self.lstm3()
-        elif model == 'lstm0Attention':
-            print("Loading lstm0Attention model.")
+        elif model == 'lstm4':
+            print("Loading lstm4 model.")
             self.input_shape = (seq_length, features_length)
-            self.model = self.lstm0Attention()
+            self.model = self.lstm4()
+        elif model == 'mlp0':
+            print("Loading simple MLP0.")
+            self.input_shape = (seq_length, features_length)
+            self.model = self.mlp0()
         elif model == 'mlp1':
             print("Loading simple MLP1.")
             self.input_shape = (seq_length, features_length)
@@ -164,7 +168,7 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
-    def lstm0Attention(self):
+    def lstm4(self):
         """Build a simple LSTM network. We pass the extracted features from
         our CNN to this model"""
         # Model.
@@ -181,36 +185,36 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
+    def mlp0(self):
+        """Build a simple MLP. It uses extracted features as the input
+        because of the otherwise too-high dimensionality."""
+        # Model.
+        model = Sequential()
+        model.add(Flatten(input_shape=self.input_shape))
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+
+        model.add(Dense(2, activation='softmax'))
+
+        return model
+
     def mlp1(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512, use_bias=False))
-        model.add(BatchNormalization())
-        model.add(Dense(512, use_bias=False))
-        model.add(BatchNormalization())
-
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
 
         return model
 
     def mlp2(self):
-        """Build a simple MLP. It uses extracted features as the input
-        because of the otherwise too-high dimensionality."""
-        # Model.
-        model = Sequential()
-        model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
-        model.add(Dense(2, activation='softmax'))
-
-        return model
-
-    def mlp3(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.

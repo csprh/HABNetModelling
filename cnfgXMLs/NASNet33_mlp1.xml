@@ -4,7 +4,7 @@
 	<seqName>NASNetMobileCropTo33</seqName>
 	<featureLength>47520</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
-	<model>lstm3</model>
+	<model>mlp1</model>
 	<seqLength>10</seqLength>
 	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>

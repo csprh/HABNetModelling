@@ -64,10 +64,14 @@ class ResearchModels():
             print("Loading LSTM3 model.")
             self.input_shape = (seq_length, features_length)
             self.model = self.lstm3()
-        elif model == 'lstm0Attention':
-            print("Loading lstm0Attention model.")
+        elif model == 'lstm4':
+            print("Loading lstm4 model.")
             self.input_shape = (seq_length, features_length)
-            self.model = self.lstm0Attention()
+            self.model = self.lstm4()
+        elif model == 'mlp0':
+            print("Loading simple MLP0.")
+            self.input_shape = (seq_length, features_length)
+            self.model = self.mlp0()
         elif model == 'mlp1':
             print("Loading simple MLP1.")
             self.input_shape = (seq_length, features_length)
@@ -75,13 +79,13 @@ class ResearchModels():
         elif model == 'mlp2':
             print("Loading simple MLP2.")
             self.input_shape = (seq_length, features_length)
-            self.model = self.mlp2()
+            self.model = self.mlp0()
         else:
             print("Unknown network.")
             sys.exit()
 
         # Now compile the network.
-        optimizer = Adam(lr=0.000055, decay=0.000055)
+        optimizer = Adam(lr=1e-5, decay=1e-5)
         self.model.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=metrics)
         #self.model.compile(loss='hinge',  optimizer='adadelta',  metrics=['accuracy'])
 
@@ -157,14 +161,14 @@ class ResearchModels():
         #model.add(Dropout(0.5))
         #model.add(TimeDistributed(Conv1D(filters=32, kernel_size=3,  activation='relu')))
         #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
-        #model.add(Flatten())
+        model.add(Flatten())
         model.add(Dense(128, activation='relu'))
-        model.add(Dropout(0.5))
+        #model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model
 
-    def lstm0Attention(self):
+    def lstm4(self):
         """Build a simple LSTM network. We pass the extracted features from
         our CNN to this model"""
         # Model.
@@ -181,36 +185,36 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
+    def mlp0(self):
+        """Build a simple MLP. It uses extracted features as the input
+        because of the otherwise too-high dimensionality."""
+        # Model.
+        model = Sequential()
+        model.add(Flatten(input_shape=self.input_shape))
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+        model.add(Dense(512, use_bias=False))
+        model.add(BatchNormalization())
+
+        model.add(Dense(2, activation='softmax'))
+
+        return model
+
     def mlp1(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512, use_bias=False))
-        model.add(BatchNormalization())
-        model.add(Dense(512, use_bias=False))
-        model.add(BatchNormalization())
-
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
+        model.add(Dense(512))
+        model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
 
         return model
 
     def mlp2(self):
-        """Build a simple MLP. It uses extracted features as the input
-        because of the otherwise too-high dimensionality."""
-        # Model.
-        model = Sequential()
-        model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
-        model.add(Dense(512))
-        model.add(Dropout(0.5))
-        model.add(Dense(2, activation='softmax'))
-
-        return model
-
-    def mlp3(self):
         """Build a simple MLP. It uses extracted features as the input
         because of the otherwise too-high dimensionality."""
         # Model.
