@@ -101,7 +101,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         rf.fit(fX_train, Y_trainI[:,1])
 
-
+        yhat1 = rf.predict(fX_test)
         ## And score it on your testing data.
         rfScore = rf.score(fX_test, Y_testI[:,1])
         #np.savetxt('rfImports.txt', rf.feature_importances_);
@@ -130,10 +130,12 @@ def train(inDir, dataDir, seqName, seq_length, model,
         num_round = 50
         bst = xgb.train(param, dtrain, num_round, [(dtest, 'test'), (dtrain, 'train')])
 
-        preds = bst.predict(dtest)
-        preds[preds > 0.5] = 1
-        preds[preds <= 0.5] = 0
-        print("XGB score =  %f ." % accuracy_score(preds, Y_testI))
+        yhat1 = bst.predict(dtest)
+        yhat1[yhat1 > 0.5] = 1
+        yhat1[yhat1 <= 0.5] = 0
+
+        #print("XGB score =  %f ." % accuracy_score(preds, Y_testI))
+
 
      else:
 
@@ -176,19 +178,21 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         yhat = rm.model.predict(X_test)
         yhat1 = np.argmax(yhat, axis=1)
-        Y_test1 = np.argmax(Y_test, axis=1)
-        Ac = accuracy_score(Y_test1,yhat1)
-        print("ac: %.2f%%" % Ac)
-        F1 = f1_score(Y_test1,yhat1)
-        print("f1: %.2f%%" % F1)
-        Kappa = cohen_kappa_score(Y_test1,yhat1)
-        print("kappa: %.2f%%" % Kappa)
-        scores = rm.model.evaluate(X_test, Y_test, verbose=1)
 
-        print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
-        cvAC.append(Ac)
-        cvF1.append(F1)
-        cvKappa.append(Kappa)
+
+     Y_test1 = np.argmax(Y_test, axis=1)
+     Ac = accuracy_score(Y_test1,yhat1)
+     print("ac: %.2f%%" % Ac)
+     F1 = f1_score(Y_test1,yhat1)
+     print("f1: %.2f%%" % F1)
+     Kappa = cohen_kappa_score(Y_test1,yhat1)
+     print("kappa: %.2f%%" % Kappa)
+     #scores = rm.model.evaluate(X_test, Y_test, verbose=1)
+
+     #print("%s: %.2f%%" % (rm.model.metrics_names[1], scores[1]*100))
+     cvAC.append(Ac)
+     cvF1.append(F1)
+     cvKappa.append(Kappa)
 
     cvACn = np.array(cvAC)
     cvF1n = np.array(cvF1)

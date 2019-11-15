@@ -151,7 +151,7 @@ class ResearchModels():
         model.add(LSTM(units=512, return_sequences=True,input_shape=self.input_shape))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
-        model.add(LSTM(units=256, return_sequences=False,input_shape=self.input_shape))
+        model.add(LSTM(units=256, return_sequences=True,input_shape=self.input_shape))
         #model.add(SeqSelfAttention(attention_activation='sigmoid'))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
@@ -163,7 +163,7 @@ class ResearchModels():
         #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
         model.add(Flatten())
         model.add(Dense(128, activation='relu'))
-        #model.add(Dropout(0.5))
+        model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model
@@ -173,7 +173,7 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(LSTM(256, return_sequences=True, input_shape=self.input_shape))
+        model.add(LSTM(256, return_sequences=False, input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
         #model.add(SeqSelfAttention(attention_activation='sigmoid'))

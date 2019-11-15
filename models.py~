@@ -79,7 +79,7 @@ class ResearchModels():
         elif model == 'mlp2':
             print("Loading simple MLP2.")
             self.input_shape = (seq_length, features_length)
-            self.model = self.mlp0()
+            self.model = self.mlp2()
         else:
             print("Unknown network.")
             sys.exit()
@@ -151,7 +151,7 @@ class ResearchModels():
         model.add(LSTM(units=512, return_sequences=True,input_shape=self.input_shape))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
-        model.add(LSTM(units=256, return_sequences=False,input_shape=self.input_shape))
+        model.add(LSTM(units=256, return_sequences=True,input_shape=self.input_shape))
         #model.add(SeqSelfAttention(attention_activation='sigmoid'))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
@@ -173,7 +173,7 @@ class ResearchModels():
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(LSTM(256, return_sequences=True, input_shape=self.input_shape))
+        model.add(LSTM(256, return_sequences=False, input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
         #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
         #model.add(SeqSelfAttention(attention_activation='sigmoid'))
