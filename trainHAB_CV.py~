@@ -54,7 +54,6 @@ from sklearn.model_selection import StratifiedKFold, ShuffleSplit
 from xgboost.sklearn import XGBClassifier
 
 
-xgb_model = XGBClassifier(other_params)
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
