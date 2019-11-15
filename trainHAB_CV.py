@@ -51,6 +51,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, cohen_kappa_score, f1_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold, ShuffleSplit
+from xgboost.sklearn import XGBClassifier
+
+
+xgb_model = XGBClassifier(other_params)
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
@@ -126,10 +130,22 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         dtrain = xgb.DMatrix(fX_train, Y_trainI)
         dtest = xgb.DMatrix(fX_test, Y_testI)
+        clf_xgb = XGBClassifier(objective = 'binary:logistic')
+        param_dist = {'n_estimators': stats.randint(150, 500),
+              'learning_rate': stats.uniform(0.01, 0.07),
+              'subsample': stats.uniform(0.3, 0.7),
+              'max_depth': [3, 4, 5, 6, 7, 8, 9],
+              'colsample_bytree': stats.uniform(0.5, 0.45),
+              'min_child_weight': [1, 2, 3]
+             }
+        clf = RandomizedSearchCV(clf_xgb, param_distributions = param_dist, n_iter = 25, scoring = 'f1', error_score = 0, verbose = 3, n_jobs = -1)
+
         param = {'max_depth' : 3, 'eta' : 0.1, 'objective' : 'binary:logistic', 'seed' : 42}
         num_round = 50
         bst = xgb.train(param, dtrain, num_round, [(dtest, 'test'), (dtrain, 'train')])
 
+        clf.fit(train,test)
+        print clf.best_params_
         yhat1 = bst.predict(dtest)
         yhat1[yhat1 > 0.5] = 1
         yhat1[yhat1 <= 0.5] = 0
