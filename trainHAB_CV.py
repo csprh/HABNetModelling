@@ -145,7 +145,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         bst = xgb.train(param, dtrain, num_round, [(dtest, 'test'), (dtrain, 'train')])
 
         clf.fit(train,test)
-        print clf.best_params_
+        #print clf.best_params_
         yhat1 = bst.predict(dtest)
         yhat1[yhat1 > 0.5] = 1
         yhat1[yhat1 <= 0.5] = 0
