@@ -1,6 +1,6 @@
 #!/bin/bash
-python3 trainHAB_CV.py ./cnfgXMLs/NASNet11_RF.xml
-python3 trainHAB_CV.py ./cnfgXMLs/NASNet11_lstm0.xml
+#python3 trainHAB_CV.py ./cnfgXMLs/NASNet11_RF.xml
+#python3 trainHAB_CV.py ./cnfgXMLs/NASNet11_lstm0.xml
 python3 trainHAB_CV.py ./cnfgXMLs/NASNet33_lstm0.xml
 python3 trainHAB_CV.py ./cnfgXMLs/NASNet33_lstm1.xml
 python3 trainHAB_CV.py ./cnfgXMLs/NASNet33_lstm2.xml
