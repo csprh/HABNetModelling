@@ -98,9 +98,9 @@ def train(inDir, dataDir, seqName, seq_length, model,
                                               random_state=42)
 
         ## This line instantiates the model.
-        param_grid = {'n_estimators': [900, 1100],'max_features': ['auto', 'sqrt', 'log2'],
-            'max_depth' : [16,18,20,22],    'criterion' :['gini', 'entropy'] }
-        rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
+        #param_grid = {'n_estimators': [900, 1100],'max_features': ['auto', 'sqrt', 'log2'],
+        #    'max_depth' : [16,18,20,22],    'criterion' :['gini', 'entropy'] }
+        #rf = GridSearchCV(estimator=rf, param_grid=param_grid, cv= 5)
         # Fit the model on your training data.
 
         rf.fit(fX_train, Y_trainI[:,1])
