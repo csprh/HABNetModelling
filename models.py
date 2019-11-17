@@ -168,40 +168,37 @@ class ResearchModels():
         model.add(Dense(2, activation='softmax'))
         return model
 
+
+
     def lstm4(self):
         """Build a simple LSTM network. We pass the extracted features from
         our CNN to this model"""
         # Model.
         model = Sequential()
-        model.add(keras.layers.Embedding(input_dim=10000,
-                                 output_dim=300,
-                                 mask_zero=True))
-        model.add(keras.layers.Bidirectional(keras.layers.LSTM(units=128,
-                                                       return_sequences=True)))
-        model.add(SeqSelfAttention(attention_activation='sigmoid'))
-        #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
-        #model.add(SeqSelfAttention(attention_activation='sigmoid'))
-        #model.add(Dropout(0.5))
-        #model.add(BatchNormalization())
-        model.add(Dense(512, activation='relu'))
+        #model.add(TimeDistributed(Conv1D(filters=8, kernel_size=5, strides=2,  activation='relu'), input_shape=(self.input_shape[0], self.input_shape[1],1)))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
+        #model.add(TimeDistributed(Flatten()))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=4), input_shape=(None, self.input_shape[0], self.input_shape[1])))
+        #model.add(TimeDistributed(Dropout(0.5)))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
+        #model.add(TimeDistributed(Conv1D(filters=64, kernel_size=10, strides = 10, activation='relu') ), input_shape=self.input_shape)
+        #model.add(MaxPooling1D(pool_size=2, input_shape = (self.input_shape[0], self.input_shape[1])))
+        #model.add(Bidirectional(LSTM(2048, return_sequences=False,
+        model.add(LSTM(units=512, return_sequences=True,input_shape=self.input_shape))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
-        model.add(Dense(2, activation='softmax'))
-        return model
-
-
-    def lstm5(self):
-        """Build a simple LSTM network. We pass the extracted features from
-        our CNN to this model"""
-        # Model.
-        model = Sequential()
-        model.add(LSTM(256, return_sequences=False, input_shape=self.input_shape))
+        model.add(LSTM(units=256, return_sequences=True,input_shape=self.input_shape))
         model.add(SeqSelfAttention(attention_activation='sigmoid'))
-        #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
-        #model.add(SeqSelfAttention(attention_activation='sigmoid'))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
+        #model.add(LSTM(512, return_sequences=True))
         #model.add(Dropout(0.5))
-        #model.add(BatchNormalization())
-        model.add(Dense(512, activation='relu'))
+        #model.add(LSTM(256, return_sequences=False))
+        #model.add(Dropout(0.5))
+        #model.add(TimeDistributed(Conv1D(filters=32, kernel_size=3,  activation='relu')))
+        #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
         model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
