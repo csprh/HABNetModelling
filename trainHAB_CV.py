@@ -39,6 +39,7 @@ from dataHAB import DataSet
 import time
 import os.path
 import sys
+from keras import backend as be
 import numpy as np
 import xgboost as xgb
 from sklearn.svm import SVC
@@ -210,7 +211,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
      cvAC.append(Ac)
      cvF1.append(F1)
      cvKappa.append(Kappa)
-
+     del rm.model, history
+     be.clear_session(); reset_keras()
     cvACn = np.array(cvAC)
     cvF1n = np.array(cvF1)
     cvKappan = np.array(cvKappa)
@@ -220,8 +222,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
     file1.write("F1: %0.2f (+/- %0.2f)" % (cvF1n.mean(), cvF1n.std() * 2))
     file1.write("Kappa: %0.2f (+/- %0.2f)" % (cvKappan.mean(), cvKappan.std() * 2))
     file1.close()
-    del rm.model, history
-    be.clear_session(); reset_keras()
+
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
