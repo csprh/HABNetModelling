@@ -163,12 +163,36 @@ class ResearchModels():
         #model.add(TimeDistributed(MaxPooling1D(pool_size=16)))
         model.add(Flatten())
         model.add(Dense(128, activation='relu'))
-        #model.add(Dropout(0.5))
+        model.add(Dropout(0.5))
         model.add(BatchNormalization())
         model.add(Dense(2, activation='softmax'))
         return model
 
+
+
     def lstm4(self):
+        """Build a simple LSTM network. We pass the extracted features from
+        our CNN to this model"""
+        # Model.
+        model = Sequential()
+        model.add(keras.layers.Embedding(input_dim=10000,
+                                 output_dim=300,
+                                 mask_zero=True))
+        model.add(keras.layers.Bidirectional(keras.layers.LSTM(units=128,
+                                                       return_sequences=True)))
+        model.add(SeqSelfAttention(attention_activation='sigmoid'))
+        #model.add(LSTM(512, return_sequences=False, input_shape=self.input_shape))
+        #model.add(SeqSelfAttention(attention_activation='sigmoid'))
+        #model.add(Dropout(0.5))
+        #model.add(BatchNormalization())
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(BatchNormalization())
+        model.add(Dense(2, activation='softmax'))
+        return model
+
+
+    def lstm5(self):
         """Build a simple LSTM network. We pass the extracted features from
         our CNN to this model"""
         # Model.
