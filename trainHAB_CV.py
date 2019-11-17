@@ -55,6 +55,7 @@ from sklearn.model_selection import StratifiedKFold, ShuffleSplit
 from xgboost.sklearn import XGBClassifier
 from scipy import stats
 from keras.backend.tensorflow_backend import clear_session
+from resetKeras import resetKeras
 
 # Train the model
 def train(inDir, dataDir, seqName, seq_length, model,
@@ -177,7 +178,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         filepath=dataDir + "weightsbest.hdf5"
         checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
-        rm.model.fit(
+        history = rm.model.fit(
                 X_train,
                 Y_train,
                 batch_size=batch_size,
@@ -219,8 +220,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
     file1.write("F1: %0.2f (+/- %0.2f)" % (cvF1n.mean(), cvF1n.std() * 2))
     file1.write("Kappa: %0.2f (+/- %0.2f)" % (cvKappan.mean(), cvKappan.std() * 2))
     file1.close()
-    clear_session()
-
+    del rm.model, history
+    be.clear_session(); reset_keras()
 """Main Thread"""
 def main(argv):
     """Settings Loaded from Xml Configuration"""
