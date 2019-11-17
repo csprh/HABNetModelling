@@ -39,6 +39,7 @@ from dataHAB import DataSet
 import time
 import os.path
 import sys
+from keras import backend as be
 import numpy as np
 import xgboost as xgb
 from sklearn.svm import SVC
