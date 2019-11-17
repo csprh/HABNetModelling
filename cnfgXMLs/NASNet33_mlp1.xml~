@@ -6,7 +6,7 @@
 	<SVDFeatLen>-1</SVDFeatLen>
 	<model>mlp1</model>
 	<seqLength>10</seqLength>
-	<batchSize>32</batchSize>
+	<batchSize>128</batchSize>
 	<epochNumber>500</epochNumber>
 	<modNumber>12</modNumber>
 </confgData>
