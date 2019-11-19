@@ -167,19 +167,11 @@ def train(inDir, dataDir, seqName, seq_length, model,
         fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        Cs = [0.01, 0.1]
-        gammas = [0.01, 0.1]i
-        param_grid = {'C': Cs, 'gamma' : gammas}
-        clf = GridSearchCV(SVC(kernel='rbf'), param_grid, cv=2)
+        clf = svm.SVC(C=1.0, kernel='rbf')
 
-        fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
-        scaling = MinMaxScaler(feature_range=(-1,1)).fit(fX)
-        fX_train = scaling.transform(fX_train)
-        fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
-        fX_test = scaling.transform(fX_test)
         clf.fit(fX_train, Y_trainI[:,1])
-        svmScore = clf.score(fX_test, Y_testI[:,1])
-        print("SVM score =  %f ." % svmScore)
+        yhat1 = clf.predict(fX_test)
+
      else:
 
         modelName = modelNameInt + '.h5'

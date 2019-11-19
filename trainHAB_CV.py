@@ -167,7 +167,7 @@ def train(inDir, dataDir, seqName, seq_length, model,
         fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
         fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
 
-        clf = svm.SVC(C=1.0, kernel='rbf')
+        clf = SVC(C=1.0, kernel='rbf')
 
         clf.fit(fX_train, Y_trainI[:,1])
         yhat1 = clf.predict(fX_test)
