@@ -154,6 +154,23 @@ def train(inDir, dataDir, seqName, seq_length, model,
 
         #print("XGB score =  %f ." % accuracy_score(preds, Y_testI))
 
+     elif model == 'svm':
+        #Currently, SVMs do not work for very large bottleneck features.
+        #tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2, 1e-3, 1e-4, 1e-5],
+        #             'C': [0.001, 0.10, 0.1, 10, 25, 50, 100, 1000]}]
+
+        tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-2,  1e-4],
+                     'C': [0.10,  10, 50, 1000]}]
+
+        Y_trainI = np.int64(Y_train)
+        Y_testI = np.int64(Y_test)
+        fX_train = X_train.reshape(X_train.shape[0], seq_length*featureLength)
+        fX_test = X_test.reshape(X_test.shape[0], seq_length*featureLength)
+
+        clf = svm.SVC(C=1.0, kernel='rbf')
+
+        clf.fit(fX_train, Y_trainI[:,1])
+        yhat1 = clf.predict(fX_test)
 
      else:
 

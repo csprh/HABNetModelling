@@ -210,9 +210,9 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512, use_bias=False))
+        model.add(Dense(256, use_bias=False))
         model.add(BatchNormalization())
-        model.add(Dense(512, use_bias=False))
+        model.add(Dense(256, use_bias=False))
         model.add(BatchNormalization())
 
         model.add(Dense(2, activation='softmax'))
@@ -225,9 +225,9 @@ class ResearchModels():
         # Model.
         model = Sequential()
         model.add(Flatten(input_shape=self.input_shape))
-        model.add(Dense(512))
+        model.add(Dense(256))
         model.add(Dropout(0.5))
-        model.add(Dense(512))
+        model.add(Dense(256))
         model.add(Dropout(0.5))
         model.add(Dense(2, activation='softmax'))
 
