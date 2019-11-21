@@ -1,8 +1,8 @@
 <confgData>
 	<inDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/CNNIms/GULF/train</inDir>
 	<dataDir>/home/cosc/csprh/linux/HABCODE/scratch/HAB/GULFDATA/</dataDir>
-	<seqName>NASNetMobileCropTo11</seqName>
-	<featureLength>12672</featureLength>
+	<seqName>NASNetMobileCropTo33</seqName>
+	<featureLength>5280</featureLength>
 	<SVDFeatLen>-1</SVDFeatLen>
 	<model>lstm0</model>
 	<seqLength>10</seqLength>
