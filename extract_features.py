@@ -91,7 +91,7 @@ def main(argv):
     # import pudb; pu.db
 
     if (len(argv)==0):
-        xmlName = 'cnfgXMLs/NASNet33_lstm0.xml'
+        xmlName = 'cnfgXMLs/NASNet33_lstm0GULF.xml'
     else:
         xmlName = argv[0]
 

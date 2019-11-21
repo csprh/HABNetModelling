@@ -59,19 +59,19 @@ def extract(inDir, seqName, dataDir, seqLength):
             features = model.extract(image)
             if ind > 2:
                 sequence2.append(features)
-            elif ind > 4:
+            if ind > 4:
                 sequence4.append(features)
-            elif ind > 6:
+            if ind > 6:
                 sequence6.append(features)
-            elif ind > 8:
+            if ind > 8:
                 sequence8.append(features)
             if ind < 3:
                 sequence2_b.append(features)
-            elif ind < 5:
+            if ind < 5:
                 sequence4_b.append(features)
-            elif ind < 7:
+            if ind < 7:
                 sequence6_b.append(features)
-            elif ind < 9:
+            if ind < 9:
                 sequence8_b.append(features)
             sequence.append(features)
         # Save the sequence.
