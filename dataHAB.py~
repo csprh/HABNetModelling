@@ -145,26 +145,16 @@ class DataSet():
         Load all the sequences into memory (in proportion) for speed (train, test)
         """
         # Get the right dataset.
-        train, test = self.split_train_test_prop(prop)
-        self.train = train
-        self.test = test
+        data = self.data
         X1, Y1 = [], []
-        X2, Y2 = [], []
-        for sample in train:
+        for sample in data:
 
             sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,8,10])
 
             X1.append(sequence)
             Y1.append(self.get_class_one_hot(sample))
 
-        for sample in test:
-
-            sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,8,10] )
-
-            X2.append(sequence)
-            Y2.append(self.get_class_one_hot(sample))
-
-        return np.array(X1), np.array(Y1), np.array(X2), np.array(Y2)
+        return np.array(X1), np.array(Y1)
 
     def get_all_sequences_in_memory_prop(self,  prop):
         """

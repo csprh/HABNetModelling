@@ -149,7 +149,8 @@ class DataSet():
         X1, Y1 = [], []
         for sample in data:
 
-            sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,8,10])
+            #sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,8,10])
+            sequence = self.get_extracted_sequenceSomeMods(sample, [0,1,2,3,4,5,6,7,8,9,10,11])
 
             X1.append(sequence)
             Y1.append(self.get_class_one_hot(sample))
