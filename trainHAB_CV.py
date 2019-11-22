@@ -228,8 +228,8 @@ def train(inDir, dataDir, seqName, seq_length, model,
      cvAC.append(Ac)
      cvF1.append(F1)
      cvKappa.append(Kappa)
-     #del rm.model, history
-     #be.clear_session(); resetKeras()
+     del rm.model, history
+     be.clear_session(); resetKeras()
     cvACn = np.array(cvAC)
     cvF1n = np.array(cvF1)
     cvKappan = np.array(cvKappa)
