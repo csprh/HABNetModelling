@@ -1,10 +1,11 @@
 # HABNet Deep Learning Classifications (Training and Testing)
-This repository contains the modelling code for the HABNet Project [HABNet: Machine Learning, Remote Sensing Based Detection and Prediction of Harmful Algal Blooms]([https://arxiv.org/abs/2309.16653](https://arxiv.org/abs/1912.02305)).
+This repository contains the modelling code for the HABNet Project [HABNet: Machine Learning, Remote Sensing Based Detection and Prediction of Harmful Algal Blooms]((https://arxiv.org/abs/1912.02305).
 
 ### [Project Page](https://csprh.github.io/HABNET) | [Arxiv](https://arxiv.org/abs/1912.02305)
 
+[HABNet datacube extraction code available here](https://github.com/csprh/HABNetDatacubeExtraction).
 
-This code is for generating classfication scores for HAB databases
+This code is for generating classification scores for HAB databases
 
 There are two basic classification methods:
 
